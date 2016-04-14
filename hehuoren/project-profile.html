@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="合火人" />
+    <meta name="keywords" content="合火人" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="author" content="" />
+    <meta name="copyright" content="Copyright &copy;http://angelcrunch.com 版权所有" />
+    <meta name="revisit-after"  content="1 days" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="format-detection" content="telephone=yes" />
+    <title>合火人</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
+    <link rel="Bookmark" href="/favicon.ico" />
+    <link href="css/base.css" rel="stylesheet"/>
+    <link href="css/project_regist.css" rel="stylesheet"/>
+    <link href="css/project_active.css" rel="stylesheet"/>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/angelcrunch.jq.c.js"></script>
+    <script src="js/image_upload.min.js"></script>
+    <script src="js/angelcrunch.image_tools.jq.c.js"></script>
+    <script src="js/angelcrunch.sendsms_verify.jq.c.js"></script>
+
+    <script src="js/avalon.mobile.min.js"></script>
+    <script src="js/project-profile.js"></script>
+
+    <script type="text/javascript" id="page-interactive-init">
+        var page = window.page || {};
+        page.MethodObj = function () { };
+        page.MethodObj.prototype = (function () {
+            var settings = page.settings;
+            /*var I = {
+                Ajax_SMS: {                     // Short message service
+                    url: "http://" + settings.AjaxDomain + "/v2/home/m_verify_code",
+                    basic_data: {
+                    }
+                },
+                Ajax_verify_code: {             // Checked verify code
+                    url: "http://" + settings.AjaxDomain + "/v2/home/m_verify_phone_code",
+                    basic_data: {
+                    }
+                },
+                Ajax_form_submit: {             // Form submit
+                    url: "http://" + settings.AjaxDomain + "/v2/user/v2/m_angel_apply",
+                    basic_data: {
+                    }
+                },
+                current_mobile: ""
+            };*/
+
+            var waste_9839213 = function () {
+                var className = {
+                            input: {
+                                user_name: "#user-name",
+                                phone: "#phone",
+                                verify_code: "#verify-code",
+                                pwd: "#pwd"
+                            },
+                            file: {
+                                avatar: "#avatar-file",
+                                palyground_files: ":file.hidden",
+                            },
+                            btn: {
+                                file_uploader: ".image-uploader",
+                                SMS: "#verify-btn",
+                                submit: "#subbmit-btn"
+                            },
+                            avatar: "#user-avatar",
+                            palyground_image: ".image-container",
+                            avatar_state: "#avatar-upload-state",
+                            notification: ".notification"
+                        },
+                        state = {
+                            loading: "loading",
+                            disable: "disable",
+                            checking: "checking",
+                            again:"again-js",
+                            active: "active"
+                        },
+                        attr = {
+                            txt: "data-warning-text",
+                            image_id: "data-image-id",
+                            prev_file: "data-prev-file",
+                            crop_data: "data-crop",
+                            palyground_id: "data-playground-bind",
+                            selector_result: "data-selector-result",
+                            selector_value: "data-select-value",
+                            triggered_layer: "data-triggered-layer",
+                            disabled: "disabled"
+                        };
+
+                var $input = {
+                    user_name: $(className.input.user_name),
+                    phone: $(className.input.phone),
+                    verify_code: $(className.input.verify_code),
+                    pwd: $(className.input.pwd)
+                }, $btn = {
+                    file_uploader: $(className.btn.file_uploader),
+                    SMS: $(className.btn.SMS),
+                    submit: $(className.btn.submit)
+                };
+
+                var $avatar, $notification;
+                $avatar = $(className.avatar),
+                        $notification = $(className.notification);
+
+                // Check the button can be Active
+/*                var checkActive = (function () {
+                    var formChecked = function (showNotification) {
+                        var canSubmit = true;
+                        $(attr.txt.attrRetrievalMode()+":visible").each(function () {
+                            var txt, image_id, selector_result;
+                            txt = $(this).attr(attr.txt),
+                                    image_id = $(this).attr(attr.image_id),
+                                    selector_result = $(this).attr(attr.selector_result);
+
+                            if ((image_id == "")
+                                    || (selector_result=="")
+                                    || ($(this).is(":checkbox")
+                                    && !$(this).is(":checked"))
+                                    || ($(this).is("input")
+                                    && !$(this).val())) {
+                                if (showNotification)
+                                    $notification.notificationToggle(txt);
+                                return (canSubmit = false);
+                            }
+                        });
+                        if (!canSubmit) return canSubmit;
+
+                        if ($input.pwd.val().length < 6) {
+                            if (showNotification)
+                                $notification.notificationToggle($input.pwd.attr(attr.txt));
+                            canSubmit = false;
+                        }
+                        if (!($input.phone.val()
+                                && $btn.SMS.hasClass(state.disable)
+                                && $input.verify_code.val()
+                                && $input.verify_code.attr(attr.disabled))) {
+                            if (showNotification)
+                                $notification.notificationToggle($input.verify_code.attr(attr.txt));
+                            canSubmit = false;
+                        }
+                        return canSubmit;
+                    };
+
+                    return function (showNotification) {
+                        if (formChecked(showNotification)) $btn.submit.addClass(state.active);
+                        else $btn.submit.removeClass(state.active);
+                    };
+                }).call(this); */                       // Check the button can be Active Ended
+
+                // SMS initi
+/*                (function () {
+                    var conf = $.Angelcrunch.SMS_Verify.settings;
+                    conf.$btn = $btn;
+                    conf.$input = $input;
+                    conf.$notification = $notification;
+                    conf.Ajax.Ajax_SMS = I.Ajax_SMS;
+                    conf.Ajax.Ajax_verify_code = I.Ajax_verify_code;
+
+                    $.Angelcrunch.SMS_Verify.init(checkActive);
+                }).call(this);*/
+
+                // Submit button
+/*                $btn.submit.click(function () {
+                    checkActive(true);
+                    if ($(this).hasClass(state.active)) {
+                        var url = I.Ajax_form_submit.url,
+                                basic_data = I.Ajax_form_submit.basic_data,
+                                type = "jsonp";
+                        var _data = $.extend(true, {}, basic_data);
+
+                        _data["type_"] = $((attr.triggered_layer + '="' + $("#investortype").attr(attr.selector_result) + '"').attrRetrievalMode()).attr(attr.selector_value);
+                        $(".registration input:visible").each(function () {
+                            _data[$(this).attr("name")] = $(this).val();
+                        });
+
+                        _data["crop"] = $avatar.attr(attr.crop_data);
+                        $(attr.image_id.attrRetrievalMode() + ":visible").each(function () {
+                            _data[$(this).attr("name")] = $(this).attr(attr.image_id);
+                        });
+
+                        $.post(url, _data, function (data) {
+                            if (data.success) {
+                                location.href = $btn.submit.attr("data-redirect");
+                            } else
+                                $notification.notificationToggle(data.message);
+                        }, type);
+                    };
+                    return false;
+                });*/
+
+               /* (function () {                      // About Password Operation
+                    var $eye = $input.pwd.closest("label").find(".eye");
+                    // Mobile
+                    $eye[0].addEventListener('touchstart', function () {
+                        $input.pwd.attr("type", "text");
+                    }, false);
+                    $eye[0].addEventListener('touchend', function (e) {
+                        e.preventDetault();
+                        $input.pwd.attr("type", "password");
+                    }, false);
+                    // PC
+                    $eye.mousedown(function () {
+                        $input.pwd.attr("type", "text");
+                    }).mouseup(function () {
+                        $input.pwd.attr("type", "password");
+                    }).mousemove(function () {
+                        $input.pwd.attr("type", "password");
+                    });
+
+                    $input.pwd.focus(function () {
+                        $(this).attr("type", "password");
+                    });
+                }).call(this);*/
+
+
+
+                /*$(".registration input").not("#verify-code,.hidden").keyup(function () {
+                    checkActive();
+                });
+
+                $("#legal-terms").change(function () {
+                    checkActive();
+                });
+
+                $.Angelcrunch.ImageUploadInit(checkActive);
+
+                // Page load ready checked
+                checkActive();*/
+            }
+
+            var waste_41023823 = function () {
+                var className = {
+                    main_page: ".details",
+                    new_page: ".new-page",
+                    hidden_layer: ".layer-class",
+                    special_layer: ".special-layer"
+                };
+                var $ele = {
+                    main_page: $(className.main_page),
+                    hidden_layer: $(className.hidden_layer),
+                    special_layer: $(className.special_layer)
+                };
+
+                var state = {
+                    page_show: "center"
+                };
+                var attr = {
+                    page_trigger: "data-page-trigger",
+                    page_trigger_result:"data-selector-result",
+                    route_path: "data-route-path",
+                    route_main_page: "data-route-path='?pageselect=mainpage'",
+                    main_page_scroll_top: "data-page-scroll",
+                    to_ele_position: "data-go-to-top",
+                    triggered_layer: "data-triggered-layer"
+                };
+
+                (function () {                          // The Logic Of Page Display
+                    var $page = $(attr.page_trigger.attrRetrievalMode());
+                    $page.each(function () {
+                        var $this = $(this),
+                                $trigger = $($(this).attr(attr.page_trigger));
+
+                        $trigger.click(function () {
+                            $(window).attr(attr.main_page_scroll_top, $(window).scrollTop());
+                            $ele.main_page.delay(300).fadeOut(200);
+                            $this.addClass(state.page_show);
+                        });
+
+                        $this.find(attr.route_main_page.attrRetrievalMode())
+                                .click(function () {
+                                    $ele.main_page.stop(true).fadeIn(1);
+                                    $this.removeClass(state.page_show);
+                                    $(window).scrollTop($(window).attr(attr.main_page_scroll_top));
+                                });
+                    });
+                }).call(this);                          // The Logic Of Page Display Ended
+
+                (function () {                          // The Logic Of Selection Display
+                    $(attr.triggered_layer.attrRetrievalMode()).each(function () {
+                        var $item = $(this);
+                        var $current_page = $(this).closest(className.new_page);
+                        var $layer = $($(this).attr(attr.triggered_layer));
+                        var $layer_children = $layer.children(className.special_layer),
+                                $layer_parent = $layer.parents(className.special_layer);
+
+                        $(this).click(function () {
+                            var offset_top, currentTop, time_handle, factor = 6;
+                            var $btn = $($current_page.attr(attr.page_trigger));
+                            $current_page.find(attr.route_main_page.attrRetrievalMode()).click();
+                            $ele.hidden_layer.show();
+
+                            if ($layer_parent.length)
+                                $layer.siblings(className.special_layer).hide();
+                            else
+                                $ele.special_layer.not($layer).hide();
+
+                            if ($layer_children.length)
+                                $layer_children.hide();
+
+                            $btn.attr(attr.page_trigger_result, $item.attr(attr.triggered_layer));
+                            $btn.find("p").html($item.find("h3").html());
+                            $layer.show();
+
+                            // Scroll Event
+                            if ($btn.attr(attr.to_ele_position)) {
+                                offset_top = $btn.offset().top;
+                                currentTop = $(window).scrollTop();
+                                time_handle = setInterval(function () {
+                                    currentTop = currentTop + factor;
+                                    var top = currentTop > offset_top
+                                            ? offset_top : currentTop + factor;
+                                    if (top >= offset_top) clearInterval(time_handle);
+                                    $(window).scrollTop(top);
+                                }, factor);
+                            }
+                        });
+                    });
+                }).call(this);                          // The Logic Of Selection Display Ended
+
+                // Initialization
+            };
+
+            return {
+                attackEvent: function () {
+                    waste_41023823();
+                    waste_9839213();
+                },
+
+                pageLoad_Init: function () {
+                },
+
+                initial: function () {
+                    this.pageLoad_Init();
+                    this.attackEvent();
+                }
+            };
+        })();
+
+        page.initialBridge = function () {
+            var o = new page.MethodObj();
+            o.initial();
+        }
+
+        $(function () {
+            page.initialBridge();
+        })
+    </script>
+</head>
+<body>
+<div class="details">
+    <div class="notification red"><i class="txt"></i><i class="close">×</i></div>
+
+    <div id="head-container" class="head-container">
+    <div id="header" class="newhead">
+        <div class="logo touch-href" data-href="/"></div>
+        <div class="options">
+            <span></span>
+            <ul class="hidden-menu">
+                <li class="touch-href" data-href="/startup">闪投项目</li>
+                <li class="touch-href" data-href="/startup#type:com-industry:-district:-order:new">最新项目</li>
+                <li class="touch-href border" data-href="/investor">投资人</li>
+                <li class="line"></li>
+            </ul>
+        </div>
+        <div class="account">
+            <span></span>
+            <ul class="hidden-menu"></ul>
+        </div>
+    </div>
+    </div>
+
+    <div class="registration modules">
+        <!-- Back-up form -->
+        <div class="avatar-area">
+            <h1>完善您的项目资料</h1>
+            <p>创建您的个人项目，达成投资意向</p>
+        </div>
+
+
+        <div id="investortype" class="investor-type layer-btn" data-route-path="?pageselect=investortype" data-selector-result="" data-go-to-top="true">
+            <p>展示项目</p>
+            <i class="vector-icons arrow-left"></i>
+        </div>
+
+         <div id="hotproject" class="investor-type layer-btn" data-route-path="?pageselect=hotproject" data-selector-result="" data-go-to-top="true">
+            <p>预热项目</p>
+            <i class="vector-icons arrow-left"></i>
+        </div>
+
+        <div id="investortype" class="investor-type layer-btn" data-route-path="?pageselect=investortype" data-selector-result="" data-go-to-top="true">
+            <p>热门项目</p>
+            <i class="vector-icons arrow-left"></i>
+        </div>
+
+        <div id="investortype" class="investor-type layer-btn" data-route-path="?pageselect=investortype" data-selector-result="" data-go-to-top="true">
+            <p>路演项目</p>
+            <i class="vector-icons arrow-left"></i>
+        </div>
+
+    </div>
+
+    <div class="addition-agreement">
+        <p>您需了解 <a href="/agreement/service">《合火人用户服务协议》</a> 及其附件 <a class="ci-link" href="/agreement/risk">《风险揭示书》</a> 中的所有内容 ，并愿意承担投资带来的风险才能继续。</p>
+        <div class="modules">
+            <div class="mentos-container">
+                <label class="label">
+                    <input id="legal-terms" class="mentos" type="checkbox" name="additionalAgreement" value="1" data-warning-text="需要同意天使汇用户协议" />
+                    <em class="tracks">
+                        <em class="slider-button">
+                            <i>×</i>
+                            <i></i>
+                        </em>
+                    </em>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="banner-footer">
+        <p>BaiBaiChou.com</p>
+        <p>合火人 - 让靠谱的项目找到靠谱的钱</p>
+    </div>
+
+</div>
+
+
+<div class="new-page" data-page-trigger="#investortype"  style="background:white">
+    <div class="title-container">
+
+        <p class="float-left prev-page" data-route-path="?pageselect=mainpage"><i class="vector-icons arrow-up-bold"></i>返回</p>
+        <p class="title">展示项目</p>
+    </div>
+
+    <div id="item-container" class="item-container">
+        <label class="page-title">
+            <h1>基本描述</h1>
+        </label>
+
+        <div class="page-logo">
+            <label id="upload-trigger" class="container">
+                <div id="upload-progress" class="progress transition"></div>
+                <img>
+                <input id="upload-input" class="default-hidden" type="file">
+            </label>
+            <div class="text">
+                <h3>上传logo</h3>
+                <p>产品logo而非公司logo。宽高512px的正方形标志。支持JPG、PNG格式，文件不大于2MB </p>
+            </div>
+        </div>
+
+        <label class="page-name">
+            <span>项目名称</span><input id="form-name" maxlength="20">
+        </label>
+        <label class="page-desc">
+            <p>名称需简洁清晰，传递印象明确</p>
+        </label>
+
+        <label class="page-name">
+            <span>一句话介绍</span><input id="form-one" maxlength="25">
+        </label>
+        <label class="page-desc">
+            <p>用最精炼的一句话来概括你的产品(25字以内)</p>
+        </label>
+
+        <label class="page-description">
+            <span>产品介绍</span>
+            <textarea id="form-desc"></textarea>
+        </label>
+
+        <label class="page-name industry" avalonctrl="industry-select">
+            <span>所属行业</span><em></em>
+        </label>
+        <label class="page-desc industry">
+            <p>所属行业最多选择5个 已选择</p>
+            <div class="industry-container" avalonctrl="industry-select">
+                <!--repeat785593632841482807598470197990537:end-->
+            </div>
+        </label>
+
+        <label id="select-stage" class="page-name">
+            <span>所属阶段</span><em></em><p></p>
+            <select name="stage" class="stage">
+                <option value="0" selected="">请选择所属阶段</option>
+                <option value="1">概念阶段：项目只有一个想法或原型</option>
+                <option value="2">研发阶段：已组建团队，项目开发中</option>
+                <option value="3">正式发布：项目已上线并开始运营</option>
+                <option value="5">已有用户：已有原始用户积累</option>
+                <option value="4">已有收入：项目已经有实际收入</option>
+            </select>
+        </label>
+
+        <a id="subbmit-btn" class="submit-new-btn text_btn">保存基本信息</a>
+    </div>
+
+
+    <div id="item-container" class="item-container">
+        <label class="page-title" style="margin-bottom:0px; margin-top:4px">
+            <h1>开店计划</h1>
+        </label>
+
+        <label class="page-name flex-height">
+            <span style="width:100%"><b>已有项目地址</b></span>
+            <span style="width:100%">
+                <span style="width:90%">武侯区-火车南站街道-和平小区</span>
+                <span style="width:10%;">X</span>
+            </span>
+
+            <span style="width:100%">
+                <span style="width:90%">武侯区-倪家桥街道-领事馆片区</span>
+                <span style="width:10%;">X</span>
+            </span>
+
+        </label>
+
+        <label id="select-stage" class="page-name">
+            <span style="width:30%">预期开店地址</span><em></em><p></p>
+            <select name="stage" class="stage">
+                <option value="0" selected="">请选择所属阶段</option>
+                <option value="1">概念阶段：项目只有一个想法或原型</option>
+                <option value="2">研发阶段：已组建团队，项目开发中</option>
+                <option value="3">正式发布：项目已上线并开始运营</option>
+                <option value="5">已有用户：已有原始用户积累</option>
+                <option value="4">已有收入：项目已经有实际收入</option>
+            </select>
+        </label>
+        <label id="select-stage" class="page-name" style="margin-top:-8px">
+            <span style="width:30%"></span><em></em><p></p>
+            <select name="stage" class="stage">
+                <option value="0" selected="">请选择所属阶段</option>
+                <option value="1">概念阶段：项目只有一个想法或原型</option>
+                <option value="2">研发阶段：已组建团队，项目开发中</option>
+                <option value="3">正式发布：项目已上线并开始运营</option>
+                <option value="5">已有用户：已有原始用户积累</option>
+                <option value="4">已有收入：项目已经有实际收入</option>
+            </select>
+        </label>
+
+        <a id="subbmit-btn" class="submit-new-btn text_btn">保存开店信息</a>
+    </div>
+
+<div class="new-page" data-page-trigger="#hotproject"  style="background:white">
+    <div class="title-container">
+        <p class="float-left prev-page" data-route-path="?pageselect=mainpage"><i class="vector-icons arrow-up-bold"></i>返回</p>
+        <p class="title">预热项目</p>
+    </div>
+    <div id="item-container" class="item-container">
+        <label class="page-title">
+            <h1>创始人信息</h1>
+        </label>
+
+        <div class="page-logo">
+            <label id="upload-trigger" class="container">
+                <div id="upload-progress" class="progress transition"></div>
+                <img>
+                <input id="upload-input" class="default-hidden" type="file">
+            </label>
+            <div class="text">
+                <h3>上传头像</h3>
+                <p>像素在512x512px以上的正方形标志。支持JPG、PNG格式，文件不大于2MB </p>
+            </div>
+        </div>
+
+        <label class="page-name">
+            <span>姓名</span><input id="form-name" maxlength="20">
+        </label>
+
+        <label class="page-name">
+            <span>邮箱</span><input id="form-one" maxlength="25">
+        </label>
+
+        <label id="select-position" class="page-name">
+            <span>项目中职位</span><em></em><p></p>
+            <select name="position">
+                <option value="0" selected="">请选择您的职位</option>
+                <option value="市场负责人">市场负责人</option>
+                <option value="技术负责人">技术负责人</option>
+                <option value="运营负责人">运营负责人</option>
+                <option value="创始人">创始人</option>
+                <option value="产品负责人">产品负责人</option>
+            </select>
+        </label>
+
+        <label class="page-description">
+            <span>个人描述</span>
+            <textarea id="form-desc"></textarea>
+        </label>
+
+
+        <a id="subbmit-btn" class="submit-new-btn text_btn">保存创始人信息</a>
+
+        <label class="page-title">
+            <h1>团队信息</h1>
+        </label>
+
+        <div class="page-logo">
+            <label id="upload-trigger" class="container">
+                <div id="upload-progress" class="progress transition"></div>
+                <img>
+                <input id="upload-input" class="default-hidden" type="file">
+            </label>
+            <div class="text">
+                <h3>上传头像</h3>
+                <p>像素在512x512px以上的正方形标志。支持JPG、PNG格式，文件不大于2MB </p>
+            </div>
+        </div>
+
+        <label class="page-name">
+            <span>姓名</span><input id="form-name" maxlength="20" value="">
+        </label>
+
+        <label class="page-name">
+            <span>邮箱</span><input id="form-one" maxlength="25" value="">
+        </label>
+
+        <label id="select-position" class="page-name">
+            <span>项目中职位</span><em></em><p></p>
+            <select name="position">
+                <option value="0" selected="">请选择您的职位</option>
+                <option value="市场负责人">市场负责人</option>
+                <option value="技术负责人">技术负责人</option>
+                <option value="运营负责人">运营负责人</option>
+                <option value="创始人">创始人</option>
+                <option value="产品负责人">产品负责人</option>
+            </select>
+        </label>
+
+        <label class="page-description">
+            <span>个人描述</span>
+            <textarea id="form-desc"></textarea>
+        </label>
+
+        <a id="subbmit-btn" class="submit-new-btn text_btn">保存团队成员信息</a>
+        <div class="page-logo">
+            <label id="upload-trigger" class="container">
+                <div id="upload-progress" class="progress transition"></div>
+                <img>
+                <input id="upload-input" class="default-hidden" type="file">
+            </label>
+            <div class="text">
+                <h3>上传头像</h3>
+                <p>像素在512x512px以上的正方形标志。支持JPG、PNG格式，文件不大于2MB </p>
+            </div>
+        </div>
+
+        <label class="page-name">
+            <span>姓名</span><input id="form-name" maxlength="20" value="YangLei">
+        </label>
+
+        <label class="page-name">
+            <span>邮箱</span><input id="form-one" maxlength="25" value="YangLei@126.com">
+        </label>
+
+        <label id="select-position" class="page-name">
+            <span>项目中职位</span><em></em><p></p>
+            <select name="position">
+                <option value="0" selected="">请选择您的职位</option>
+                <option value="市场负责人">市场负责人</option>
+                <option value="技术负责人">技术负责人</option>
+                <option value="运营负责人">运营负责人</option>
+                <option value="创始人">创始人</option>
+                <option value="产品负责人">产品负责人</option>
+            </select>
+        </label>
+
+        <label class="page-description">
+            <span>个人描述</span>
+            <textarea id="form-desc"></textarea>
+        </label>
+
+        <a id="subbmit-btn" class="submit-new-btn text_btn">保存团队成员信息</a>
+
+        <a id="subbmit-btn" class="submit-new-btn add_new_member_btn">增加新成员</a>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+</body>
+</html>
