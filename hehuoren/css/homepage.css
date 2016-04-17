@@ -9,16 +9,16 @@
     background: rgba(255,255,255,.01);
 }
 .newhead .logo {
-    background:url(http://dn-acac.qbox.me/mobile/public/header_white.png) no-repeat left center;
+    background:url(../img/header_white.png) no-repeat left center;
     background-size:auto 18px;
 }
 
 .newhead .options span {
-    background:url(http://dn-acac.qbox.me/mobile/public/header_white.png) no-repeat right center;
+    background:url(../img/header_white.png) no-repeat right center;
     background-size:auto 18px;
 }
 .newhead .account span{
-    background:url(http://dn-acac.qbox.me/wap_user_h.svg) no-repeat 50% 80%;
+    background:url(../img/wap_user_h.svg) no-repeat 50% 80%;
     background-size:auto 18px;
 }
 .newhead .account.active span{
@@ -38,7 +38,7 @@
     line-height: 40px;
     text-align: center;
     width: 100%;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bolder;
 }
 /*首屏*/
@@ -97,8 +97,8 @@
     float: left;
 }
 .section-container .reward .tag-group a p{
-    font-size: 18px;
-    font-weight: bolder;
+    font-size: 22px;
+    font-weight: 500;
     line-height: 25px;
     color: #fff;
     -webkit-transition:color .5s ease;
@@ -106,8 +106,8 @@
 }
 .section-container .reward .tag-group a h4,
 .section-container .reward .tag-group a h4 span{
-    font-size: 28px;
-    font-weight: bolder;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 32px;
     color: #fff;
 }
@@ -296,8 +296,8 @@
     line-height: 40px;
     text-align: center;
     width: 100%;
-    font-size: 18px;
-    font-weight: bolder;
+    font-size: 16px;
+    font-weight: 500;
     white-space:nowrap;
 }
 .section-container .regist div{
@@ -308,7 +308,7 @@
 }
 .section-container .regist div a{
     display: inline-block;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 20px;
     border: 1px solid #000;
     border-radius: 3px;
@@ -560,7 +560,7 @@
     height: 30px;
 }
 .section-container .sd-list .pro-info .content .name h4{
-    font-size: 30px;
+    font-size: 18px;
     line-height: 30px;
     text-align: center;
     font-weight: 900;
@@ -633,8 +633,8 @@
 .section-container .sd-list .fin-info p{
     display: inline-block;
     height: 100%;
-    width: 50%;
-    font-size: 15px;
+    width: 33%;
+    font-size: 12px;
     font-weight: 900;
     line-height: 50px;
     white-space: nowrap;
@@ -648,7 +648,7 @@
     text-align: right;
 }
 .section-container .sd-list .fin-info p span{
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 900;
     color: #ff3d00;
 }
@@ -1046,13 +1046,13 @@
     padding: 30px 0 20px;
 }
 .section-container .classes h4{
-    display: inline-block;
+display: inline-block;
     line-height: 40px;
     text-align: center;
     width: 100%;
-    font-size: 24px;
-    font-weight: bolder;
-    white-space:nowrap;
+    font-size: 18px;
+    font-weight: 500;
+    white-space: nowrap;
 }
 .section-container .classes .btn-group{
     width: 100%;
@@ -1070,7 +1070,7 @@
 .section-container .classes .btn-group a p{
     display: inline-block;
     position: relative;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 20px;
     width: 130px;
     background: #F5F5F5;
@@ -1107,7 +1107,7 @@
     height: 16px;
     font-size: 12px;
     line-height: 17px;
-    font-weight: 900;
+    font-weight: 500;
     color: #fff;
     right: -18px;
     top:5px;
@@ -1129,16 +1129,16 @@
     background: #F5F5F5;
     border-bottom: 1px solid #fff;
     border-left: 1px solid #fff;
-    padding: 15px 0;
+    padding: 30px 0;
 }
 .section-container .quick a img{
     display: inline-block;
-    width: 50px;
+    width: 25px;
     height: auto;
 }
 .section-container .quick a h4{
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 15px;
+    line-height: 50px;
     font-weight: 900;
     white-space: nowrap;
 }
