@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>合火人</title>
-    <meta name="keywords" content="天使汇,天使汇官网,天使合投平台,天使投资,创业VC投资"/>
+    <meta name="keywords" content="合火人"/>
     <meta name="description" content="合火人"/>
     <meta name="robots" content="all"/>
     <meta name="copyright" content="合火人"/>
@@ -12,14 +12,15 @@
     <meta name="apple-touch-fullscreen" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="author" content="http://m.angelcrunch.com" />
+    <meta name="author" content="" />
     <meta name="revisit-after"  content="1 days" />
     <meta name="format-detection" content="email=no" />
     <meta name="format-detection" content="telephone=yes" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
     <link rel="Bookmark" href="/favicon.ico" />
     <link href="css/base.css" rel="stylesheet"/>
-<link href="css/mymessage.css" rel="stylesheet" />
+    <link href="css/mymessage.css" rel="stylesheet" />
+    
 </head>
 <body>
 <div class="bk"></div>
@@ -27,34 +28,32 @@
     <!--首页-->
     <div id="main-page" class="main-page slide-page">
         <!--头部-->
-        <div class="notification red"><i class="txt">关注失败, 请稍后重试.</i><i class="close">×</i></div>
-        <div id="head-container" class="head-container">
-            <div id="header" class="newhead">
-                <div class="logo touch-href" data-href="/"></div>
-                <div class="options">
-                    <span></span>
-                    <ul class="hidden-menu">
-                        <li class="touch-href" data-href="/startup">闪投项目</li>
-                        <li class="touch-href" data-href="/startup#type:com-industry:-district:-order:new">最新项目</li>
-                        <li class="touch-href border" data-href="/investor">投资人</li>
-                        <li class="line"></li>
-                    </ul>
-                </div>
-                <div class="account">
-                    <span></span>
-                    <ul class="hidden-menu"></ul>
-                </div>
+
+        <div id="header" class="newhead">
+            <div class="logo touch-href" data-href="/"></div>
+            <div class="options">
+                <span></span>
+                <ul class="hidden-menu">
+                    <li class="touch-href" data-href="">闪投项目</li>
+                    <li class="touch-href" data-href="">最新项目</li>
+                    <li class="touch-href border" data-href="">投资人</li>
+                    <li class="line"></li>
+                </ul>
+            </div>
+            <div class="account">
+                <span></span>
+                <ul class="hidden-menu"></ul>
             </div>
         </div>
-        <!--详情页-->
-        <div class="content" ms-controller="profile">
+
+
+        <div class="newhead-container">
+            <img src="img/message-white.png" width="60px"/>
             <div class="title"><h1>我的消息</h1></div>
+        </div>
 
-            <!--div class="tab"><a class="left active">发布的</a>
-            <a id="regist_link" class="right">关注的</a>
-            <a id="regist_link" class="right">洽谈的</a>
-            <a id="regist_link" class="right">合伙中</a></div-->
-
+        <div class="content" ms-controller="profile">
+            
 
             <div class="item">
                 <b><span class="time"><small> 2016-02-02  20:56:33</small></span>
@@ -89,80 +88,21 @@
 
 
         </div>
-    </div>
-    <!--密码修改-->
-    <div id="change-pwd" class="change-pwd slide-page">
-        <div class="header"><a href="javascript:history.go(-1)"></a>
 
-            <h3>修改密码</h3></div>
-        <label>
-            <span>旧密码</span>
-            <i><input id="pwd-old" type="password" name="password" value="" maxlength="16"><em
-                    class="vector-icons eye"></em></i>
-        </label>
-        <label>
-            <span>新密码</span>
-            <i><input id="pwd-new" type="password" name="password" value="" maxlength="16"><em
-                    class="vector-icons eye"></em></i>
-        </label>
-        <label>
-            <span>重复密码</span>
-            <i><input id="pwd-repeat" type="password" name="password" value="" maxlength="16"><em
-                    class="vector-icons eye"></em></i>
-        </label>
-        <a id="submit-change" class="submit-new-btn"><img src="http://dn-acac.qbox.me/mobile/homepage/btn-arrow-left.png"></a>
-    </div>
-    <!--手机号码修改-->
-    <div id="change-phone" class="change-pwd slide-page">
-        <div class="header"><a href="javascript:history.go(-1)"></a>
-
-            <h3>手机绑定</h3></div>
-        <label>
-            <span>登录密码</span>
-            <i><input id="bind-pwd" type="password" name="password" value="" maxlength="16" /><em class="vector-icons eye"></em></i>
-        </label>
-
-        <label>
-            <span>手机号码</span>
-            <i>
-                <input id="bind-phone" type="tel" name="phone"   placeholder="待绑定手机号码" value="" maxlength="11"  />
-                <button id="bind-verify-btn" class="verify-btn btn disable">验证</button>
-            </i>
-        </label>
-
-        <label>
-            <span>验证码</span>
-            <i><input id="bind-verify-code" type="tel" name="code" value="" maxlength="6"  placeholder="请输入短信验证码" disabled/></i>
-        </label>
-
-        <a id="bind-submit-btn" class="submit-new-btn"><img src="http://dn-acac.qbox.me/mobile/homepage/btn-arrow-left.png"></a>
-    </div>
-    <!--选择地区-->
-    <div id="region" class="region slide-page" ms-controller="region">
-        <div class="header"><a href="javascript:history.go(-1)"></a>
-
-            <h3>选择地区</h3></div>
-        <div class="content">
-            <ul class="left">
-                <li ms-repeat="province" ms-text="el.name" ms-attr-data-id="el.id"
-                    ms-attr-class="el.active?'active':''"></li>
-            </ul>
-            <ul class="right">
-                <li ms-repeat="city" ms-text="el.name" ms-attr-data-id="el.id"
-                    ms-attr-class="el.active?'active':''"></li>
-            </ul>
+                <!--navigator-->
+        <div class="address-navigator" style="position: fixed; bottom: 0;">
+                    <a class="home"><span><b>当前位置：</b></span></a>
+                    <a class="first"><span>个人中心</span></a>
+                    <a class="second"><span>我的消息</span></a>
+                    <a class="third"><span></span></a>
         </div>
-        <div class="confirm"><a id="submit-region" class="btn">确定</a></div>
     </div>
-</div>
 
 </body>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery-cookie.js"></script>
 <script src="js/avalon.mobile.min.js"></script>
 <script src="js/base.js"></script>
-<script src="js/image_upload.min.js"></script>
-<script src="js/myproject.js"></script>
 
 <script>
 

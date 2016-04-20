@@ -76,6 +76,7 @@
             </ul>
         </div>
     </div>
+
     <div id="list-container" class="list-container">
         <div class="loading-container">
             <div class="loading"></div>
@@ -86,43 +87,75 @@
                 <h3>呀~没找到</h3>
                 <p>很抱歉，未找到与该筛选条件相匹配的结果</p>
             </div>
-        </div>
-        <div class="investor-list" ms-controller="list">
-            <section ms-repeat="data">
-                <a ms-href="el.link">
-                    <div class="summary">
-                        <div class="avatar left">
-                            <img ms-src="el.base_info.avatar">
-                        </div>
-                        <div class="text right">
-                            <p class="basic"><span class="name" ms-text="el.base_info.name"></span><span class="title" ms-text="el.base_info.firmname+''+el.base_info.title"></span></p>
-                            <p class="desc" ms-html="el.base_info.summary"></p>
-                            <p class="figure"><!--em></em>&nbsp;<span ms-text="el.base_info.region"></span--><span class="after" ms-text="'查看项目：'+el.interaction_info.view_com_count"></span><span class="after" ms-text="'粉丝：'+el.interaction_info.fans_count"></span></p> 
-                        </div>
+    </div>
+
+    <div class="investor-list" avalonctrl="list">
+        <section>
+            <a href="">
+                <div class="summary">
+                    <div class="avatar left">
+                        <img src="http://dn-xswe.qbox.me/12837136?imageMogr2/crop/!200x200a0a0/thumbnail/300x">
                     </div>
-                </a>
-
-                <div ms-attr-class="el.action_class">
-                    <a ms-attr-class="el.interaction_info.followclass" action-type="follow" ms-attr-action-id="el.base_info.id"><span>关注</span></a>
-                    <a class="invest" ms-if="el.action_invest_show" action-type="invest" ms-attr-action-id="el.base_info.id"><span>消费合伙</span></a>
-                    <a class="together" action-type="together" ms-attr-action-id="el.base_info.id"><span>股本合伙</span></a>
-                    <a class="submit" action-type="submit" ms-attr-action-id="el.base_info.id"><span>领头</span></a>
-
-
+                    <div class="text right">
+                        <p class="basic"><span class="name">王学峰</span><span class="title">源渡创投合伙人</span></p>
+                        <p class="desc">源渡创投的合伙人，于2009年12月加入源渡创投，投资领域包括消费升级、企业应用、互联网的早期创业企业。之前曾任职于科桥...</p>
+                        <p class="figure"><span class="after">查看项目：92</span><span class="after">粉丝：2837</span></p> 
+                    </div>
                 </div>
-                <div ms-attr-id="'history'+el.base_info.id" class="history">
-                    <div class="list-container"></div>
+            </a>
+
+            <div class="want">我要:</div>
+            <div class="action">
+                <a ><span>关注</span></a>
+                <a ><span>消费合伙</span></a>
+                <a ><span>股本合伙</span></a>
+                <a ><span style="border:none">领头</span></a>
+            </div>
+        </section>
+
+        <section>
+            <a href="">
+                <div class="summary">
+                    <div class="avatar left">
+                        <img src="http://dn-xswe.qbox.me/12837136?imageMogr2/crop/!200x200a0a0/thumbnail/300x">
+                    </div>
+                    <div class="text right">
+                        <p class="basic"><span class="name">王学峰</span><span class="title">源渡创投合伙人</span></p>
+                        <p class="desc">源渡创投的合伙人，于2009年12月加入源渡创投，投资领域包括消费升级、企业应用、互联网的早期创业企业。之前曾任职于科桥...</p>
+                        <p class="figure"><span class="after">查看项目：92</span><span class="after">粉丝：2837</span></p> 
+                    </div>
                 </div>
-            </section>
+            </a>
+
+            <div class="want">我要:</div>
+            <div class="action">
+                <a ><span>关注</span></a>
+                <a ><span>消费合伙</span></a>
+                <a ><span>股本合伙</span></a>
+                <a ><span style="border:none">领头</span></a>
+            </div>
+        </section>
+
         </div>
     </div>
     <div class="position-occupy"></div>
     <div class="page-turn-occupy"></div>
     <div class="page-turn">
+        <div class="page-turn2">
         <a class="btn prev-page">上一页</a>
         <p><i class="current-page">0</i>/<i class="total-page">0</i></p>
         <a class="btn next-page">下一页</a>
+        </div>
+
+        <!--navigator-->
+        <div class="address-navigator">
+                    <a class="home"><span><b>当前位置：</b></span></a>
+                    <a class="first"><span>合火人风采</span></a>
+                    <a class="second"><span></span></a>
+                    <a class="third"><span></span></a>
+        </div>
     </div>
+
 </div>
 
 </body>

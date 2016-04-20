@@ -1,20 +1,3 @@
-(function(){
-    this.key = {
-        search_record:'investor_search_history'
-    };
-    this.api = {
-        list:base_mobile+'v4/users',
-        search:base_mobile+'v4/user_search',
-        follow:base_mobile+'v4/follow',
-        unfollow:base_mobile+'v4/unfollow',
-        my_com:base_mobile+'v4/startup/my'
-    };
-    this.url = {
-        reg:'/account/regist',
-        create:'/startup/create'
-    };
-    log.type = 'investor_list';
-}).call(define('config'));
 
 (function(){
     var self = this,
@@ -102,8 +85,9 @@
     $bk.touchtap(self.bk.event);
 }).call(define('view_dom'));
 
-(function(){
 
+
+(function(){
     var self = this,
         $btn=$('.search'),
         $searchmodel=$('.search-list'),
@@ -242,6 +226,7 @@
 
 }).call(define('controll_search'));
 
+
 (function(){
     var self = this,
         $normal = $('.section-list'),
@@ -306,13 +291,13 @@
         error = view_dom.error;
 
     //列表 搜索列表 页面数据填充
-    this.list = avalon.define("list", function (vm) {
+/*    this.list = avalon.define("list", function (vm) {
         vm.data = [];
     });
-
+*/
     //数据格式化
     this.list_render = function(data){
-        var render = data, len = render.length,summary = '',invest=0;
+        v/*ar render = data, len = render.length,summary = '',invest=0;
         for(var l =0; l < len;l++){
             //render[l].link = window.base_protocol+render[l].base_info.id+'.'+window.base_host;
             render[l].link = '/investor/'+render[l].base_info.id;
@@ -332,50 +317,50 @@
                 render[l].action_invest_show=false;
             }
         }
-        return render;
+        return render;*/
     };
 
     //列表 数据获取回调
     this.list_call = function(data){
-        if(data.hasOwnProperty('list')){
+/*        if(data.hasOwnProperty('list')){
             self.list.data= self.list_render(data.list);
         }
         if(data.hasOwnProperty('total')){
             data.total==0 && view_dom.not_found.show();
         }
-        view_list.list(data);
+        view_list.list(data);*/
     };
 
     //搜索列表 数据回调方法
     this.search_list_call =function(data){
-        if(data.hasOwnProperty('list')){
+/*        if(data.hasOwnProperty('list')){
             self.list.data= self.list_render(data.list);
         }
         if(data.hasOwnProperty('total')){
             data.total==0 && view_dom.not_found.show();
         }
-        view_list.search(data);
+        view_list.search(data);*/
     };
 
     //列表 数据获取方法初始化
-    this.list_get = base_data_model.init('com',config.api.list,list_default,self.list_call,error,loading);
+    //this.list_get = base_data_model.init('com',config.api.list,list_default,self.list_call,error,loading);
 
     //列表 获取数据方法
     this.list_index = function(index,industry,district){
-        var post ={
+/*        var post ={
             pageindex:index || 1,
             industry:industry || '',
             region:district || ''
         };
-        self.list_get(post);
+        self.list_get(post);*/
     };
 
     //搜索列表 数据获取方法初始化
-    this.search_list_get = base_data_model.init('search',config.api.search,list_default,self.search_list_call,error,loading);
+    //this.search_list_get = base_data_model.init('search',config.api.search,list_default,self.search_list_call,error,loading);
 
     //搜索列表 获取数据
     this.search_list_index = function(index,keyword){
-        self.search_list_get({pageindex:index,keyword:keyword});
+        //self.search_list_get({pageindex:index,keyword:keyword});
     };
 }).call(define('controll_list'));
 
