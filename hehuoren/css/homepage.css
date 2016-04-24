@@ -35,10 +35,10 @@
 /*公共标题*/
 .pub-title h3{
     display: inline-block;
-    line-height: 40px;
+    line-height: 60px;
     text-align: center;
     width: 100%;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bolder;
 }
 /*首屏*/
@@ -326,13 +326,23 @@
     height: 490px;
     position: relative;
 }
-.section-container .resource .icon-msg{
+.icon-msg{
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    width: 25%;
+    max-width: 125px;
+    height: auto;
+    margin-top: -30px;
+}
+.icon-msg-people{
     position: absolute;
     z-index: 0;
     right: 0;
-    width: 30%;
+    width: 20%;
     max-width: 125px;
     height: auto;
+    margin-top: -30px;
 }
 .section-container .resource .avatar{
     position: absolute;
@@ -1138,12 +1148,12 @@ display: inline-block;
 }
 .section-container .quick a h4{
     font-size: 15px;
-    line-height: 50px;
+    line-height: 30px;
     font-weight: 900;
     white-space: nowrap;
 }
 .section-container .quick a p{
-    font-size: 14px;
+    font-size: 12px;
     line-height: 22px;
     white-space: nowrap;
 }

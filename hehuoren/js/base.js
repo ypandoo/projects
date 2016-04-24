@@ -5,29 +5,24 @@
     };
     this.base_environment=(function(){
         var href=location.host.toLowerCase();
-        if(href.indexOf('angelcrunch') != -1){
+        if(href.indexOf('baibaichou') != -1){
             return 'online'
         }
-        else if(href.indexOf('ac-test') != -1){
+        else if(href.indexOf('test') != -1){
             return 'test'
         }
         else{
             return 'development'
         }
     })();
-    this.base_mobile='http://mobile.angelcrunch.com/';
-
-    if(base_environment!='online'){
-        //this.base_mobile='http://mobile.ac-test.com/';
-    }
-
+    this.base_mobile='http://www.baibaichou.com/';
 
     this.base_protocol='http://';
-    this.base_host='angelcrunch.com/';
+    this.base_host='baibaichou.com/';
     this.base_home=this.base_protocol+this.base_host;
     this.base_ua=navigator.userAgent.toLowerCase();
     this.api={
-        login:this.base_mobile+'v2/home/login',
+/*        login:this.base_mobile+'v2/home/login',
         log:'http://api.angelcrunch.com/v1/log/m',
         user_info: this.base_mobile + 'v4/home/profile',
         host_id:this.base_mobile+'v3/host_id',
@@ -40,17 +35,17 @@
         com_vc_standard:this.base_mobile+'v3/startup/vc',
         com_vc_info:this.base_mobile+'v3/startup/vc_info',
         com_vc_query:this.base_mobile+'v3/startup/vc_query',
-        industry_list:this.base_mobile+'v4/settings/business_list'
+        industry_list:this.base_mobile+'v4/settings/business_list'*/
     };
 
     this.base_config={
         //缓存时间
-        cachetime:7*24*60*60*1000,
+/*        cachetime:7*24*60*60*1000,
         //账户信息保存字段名
         account_save_key:'account_info',
         last_log_time_key:'last_log_time',
         search_com_history_key:'com_search_history',
-        client_version_key:'client_version'
+        client_version_key:'client_version'*/
     };
     this.base_status={
         support_touch:typeof document.ontouchstart!='undefined',
@@ -60,8 +55,7 @@
         isandroid:base_ua.indexOf("android") != -1,
         //Apple
         isios: !!base_ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/),
-        //APP嵌入
-        isapp:/angelcrunch/.test(navigator.userAgent.toLowerCase())
+
         /*isandorid: !!base_ua.indexOf("android") != -1 ? 1 : 0,
 
         isiphone: !!base_ua.indexOf('iphone') > -1 || ua.indexOf('mac') > -1,
@@ -231,15 +225,9 @@
 }).call(this);
 
 //Cookie方法
-(function(){
-    var domain='.angelcrunch.com';
+/*(function(){
+    var domain='.baibaichou.com';
 
-    if(/dubaoxing/g.test(location.href.toLocaleLowerCase())){
-        domain='.dubaoxing.com';
-    }
-    if(/ac-test/g.test(location.href.toLocaleLowerCase())){
-        domain='.ac-test.com';
-    }
     this.cookie_setting={ expires: 7, path: "/", secure: false,domain:domain};
 
     this.get_cookie=function(key){
@@ -266,101 +254,10 @@
         }
     }
 
-}).call(this);
-
-//Hybrid 基础方法 待完善
-(function(){
-    var self = this,
-        queue = [];
-
-    (function(callback){
-        if (window.WebViewJavascriptBridge) {
-            self.support = true;
-            callback(WebViewJavascriptBridge);
-        } else {
-            document.addEventListener('WebViewJavascriptBridgeReady', function() {
-                self.support = true;
-                self.rsyn_task();
-                callback(WebViewJavascriptBridge);
-            }, false)
-        }
-    })(function(bridge){
-        bridge.init(function(message, responseCallback) {
-            if (responseCallback) {
-                responseCallback('success');
-            }
-        });
-    });
-
-    this.support = false;
-
-    this.rsyn_task = function(){
-        var fun;
-        if(queue.length > 0){
-            fun = queue.pop();
-            typeof fun == 'function' && fun();
-            self.rsyn_task();
-        }
-        return true;
-    };
-
-    this.ready = function(fun){
-        return queue.unshift(fun);
-    };
-
-    this.call = function(handler,data,response){
-        var callback = function(ret){
-            var data = {};
-            try{data = JSON.parse(ret);} catch(e){}
-            return typeof response == 'function' && response(data);
-        };
-        if(!window.WebViewJavascriptBridge){
-            return self.ready(function(){
-                window.WebViewJavascriptBridge.callHandler(handler,data, callback);
-            });
-        }
-        return window.WebViewJavascriptBridge.callHandler(handler,data, callback);
-    };
-
-    this.getData = function(type,param,response){
-        return self.call('getData',{
-            type : type,
-            param : param
-        },response);
-    };
-
-    this.putData = function(type,param,response){
-        return self.call('putData',{
-            type : type,
-            param : param
-        },response);
-    };
-
-    this.gotoNative = function(type,param,response){
-        return self.call('gotoNative',{
-            type : type,
-            param : param
-        },response);
-    };
-
-    this.gotoWebview = function(url,param,response){
-        var fun = typeof param == 'function' ? param : (typeof response ==  'function' ? response : function(){}),
-            data = typeof  param == 'object' ? {param : param}: {param : {}};
-        data.param.url = url;
-        return self.call('gotoWebview',data,response);
-    };
-
-    this.doAction = function(type,param,response){
-        return self.call('doAction',{
-            type : type,
-            param : param
-        },response);
-    };
-
-}).call(define('app'));
+}).call(this);*/
 
 //全局账户信息
-(function(){
+/*(function(){
     //过期删除
     var now= $.now();
     this.account_key={
@@ -379,7 +276,7 @@
     };
     this.account_operate={
         logoff:function(){
-            del_cookie(account_key);
+            //del_cookie(account_key);
             return location.reload();
         }
     };
@@ -405,31 +302,16 @@
         save_cookie(account_key.role,account_info.role);
         save_cookie('isapp','yes');
     }
-    //Hybrid 方式获取登录信息;
-    app.getData('userInfo','',function(data){
-        if(data.uid){
-            account_info.id     = data.uid;
-            account_info.token  = data.access_token;
-            account_info.role   = data.role;
-            account_info.time   = now;
-        }
-        //保存用户信息
-        save_cookie(account_key.id,account_info.id);
-        save_cookie(account_key.token,account_info.token);
-        save_cookie(account_key.role,account_info.role);
-        save_cookie('isapp','yes');
-    });
-    if(get_cookie('isapp') == 'yes'){
-        base_status.isapp = true;
-    }
+    
     //登陆状态
     if(account_info.token.length>5){
         account_info.is_login=true;
     }
 }).call(this);
+*/
 
 //日志记录
-(function(){
+/*(function(){
     if(base_environment != 'online')return;
     var self = this,
         start = new Date(),
@@ -459,7 +341,7 @@
         img.src = api.log+base_create_param(data);
     };
     w.onload = self.record;
-}).call(define('log'));
+}).call(define('log'));*/
 
 //移动设备事件
 (function(){
@@ -542,18 +424,12 @@
     this.account_center={
         default_item:{
             investor:[
-                ['/account/profile','个人中心'],
-                ['/startup/create','创建项目'],
-                ['javascript:account_operate.logoff()','退出登录']
+
             ],
             entre:   [
-                ['/account/profile','个人中心'],
-                ['/startup/create','创建项目'],
-                ['javascript:account_operate.logoff()','退出登录']
+
             ],
             notlogin:[
-                ['/account/login?source='+encodeURIComponent(location.href),'登&nbsp;录'],
-                ['/account/regist?source='+encodeURIComponent(location.href),'注&nbsp;册']
             ]
         },
         item:[],
@@ -580,7 +456,7 @@
             //暂时木有不重刷 取消登录状态
         }
     };
-    if(account_info.is_login){
+/*    if(account_info.is_login){
         if(account_info.role>1){
            account_center.item=account_center.default_item.investor;
         }
@@ -590,10 +466,10 @@
         account_portrait.login();
 
     }
-    else{
+    else{*/
         account_center.item=account_center.default_item.notlogin;
         account_portrait.notlogin();
-    }
+    //}
     $container.append(account_center.create_item(account_center.item));
     //事件绑定
     $(document).ready(function(){
@@ -601,27 +477,5 @@
         $account.touchtap(display_controll);
         $bk.touchtap(function(){if(sta)headoption_display.hide();});
     });
-    //APP内嵌隐藏头部
-    if(base_status.isapp){
-        $head.hide();
-        $headcontainer.hide();
-    }
-}).call(this);
-
-//微信分享卡片
-(function(){
-    this.wechat_card={
-        display:true,
-        //异步添加
-        deffer:false,
-        img:'http://dn-acac.qbox.me/231937129837912.png',
-        title:'',
-        render:function(){
-            //是否由微信打开
-            if(wechat_card.title != '')document.title=wechat_card.title;
-            $("body").prepend("<div class='default-hidden'><img width='310px' height='310px' src="+wechat_card.img+" /></div>");
-        }
-    };
-    //事件
-    $(document).ready(function(){if(wechat_card.display && !wechat_card.deffer && base_status.iswechat)wechat_card.render();});
+    
 }).call(this);

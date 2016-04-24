@@ -1,4 +1,4 @@
-
+/*时间通知*/
 (function(){
     var self = this,
         $bk = $('.bk_new'),
@@ -86,6 +86,7 @@
     $bk.touchtap(self.bk.event);
 }).call(define('view_dom'));
 
+/*搜索*/
 (function(){
 
     var $btn=$('.search'),
@@ -129,7 +130,6 @@
         if(!self.sta){
             self.btn.show();
             self.module.show();
-            self.show_history();
             self.input.foucus();
             self.input.fill();
             view_dom.bk.show();
@@ -164,30 +164,8 @@
             self.search.result_name ='';
             view_dom.bk.hide();
             self.sta = false;
-            route.go({type:'search', k:k, p:1, _:new Date().getTime()});
-        }
-    };
-
-    this.search_result_reset =function(){
-        self.search.result_name = '';
-        self.search.result_num = '';
-    };
-
-    this.search_result = function(n){
-        var k = base_hash_model.get_data('k');
-        self.input.fill(k);
-        self.input.blur();
-        self.module.hide();
-        self.record_search(k);
-        view_dom.bk.hide();
-        view_dom.filter.hide();
-        self.search.result_name = k;
-        self.search.result_num = n;
-    };
-
-    this.search_history = function(){
-        if(!!this.innerHTML){
-            self.word_search(this.innerHTML);
+            alert('search');
+            //route.go({type:'search', k:k, p:1, _:new Date().getTime()});
         }
     };
 
@@ -195,27 +173,6 @@
         if(e.keyCode == 13){
             self.word_search(this.value);
         }
-    };
-
-    this.local_history = function(){
-        return base_local_data.getdata(config.key.search_record) || [];
-    };
-
-    this.clear_history = function(){
-        base_local_data.savedata(config.key.search_record,[]);
-        self.search.history = [];
-    };
-
-    this.show_history = function(){
-        self.search.history = self.local_history();
-    };
-
-    this.record_search = function(k){
-        var local_history = self.local_history();
-        if(local_history.indexOf(k)==-1){
-            local_history.unshift(k);
-        }
-        base_local_data.savedata(config.key.search_record,local_history);
     };
 
     this.search = avalon.define("search", function (vm) {
@@ -226,132 +183,7 @@
 
 }).call(define('controll_search'));
 
-/*(function(){
-    var self = this,
-        $sd_box = $('.new-sd-list'),
-        $normal = $('.new-section-list'),
-        $turning= $('.page-turn'),
-        $prev   = $turning.children('.prev-page'),
-        $next   = $turning.children('.next-page'),
-        $current= $turning.children('p').children('.current-page'),
-        $total  = $turning.children('p').children('.total-page');
-
-    this.search = function(data){
-        $sd_box.hide();
-        $normal.show();
-        self.page_turning(data);
-        if(data.hasOwnProperty('total')){
-            controll_search.search_result(data.total);
-        }
-    };
-
-    this.sd = function(data){
-        $sd_box.show();
-        $normal.hide();
-        view_dom.filter.show();
-        self.page_turning(data,10);
-    };
-
-    this.com = function(data){
-        $sd_box.hide();
-        $normal.show();
-        view_dom.filter.show();
-        self.page_turning(data);
-    };
-
-    this.page_turning = function(data,size){
-        var s = size || 10;
-        if(data.hasOwnProperty('pageindex') && data.hasOwnProperty('total')){
-            self.turning(data.pageindex,data.total,s);
-        }
-    };
-
-    this.turning = function(index,total,size){
-        var s = size || 10,i = parseInt(index),
-            page = Math.ceil(parseInt(total)/s),
-            prev = i-1 > 1 ? i-1: 1,
-            next = i+1 < page ? i+1 :page,
-            hash_prev = base_hash_model.save_data({p:prev}),
-            hash_next = base_hash_model.save_data({p:next});
-        $prev.attr('href',hash_prev);
-        $next.attr('href',hash_next);
-        $current.html(i);
-        $total.html(page);
-    };
-
-}).call(define('view_list'));*/
-
-
-
-/*(function(){
-    var self = this,
-        history = [{}];
-
-    //路由核心逻辑处理
-    this.core = function(){
-        var data = base_hash_model.get_data(),
-            p = data.p || 1,
-            industry = data.industry || '',
-            district= data.district || '',
-            order = data.order || '',
-            state = data.state || '',
-            k = data.k ||'';
-        if(!!data.type){
-            self.record_history(data);
-            self.default_display(data);
-            view_filter.filter_name_syn();
-            if(data.type == 'search' && !!data.k){
-                return controll_list.search_list_index(p,data.k);
-            }
-            if(data.type == 'sd'){
-                return controll_list.sd_list_index(p,industry,district,state);
-            }
-            if(data.type == 'com'){
-                return controll_list.com_list_index(p,industry,district,order);
-            }
-            if(data.type == 'ohm'){
-                return controll_list.ohm_list_index(p,industry,district,order);
-            }
-            if(data.type == 'ohx'){
-                return controll_list.ohx_list_index(p,industry,district,order);
-            }
-        }
-        self.go({type:'sd'});
-    };
-    //状态记录 列表类型间切换
-    this.record_history = function(hash_data){
-        var l = history.length - 1;
-        if((l == 0 && !history[l].type) || (!!history[l].type && history[l].type != hash_data.type)){
-            history.push(hash_data);
-            if(l > 0){
-                history.splice(0,1);
-            }
-        }
-        else{
-            history[l] = hash_data;
-        }
-    };
-    //显示状态初始化
-    this.default_display = function(hashdata){
-        return !!hashdata.k ? true : controll_search.search_result_reset();
-    };
-    this.go_history = function(){
-        self.jump(history[0]);
-    };
-    this.jump = function(data){
-        location.hash = base_hash_model.set_data(data);
-    };
-    this.go = function(data){
-        location.hash = base_hash_model.save_data(data);
-    };
-
-    window.onhashchange = self.core;
-    setTimeout(function () {
-        self.core();
-    }, 0);
-}).call(define('route'));*/
-
-/*(function(){
+(function(){
     var self = this,
         $filter = $('#list-filter'),
         $select = $filter.children().children('a'),
@@ -563,10 +395,11 @@
         }
     };
 }).call(define('view_filter'));
-*/
 
-//关注项目
-/*(function(){
+
+
+/*//关注项目
+(function(){
     var self = this,
         $base = $('.project-list'),
         touch = {

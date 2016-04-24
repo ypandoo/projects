@@ -1,20 +1,3 @@
-(function(){
-    var self = this;
-    this.api = {
-        sd:base_mobile+'v3/speed_dating',
-        stars:base_mobile+'v3/speed_dating'
-    };
-    this.default_param = {
-        uid:account_info.id,
-        access_token:account_info.token
-    };
-    this.get_data = function(url,call,data){
-        base_remote_data.ajaxjsonp(url,function(data){
-            call(data);
-        },$.extend(true,self.default_param,data));
-    };
-    log.type = 'homepage';
-}).call(define('page_base'));
 
 (function(){
     var self = this,
@@ -54,7 +37,7 @@
     this.next_active = function(){
         self.item_active(self.sta.current);
         self.sta.current++;
-        if(self.sta.current == 3){
+        if(self.sta.current == 4){
             self.sta.current = 0;
         }
         setTimeout(self.bk_active.hide,0);
@@ -76,31 +59,6 @@
 
 }).call(define('view_firstpage'));
 
-(function(){
-    var self = this;
-
-    this.circle = Circles.create({
-        id:           'circle',
-        radius:       50,
-        value:        0,
-        maxValue:     100,
-        maxTextValue: 100,
-        width:        10,
-        text:         function(value){return value + '%';},
-        colors:       ['#cecece', '#ff3d00'],
-        duration:     300,
-        wrpClass:     'circles-wrp',
-        textClass:    'circles-text',
-        styleWrapper: true,
-        styleText:    true
-    });
-    this.update_value = function(val){
-        var v = val || 0;
-        self.circle.updateMaxTextValue(v > 100 ? v : 0);
-        self.circle.updateTo(v);
-    };
-
-}).call(define('view_sd'));
 
 (function(){
     var self = this,
@@ -116,14 +74,16 @@
 
     this.framework =  avalon.define("sd-list", function (vm) {
         vm.data = {
-            name:'',
-            district:'',
-            day:30,
-            finish:0,
-            hope:0,
-            concept:'',
-            image:'',
-            link:''
+            name:'', //name
+            description:'', //description
+            logo:'', //logo
+            complete:0, //complete
+            level:0,  //level
+            step:0,   //step
+            area:'',  //area
+            image:'', //bg image
+            link:'' ,//map link
+            project_link:''//project link
         };
         vm.list = [];
         vm.select = function(index){
@@ -137,33 +97,31 @@
         }
     });
 
-    this.data_call = function(data){
+/*   this.data_call = function(data){
         if(data.list){
-            self.list = self.framework.list = data.list;
-            self.info(0);
-            self.btn_display(0);
+                //Sample data fill
+            
         }
-    };
+    };*/
 
-    this.get_sd = page_base.get_data(page_base.api.sd,self.data_call,{pagesize:10,pageindex:1,w:600,state:'online',industryid:'',regionid:''})
 
+    //put the data to html
     this.info = function(index){
-        var c = {},f = 1,h = 1;
-        if(!!self.list[index]){
-            c = self.list[index];
-            f = parseInt(c.finishamount.replace(/\.0/,'').replace(/\,/g,'').replace(/0{4}$/,''));
-            h = parseInt(c.amount.replace(/\.0/,'').replace(/\,/g,'').replace(/0{4}$/,''));
-            self.framework.data.name = c.name;
-            self.framework.data.district = c.region;
-            self.framework.data.day = c.day;
-            self.framework.data.concept = c.concept;
-            self.framework.data.image = c.image;
-            //self.framework.data.link = base_protocol+c.id+'.'+base_host;
-            self.framework.data.link ='/startup/'+c.id;
-            self.framework.data.finish = account_info.role >0 ?'￥'+ f + '万' : '投资人可见';
-            self.framework.data.hope = account_info.role >0 ? '￥'+ h + '万' : '投资人可见';
-            view_sd.update_value((f/h*100).toFixed(0));
-        }
+            var c = {},f = 1,h = 1;
+            if(!!self.list[index]){
+                c = self.list[index];
+
+                self.framework.data.name = c.name;
+                self.framework.data.area = c.area;
+                self.framework.data.logo = c.logo;
+                self.framework.data.description = c.description;
+                self.framework.data.level = c.level;
+                self.framework.data.step = c.step;
+                self.framework.data.link = c.link;
+                self.framework.data.project_link = c.project_link;
+                self.framework.data.complete = c.complete+'%关注';
+                self.framework.data.image = c.img;
+            }
     };
 
     this.btn_display = function(index){
@@ -185,6 +143,7 @@
         }
     };
 
+    //-------------------- data filling --------------------------------------------------
     this.index = function(index){
         var i = parseInt(index);
         self.btn_display(i);
@@ -192,6 +151,14 @@
         self.selector(i);
         self.list_index = i;
     };
+
+        //sample data
+    self.list = self.framework.list = [{logo:'img/project.png',name:'测试项目1',img:'img/index_projectbg.jpg',
+            description:'项目信息完善指导',complete:50, link:'your_map_location', level:1, step:2, area:'房地产'},
+            {logo:'img/project1.png',name:'测试项目1',img:'img/index_projectbg.jpg',
+            description:'项目信息完善指导',complete:20, link:'your_map_location', level:1, step:2, area:'房地产'}];
+    self.info(0);
+    self.btn_display(0);
 
     this.selector = function(index){
         var i = index || 0;
@@ -300,55 +267,7 @@
             }
         }
     );
+
 }).call(define('view_sd'));
 
-(function(){
-    var self = this;
-
-    this.framework =  avalon.define("stars-list", function (vm) {
-        vm.list = [];
-    });
-    this.data_render = function(data){
-        var ret = data || {};
-        for(var i in ret){
-            ret[i].intention = ret[i].vc_list.length;
-            //ret[i].link = base_protocol+ret[i].id+'.'+base_host;
-            ret[i].link ='/startup/'+ret[i].id;
-            ret[i].district = ret[i].region == ''?'全国':ret[i].region.split(' ').splice(0,2).join(' · ');
-            ret[i].industry = ret[i].industry.slice(0,24).split(' ').join(' · ');
-        }
-        return ret;
-    };
-    this.data_call = function(data){
-        if(data.list){
-            self.framework.list = self.data_render(data.list);
-        }
-    };
-
-    this.get_sd = page_base.get_data(page_base.api.stars,self.data_call,{pagesize:10,pageindex:2,w:600,state:'online',industryid:'',regionid:''});
-
-
-}).call(define('view_stars'));
-
-(function(){
-    var self = this,
-        data = [{logo:'http://dn-acac.qbox.me/index/daixiaomi_logo.svg',name:'创始人：焦可',img:'http://dn-acac.qbox.me/mobile/homepage/daixiaomi_mobile.png',desc:'2013.10注册天使汇，10.18完成300万天使轮融资，2014.8获晨兴创投A轮融资，额度500万美金。',tips:[{img:'http://dn-acac.qbox.me/v1/icon/icon_info.svg',title:'项目信息完善指导',desc:'帮助项目打磨天使汇展现页面'},{img:'http://dn-acac.qbox.me/v1/icon/icon_bp.svg',title:'融资BP指导',desc:'商业计划书模板下载和指导'},{img:'http://dn-acac.qbox.me/v1/icon/icon_company.svg',title:'足不出户开公司',desc:'一站式在线注册公司'},{img:'http://dn-acac.qbox.me/v1/icon/icon_speeddating.svg',title:'闪投私密线下路演',desc:'一次路演，约见50位投资人'}]},{logo:'http://dn-acac.qbox.me/index/xitu_logo.svg',name:'创始人：阴明',img:'http://dn-acac.qbox.me/mobile/homepage/xitu_mobile.png',desc:'2014.12入驻天使汇100X加速器，2014.12.18参加私密路演，当日收获数份投资意向，次日完成数百万天使轮融。',tips:[{img:'http://dn-acac.qbox.me/v1/icon/icon_analysis.svg',title:'投资人分析服务',desc:'帮助您选择最合适的投资人'},{img:'http://dn-acac.qbox.me/v1/icon/icon_term.svg',title:'投资条款指导',desc:'最大限度保证创业者的权益'},{img:'http://dn-acac.qbox.me/v1/icon/icon_partner.svg',title:'创建有限合伙公司',desc:'避免繁杂流程，高效完成融资'},{img:'http://dn-acac.qbox.me/v1/icon/icon_party.svg',title:'举办融资庆祝Party',desc:'与投资人建立更紧密的友谊'}]}];
-    this.framework =  function() {
-        return avalon.define("resource", function (vm) {
-            vm.data = {};
-        });
-    };
-    this.framework().data = data[new Date().getTime()%2];
-}).call(define('view_resource'));
-
-(function(){
-    var self = this,
-        data=[{name:'创始人:陈驰',desc:'#在天使汇#从0到1，小猪短租用了三年时间。无论面对任何质疑和嘲笑，天使汇一直都和我们站在同一边。相信每一位和我们一样坚信自己，坚持勇气的创业者，在这里都能实现自己的梦想。',logo:'http://dn-acac.qbox.me/index/xiaozhuduanzu_logo.svg',img:'http://dn-acac.qbox.me/mobile/homepage/xiaozhu_mobile.png?1',detail:{link:'/startup/10913645',name:'C轮融资6000W美金的行业龙头，查看详情'}},{name:'创始人:黄浩',desc:'#在天使汇#4个月的时间从天使走到A轮，天使汇的专业服务让我轻松搞定了很多繁复的法律文件和融资条款，让我能安心地打磨和改进产品，快速成长，这是我接触过的最懂创业者的平台。',logo:'http://dn-acac.qbox.me/index/quchaogu_logo@2X.png',img:'http://dn-acac.qbox.me/mobile/homepage/quchaogu_mobile.png',detail:{link:'/startup/12906186',name:'4个月估值提升20倍，查看详情'}},{name:'创始人:彭程',desc:'#在天使汇#在创业刚开始就接触到天使汇是我的幸运，在这里我不仅融到了资金，更得到了投资人从方向到资源方方面面的支持。仅仅3个月，我的项目就领跑了垂直领域，我的投资人也得到了几十倍的回报。',logo:'http://dn-acac.qbox.me/index/haoche_logo@2X.png',img:'http://dn-acac.qbox.me/mobile/homepage/haoche_mobile.png?',detail:{link:'/startup/12918181',name:'从0开始3个月融资2000万美金，查看详情'}}];
-    this.framework =  function() {
-        return avalon.define("after", function (vm) {
-            vm.data = {};
-        });
-    };
-    this.framework().data = data[new Date().getTime()%3];
-}).call(define('view_after'));
 

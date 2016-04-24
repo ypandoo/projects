@@ -63,6 +63,11 @@ p:empty {
   display:none;
 }
 
+.clearfix
+{
+  clear: both;
+}
+
 /**************************
   Common State of Elements
   **************************/
