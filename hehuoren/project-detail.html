@@ -198,21 +198,26 @@
             <em id="em_requirement"></em>
     </div>
 
+    <!--关于通用弹出框的用法
+        1. 设置按钮或链接的id 例如 id=“shop-block”
+        2. 参照detail.js文件中关于block的简单js代码
+        3. 在html copy commonbox 的写法 根据需要更改标题 文字 按钮等。。
+    -->
     <div  id="requirement">
         <section class="require-block">
-            <a href="">
+            <a id="block">
                 <img src="img/block.png">
                 <h4>店铺指标</h4>
             </a>
-            <a href="">
+            <a  id="block1">
                 <img src="img/block1.png">
                 <h4>股权设置</h4>
             </a>
-            <a href="">
+            <a  id="block2">
                 <img src="img/block2.png">
                 <h4>资金用途</h4>
             </a> 
-            <a href="">
+            <a  id="block3">
                 <img src="img/block3.png">
                 <h4>收益比例</h4>
             </a>                    
@@ -271,7 +276,7 @@
                 <a class="first"><span>消费合伙</span></a>
                 <a class="second"><span>股本合伙</span></a>
                 <a class="third fixed">
-                    <span style="border:none" class="fixed">关注合伙</span>
+                    <span style="border:none" class="fixed">已合伙</span>
                 </a>
         </div>
 
@@ -287,9 +292,9 @@
                    <!--  <a class="corner">更多项目</a> -->
                     <ul class="list" avalonctrl="stars-list">
                         <li>
-                            <a href="/startup/13343928">
+                            <a href="">
                                 <div class="logo">
-                                    <img src="http://dn-xswe.qbox.me/13343926?imageMogr2/thumbnail/240x">
+                                    <img src="img/project2.png">
                                 </div>
                                 <h6>脉心云</h6>
                                 <p class="brief">中国首款非侵入式个体心衰院外监护系统</p>
@@ -303,9 +308,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/startup/13344219">
+                            <a href="">
                                 <div class="logo">
-                                    <img src="http://dn-xswe.qbox.me/13344212?imageMogr2/thumbnail/240x">
+                                    <img src="img/project2.png">
                                 </div>
                                 <h6>陶瓷粉末涂料</h6>
                                 <p class="brief">一种高硬度易清洁粉末涂料</p>
@@ -318,9 +323,9 @@
                                 </div>
                             </a>
                         </li><li>
-                            <a href="/startup/13342724">
+                            <a href="">
                                 <div class="logo">
-                                    <img src="http://dn-xswe.qbox.me/13342717?imageMogr2/thumbnail/240x">
+                                    <img src="img/project2.png">
                                 </div>
                                 <h6>老外快线</h6>
                                 <p class="brief">外籍人才悬赏直聘平台</p>
@@ -347,49 +352,23 @@
     </div>
 </div>
 
-
-
-<div id="PA-layer" class="wechat-PA">
-    <div class="close">×</div>
-    <div class="summary">
-        <h2 class="title"></h2>
-        <div class="image-container">
-        </div>
-        <h5>截屏至相册后, 使用微信扫一扫</h5>
-        <p>手动复制链接:<input onclick="this.setSelectionRange(0, 999);"></p>
-    </div>
-</div>
 <div id="wechat-in" class="wechat-in"><img></div>
-<div id="none-investor" class="self_notice">
+
+<div id="common-notice-box" class="self_notice">
     <div class="close">×</div>
     <div class="mg"></div>
-    <div class="image"><img src="http://dn-xswe.qbox.me/13168760?imageMogr2/thumbnail/240x"></div>
+    <div class="image"><img src="img/project1.png"></div>
     <div class="text">
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;对不起，您还不是天使汇认证投资人，不能发送投资意向。感谢您对天使汇的支持。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;您可以<a href="http://m.angelcrunch.com/angel_vip_simple">［申请成为天使汇认证投资人］</a>，我们的投资人服务团队会尽快对您进行投资人审核访谈，并沟通投资意愿。</p>
+        <p>这是一个通用的弹出框，链接为橘红色。
+        <a href="">［这是一条链接］</a>，按钮样式如下。</p>
     </div>
     <div class="btn-group">
-        <a href="http://m.angelcrunch.com/angel_vip_simple">立即申请</a>
+        <a href="">样本按钮</a>
     </div>
 </div>
-<div id="new-none-investor" class="new-self-notice">
-    <div class="close">×</div>
-    <div class="mg-20"></div>
-    <div class="title-container">
-        <div class="image">
-            <em></em>
-        </div>
-        <div class="text">
-            <h3>您不是天使汇认证投资人<br>不能发送投资意向</h3>
-        </div>
-    </div>
-    <div class="mg-10"></div>
-    <div class="btn-container">
-        <a href="javascript:location.href += '/investment';">我是创始人的朋友，申请投资</a>
-        <p>如果创始人拒绝接受，此投资申请无效</p>
-        <a href="http://m.angelcrunch.com/angel_vip_simple">申请成为天使汇认证投资人</a>
-    </div>
-</div>
-<div id="album" class="album">
+
+
+<!--div id="album" class="album">
     <div class="mg">
         <div class="bar">
             <p id="album-num" class="num"><span>0</span>/<span>0</span></p>
@@ -400,7 +379,9 @@
         <div id="album-item-container" class="item-container">
         </div>
     </div>
-</div>
+</div-->
+
+
 <!--关注 分享 发送意向-->
 <div class="fixed-page-action-occupy"></div>
 <div class="fixed-page-action">

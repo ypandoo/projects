@@ -32,6 +32,7 @@
         timer:0
     };
 
+    /*Notice*/
     this.notification={
         show:function(text,isalert){
             $notice.fadeIn().children('.txt').html(text);
@@ -164,8 +165,8 @@
             self.search.result_name ='';
             view_dom.bk.hide();
             self.sta = false;
-            alert('search');
-            //route.go({type:'search', k:k, p:1, _:new Date().getTime()});
+            //alert('search');
+            view_dom.notification.show('正在搜索..', true);
         }
     };
 
@@ -188,8 +189,7 @@
         $filter = $('#list-filter'),
         $select = $filter.children().children('a'),
         $list = $filter.children('ul'),
-        $win = $(window),
-        hash_data = base_hash_model.get_data();
+        $win = $(window);
 
     this.view_filter={
         show:function(){
@@ -256,45 +256,12 @@
     };
     this.active_offset = 0;
     this.curret_type = 1;
-    this.type_transfer = function (type) {
-        var ret = '闪投项目', t = type || hash_data.type;
-        if (!!t) {
-            switch (t) {
-                case 'com':
-                    ret = '全部项目';
-                    break;
-                case 'ohm':
-                    ret = '一亿美金';
-                    break;
-                case 'ohx':
-                    ret = '百倍成长';
-                    break;
-                default :
-            }
-        }
-        return ret;
-    };
-    this.transfer_type = function (type) {
-        var ret = 'sd', t = type || self.com_active;
-        switch (t) {
-            case '全部项目':
-                ret = 'com';
-                break;
-            case '一亿美金':
-                ret = 'ohm';
-                break;
-            case '百倍成长':
-                ret = 'ohx';
-                break;
-            default :
-        }
-        return ret;
-    };
-    this.com_active = self.type_transfer();
-    this.industry_active = !!hash_data.industry ? hash_data.industry : '全部行业';
-    this.district_active = !!hash_data.district ? hash_data.district : '全部地区';
-    this.sd_state_active = (!!hash_data.state && hash_data.state == 'success')?'完成融资':'正在热投';
-    this.order_active = (!!hash_data.order && hash_data.order == 'heat')?'热度排序':'时间排序';
+
+    /*initialize list select*/
+    this.com_active = '全部等级';
+    this.industry_active = '全部行业';
+    this.district_active = '全部地区';
+    this.order_active = '热度排序';
 
     this.check_active = function(array,k,t){
         self.curret_type = t;
@@ -307,31 +274,25 @@
         return array;
     };
     this.select_action = function(){
-        var hash_data = {};
         base_helper.scroll_to(0);
-        hash_data.type = self.transfer_type();
-        hash_data.industry = self.industry_active == '全部行业'?'':self.industry_active;
-        hash_data.district = self.district_active == '全部地区'?'':self.district_active;
-        if(hash_data.type == 'sd'){
-            hash_data.state = self.sd_state_active == '正在热投'? 'online' : 'success';
-        }
-        else{
-            hash_data.order = self.order_active == '热度排序' ? 'heat' : 'new';
-        }
-        route.jump(hash_data);
+
+        self.industry_active == self.industry_active;
+        self.district_active == self.district_active;
+        self.order_active == self.order_active;
     };
 
     this.industry_list = ["全部行业","电子商务","移动互联网","信息技术","游戏","旅游","教育","金融","社交","娱乐","硬件","能源","医疗健康","餐饮","企业","平台","汽车","数据","房产酒店","文化艺术","体育运动","生物科学","媒体资讯","广告营销","节能环保","消费生活","工具软件","资讯服务","智能设备"];
     this.district_list = ['全部地区','北京','上海','深圳','广州','杭州','南京','西安','成都','苏州','天津','无锡','武汉','重庆','厦门','青岛'];
-    this.page_list     = ['闪投项目','全部项目','一亿美金','百倍成长'];
-    this.sd_state_list = ['正在热投','完成融资'];
+    this.page_list     = ['全部等级','优先等级','一级','二级'];
+    //this.sd_state_list = ['正在热投','完成融资'];
     this.order_list    =  ['热度排序','时间排序'];
+
     this.avalon_filter = avalon.define("list-filter", function (vm) {
-        vm.page_name = '';
-        vm.industry_name = '';
-        vm.district_name = '';
+        vm.page_name = '全部等级';
+        vm.industry_name = '全部行业';
+        vm.district_name = '全部地区';
         vm.sd_state_name = '';
-        vm.order_name = '';
+        vm.order_name = '热度排序';
         vm.list_content= self.page_list.concat();
         vm.list_page=function(){
             self.filter_acitve(0);
@@ -345,17 +306,16 @@
             self.filter_acitve(2);
             self.avalon_filter.list_content=self.check_active(self.district_list.concat(),self.district_active,3);
         };
-        vm.sd_state = function(){
+        /*vm.sd_state = function(){
             self.filter_acitve(3);
             self.avalon_filter.list_content=self.check_active(self.sd_state_list.concat(),self.sd_state_active,4);
-        };
+        };*/
         vm.order = function(){
             self.filter_acitve(4);
             self.avalon_filter.list_content=self.check_active(self.order_list.concat(),self.order_active,5);
         };
         vm.select_this=function(){
-            var val =this.innerHTML,
-                hash = {};
+            var val =this.innerHTML;
             self.select_active();
             base_helper.delay(function(){
                 self.bk.hide();
@@ -383,22 +343,12 @@
         };
 
     });
-    //URL 筛选名称对应
-    this.filter_name_syn = function () {
-        var hash_data_ = base_hash_model.get_data();
-        if (hash_data_.type) {
-            self.avalon_filter.page_name = self.type_transfer(hash_data_.type);
-            self.avalon_filter.industry_name = !!hash_data_.industry ? hash_data_.industry : '全部行业';
-            self.avalon_filter.district_name = !!hash_data_.district ? hash_data_.district : '全部地区';
-            self.avalon_filter.sd_state_name = (!!hash_data_.state && hash_data_.state == 'success') ? '完成融资' : '正在热投';
-            self.avalon_filter.order_name = (!!hash_data_.order && hash_data_.order == 'heat') ? '热度排序' : '时间排序';
-        }
-    };
+
 }).call(define('view_filter'));
 
 
 
-/*//关注项目
+//关注项目
 (function(){
     var self = this,
         $base = $('.project-list'),
@@ -407,29 +357,16 @@
             y:0,
             t:0
         };
-    this.base = function(id,is_follow,call){
-        var api = !!is_follow?config.api.follow:config.api.unfollow;
-        base_remote_data.ajaxjsonp(api, call, {id:id, uid:account_info.id,access_token:account_info.token}, function(){view_dom.notification.show('网络错误');});
-    };
+
     this.follow = function(id,ele){
-        self.base(id,true,function(data){
-            if(data.success){
                 ele.addClass('active');
-            }
-            else{
-                view_dom.notification.show(data.message || '操作失败');
-            }
-        });
+                view_dom.notification.show('关注成功');
+ 
     };
     this.unfollow = function(id,ele){
-        self.base(id,false,function(data){
-            if(data.success){
+
                 ele.removeClass('active');
-            }
-            else{
-                view_dom.notification.show(data.message || '操作失败');
-            }
-        });
+                view_dom.notification.show('取消关注');
     };
     $base.delegate(".follow_star","touchstart",function(e){
         touch.x= e.originalEvent.touches[0].pageX;
@@ -444,4 +381,4 @@
         }
     });
 
-}).call(define('view_follow'));*/
+}).call(define('view_follow'));

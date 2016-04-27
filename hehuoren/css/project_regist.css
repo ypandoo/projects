@@ -548,7 +548,7 @@ label span{
     margin:0;
     line-height: 50px;
     float: left;
-    font-size: 14px;
+    font-size: 12px;
     color: #666;
     display: inline-block;
     position: relative;
@@ -621,7 +621,7 @@ input:focus{
 }
 .page-logo .text h3{
     line-height: 25px;
-    font-size: 14px;
+    font-size: 12px;
 }
 .page-logo .text p{
     font-size: 12px;
@@ -641,11 +641,11 @@ input:focus{
     position: relative;
 }
 .page-name span{
-    width: 23%;
+    width: 40%;
 }
 .page-name input{
     display: inline-block;
-    width: 77%;
+    width: 60%;
     float: right;
     height: 100%;
     background: #f5f5f5;
@@ -667,11 +667,12 @@ input:focus{
     color: #fff;
 }
 .page-name p{
-    line-height: 54px;
+    line-height: 50px;
     float: right;
-    font-size: 14px;
+    font-size: 12px;
     color: #666;
     display: inline-block;
+    position: absolute;
 }
 .page-name em{
     display: inline-block;
@@ -925,14 +926,14 @@ input:focus{
 
 .text_btn
 {
-      font-size: 16px;
+      font-size: 14px;
     line-height: 50px;
     color: white;
 }
 
 .add_new_member_btn
 {
-        font-size: 16px;
+        font-size: 14px;
     line-height: 50px;
     color: white;
     background-color: #504E4E;
@@ -941,4 +942,82 @@ input:focus{
 .flex-height
 {
   height: auto;
+}
+
+/*TITLE CONTROL*/
+.title-control
+{
+    position: relative;
+    height: 60px;
+}
+
+.title-control h1
+{
+    font-size: 16px;
+    line-height: 60px;
+}
+
+.title-control em {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url("../img/arrow_down_white.png") no-repeat 50% 50%;
+    background-size: 30px 30px;
+    position: absolute;
+    top:15px;
+    right: 20px;
+}
+
+a.active
+{
+    background: #505050;
+}
+
+.pic_layer
+{
+    position: relative;
+}
+
+.pic_layer .divide33
+{
+    width: 33.3%;
+    float: left;
+    height: 120px;
+    padding: 15px;
+    position: relative;
+}
+
+.close
+{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-image: url('../img/close.png');
+    background-size: 100% 100%;
+    right: 2px;
+    top: 5px;
+}
+
+.two-buttons
+{
+    width: 100%;
+}
+
+.two-buttons label
+{
+    margin-bottom: 7px;
+}
+
+.two-buttons .left
+{
+    width: 49.9%;
+    border-right: 1px solid #FFF;
+    float: left;
+}
+
+.two-buttons .right
+{
+    width: 50%;
+    border-right: 1px solid #FFF;
+    float: left;
 }

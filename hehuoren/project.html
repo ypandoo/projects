@@ -41,16 +41,23 @@
             <span></span>
             <ul class="hidden-menu"></ul>
         </div>
+
         <div class="search"  ms-controller="search" ms-on-tap="controll_search.start_search()">
             <i></i>
         </div>
 
         <div class="search-list"  ms-controller="search">
-            <div class="top"><div class="border"><i ms-on-tap="controll_search.stop_search(1)"></i><input type="search" autocorrect="off" ms-on-keypress="controll_search.input_search()"></div></div>
-            <div class="list" ms-if="history.length>0">
+            <div class="top">
+                <div class="border">
+                    <i ms-on-tap="controll_search.stop_search(1)"></i>
+                    <input type="search" autocorrect="off" ms-on-keypress="controll_search.input_search()">
+                </div>
+            </div>
+
+            <!--div class="list" ms-if="history.length>0">
                 <a ms-on-tap="controll_search.search_history" ms-repeat="history" ms-text="el"></a>
                 <a ms-on-tap="controll_search.clear_history" class="clearhistory">清除历史记录</a>
-            </div>
+            </div-->
         </div>
     </div>
 
@@ -62,20 +69,22 @@
         <div id="list-filter" class="filter" ms-controller="list-filter">
             <div>
                 <a ms-on-tap="list_page()">
-                    <span>全部行业</span>
+                    <span ms-text="page_name"></span>
                 </a>
                 <a ms-on-tap="list_industry()">
-                    <span>全部地区  </span>
+                    <span ms-text="industry_name"></span>
                 </a>
                 <a ms-on-tap="list_district()">
-                    <span>全部等级</span>
+                    <span ms-text="district_name"></span>
                 </a>
-                <a  ms-on-tap="order()">
-                    <span >时间排序</span>
+                <a ms-on-tap="order()">
+                    <span ms-text="order_name"></span>
                 </a>
             </div>
             <ul>
-                <li ms-repeat="list_content" ms-attr-class="$index == window.view_filter.active_offset?'active':''"><span ms-text="el" ms-on-tap="select_this()"></span></li>
+                <li ms-repeat="list_content" ms-attr-class="$index == window.view_filter.active_offset?'active':''">
+                <span ms-text="el" ms-on-tap="select_this()"></span>
+                </li>
             </ul>
         </div>
     </div>
@@ -96,7 +105,7 @@
         <div class="new-section-list project-list" >
             <a href="">
                 <section>
-                    <div class="follow"><em class="follow_star_active" ></em></div>
+                    <div class="follow"><em class="follow_star" ></em></div>
                     <div class="summary">
                         <div class="logo"><img src="img/project.jpg"></div>
                         <div class="info">

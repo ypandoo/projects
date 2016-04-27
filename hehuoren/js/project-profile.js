@@ -275,3 +275,87 @@
         self.checked?self.unactive():self.active();
     });
 }).call({});*/
+
+/*标题控制*/
+(function(){
+    var self = this;
+    this.avalon_title_control = avalon.define("title-controller", function (vm) {
+         vm.toggle_content=function(id){
+            if ($('#'+id).is(':visible')) 
+            {
+                $('#em_'+id).css("background-image", "url(img/arrow_up_white.png)");  
+                $('#'+id).fadeOut();
+            }
+            else
+            {
+                $('#em_'+id).css("background-image", "url(img/arrow_down_white.png)");  
+                $('#'+id).fadeIn();
+            }
+        };
+    });
+}).call(define('title-space'));
+
+
+//选择阶段 职位
+(function(){
+    var $select1 = $('#select1'),
+        $select2 = $('#select2'),
+        $select3 = $('#select3'),
+        $select4 = $('#select4');
+
+        $select_position1 = $('#select_position1'),
+        $select_position2 = $('#select_position2'),
+        $select_position3 = $('#select_position3'),
+
+        $shop_type = $('#shop_type');
+
+
+    $select1.children('select').change(function(){
+        var t = $(this), v= t.val();
+        t.prev().html(v);
+
+    });
+    $select2.children('select').change(function(){
+        var t = $(this), v= t.val();
+        t.prev().html(v);
+    });
+    $select3.children('select').change(function(){
+        var t = $(this), v= t.val();
+        t.prev().html(v);
+    });
+    $select4.children('select').change(function(){
+        var t = $(this), v= t.val();
+        //if(v != 0)
+            t.prev().html(v);
+    });
+
+    $select_position1.children('select').change(function(){
+        var t = $(this), v= t.val();
+        //if(v != 0)
+            t.prev().html(v);
+    });
+
+    $select_position2.children('select').change(function(){
+        var t = $(this), v= t.val();
+        //if(v != 0)
+            t.prev().html(v);
+    });
+
+    $select_position3.children('select').change(function(){
+        var t = $(this), v= t.val();
+        //if(v != 0)
+            t.prev().html(v);
+    });
+
+
+    $shop_type.children('select').prev().html('新店开设');
+    $shop_type.children('select').change(function(){
+        var t = $(this), v= t.val();
+        $('#new_shop').toggle();
+        $('#old_shop').toggle();
+
+        t.prev().html(v);
+    });
+
+
+}).call(space_select);

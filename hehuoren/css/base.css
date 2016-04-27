@@ -306,6 +306,9 @@ input::-webkit-input-placeholder {
 .submit-new-btn.active{
   background: #333;
 }
+.submit-new-btn.active_orange{
+  background: #FF6464;
+}
 
 .btn.black {
   display:inline-block;
@@ -814,7 +817,7 @@ body.footer-close-bottom .banner-footer {
   position:absolute;
   float:left;
   color:#2170CD;
-  font-size:16px;
+  font-size:14px;
   margin-left:2.4%;
   padding-left:20px;
 }
@@ -1518,4 +1521,9 @@ body.footer-close-bottom .banner-footer {
     background: url("http://dn-acac.qbox.me/mobile/listcopy.png") no-repeat;
     background-size: 11px 11px;
     margin-bottom: -2px;
+}
+/*separator*/
+.separator
+{
+  border-top:1px solid #FFC9C9;
 }
