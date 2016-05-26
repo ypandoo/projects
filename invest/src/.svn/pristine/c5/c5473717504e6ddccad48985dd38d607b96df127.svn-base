@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.FollowSchemeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.FollowSchemeInfo" >
+    <id column="SCHEME_ID" property="schemeId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="PROJECT_RELEASE_DATE" property="projectReleaseDate" />
+    <result column="SUBSCRIBE_START_DATE" property="subscribeStartDate" />
+    <result column="SUBSCRIBE_END_DATE" property="subscribeEndDate" />
+    <result column="PAY_START_DATE" property="payStartDate" />
+    <result column="PAY_END_DATE" property="payEndDate" />
+    <result column="FOLLOW_AMOUNT" property="followAmount" jdbcType="DECIMAL" />
+    <result column="FOLLOW_AMOUNT_DESC" property="followAmountDesc" jdbcType="VARCHAR" />
+    <result column="FUND_PEAKE" property="fundPeake" jdbcType="DECIMAL" />
+    <result column="GROUP_FORCE_AMOUNT" property="groupForceAmount" jdbcType="DECIMAL" />
+    <result column="GROUP_FORCE_RATIO" property="groupForceRatio" jdbcType="DECIMAL" />
+    <result column="COMP_FORCE_RATIO" property="compForceRatio" jdbcType="DECIMAL" />
+    <result column="COMP_FORCE_AMOUNT" property="compForceAmount" jdbcType="DECIMAL" />
+    <result column="COMP_CHOICE_RATIO" property="compChoiceRatio" jdbcType="DECIMAL" />
+    <result column="COMP_CHOICE_AMOUNT" property="compChoiceAmount" jdbcType="DECIMAL" />
+    <result column="LEVERAGE_DES" property="leverageDes" jdbcType="VARCHAR" />
+    <result column="FOLLOW_CHEME_LINK" property="followChemeLink" jdbcType="VARCHAR" />
+    <result column="personAmt" property="personamt" jdbcType="DECIMAL" />
+    <result column="yxpersonAmt" property="yxpersonamt" jdbcType="DECIMAL" />
+    <result column="jtpersonAmt" property="jtpersonamt" jdbcType="DECIMAL" />
+    <result column="SUBSCRIBE_REMIND" property="subscribeRemind" jdbcType="VARCHAR" />
+    <result column="maxAmount" property="maxamount" jdbcType="DECIMAL" />
+    <result column="minAmount" property="minamount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SCHEME_ID, PROJECT_ID, PROJECT_RELEASE_DATE, SUBSCRIBE_START_DATE, SUBSCRIBE_END_DATE, 
+    PAY_START_DATE, PAY_END_DATE, FOLLOW_AMOUNT, FOLLOW_AMOUNT_DESC, FUND_PEAKE, GROUP_FORCE_AMOUNT, 
+    GROUP_FORCE_RATIO, COMP_FORCE_RATIO, COMP_FORCE_AMOUNT, COMP_CHOICE_RATIO, COMP_CHOICE_AMOUNT, 
+    LEVERAGE_DES, FOLLOW_CHEME_LINK, personAmt, yxpersonAmt, jtpersonAmt, SUBSCRIBE_REMIND, 
+    maxAmount, minAmount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from follow_scheme_info
+    where SCHEME_ID = #{schemeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from follow_scheme_info
+    where SCHEME_ID = #{schemeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.FollowSchemeInfo" >
+    insert into follow_scheme_info (SCHEME_ID, PROJECT_ID, PROJECT_RELEASE_DATE, 
+      SUBSCRIBE_START_DATE, SUBSCRIBE_END_DATE, 
+      PAY_START_DATE, PAY_END_DATE, FOLLOW_AMOUNT, 
+      FOLLOW_AMOUNT_DESC, FUND_PEAKE, GROUP_FORCE_AMOUNT, 
+      GROUP_FORCE_RATIO, COMP_FORCE_RATIO, COMP_FORCE_AMOUNT, 
+      COMP_CHOICE_RATIO, COMP_CHOICE_AMOUNT, LEVERAGE_DES, 
+      FOLLOW_CHEME_LINK, personAmt, yxpersonAmt, 
+      jtpersonAmt, SUBSCRIBE_REMIND, maxAmount, 
+      minAmount)
+    values (#{schemeId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{projectReleaseDate}, 
+      #{subscribeStartDate}, #{subscribeEndDate}, 
+      #{payStartDate}, #{payEndDate}, #{followAmount,jdbcType=DECIMAL}, 
+      #{followAmountDesc,jdbcType=VARCHAR}, #{fundPeake,jdbcType=DECIMAL}, #{groupForceAmount,jdbcType=DECIMAL}, 
+      #{groupForceRatio,jdbcType=DECIMAL}, #{compForceRatio,jdbcType=DECIMAL}, #{compForceAmount,jdbcType=DECIMAL}, 
+      #{compChoiceRatio,jdbcType=DECIMAL}, #{compChoiceAmount,jdbcType=DECIMAL}, #{leverageDes,jdbcType=VARCHAR}, 
+      #{followChemeLink,jdbcType=VARCHAR}, #{personamt,jdbcType=DECIMAL}, #{yxpersonamt,jdbcType=DECIMAL}, 
+      #{jtpersonamt,jdbcType=DECIMAL}, #{subscribeRemind,jdbcType=VARCHAR}, #{maxamount,jdbcType=DECIMAL}, 
+      #{minamount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.FollowSchemeInfo" >
+    insert into follow_scheme_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schemeId != null" >
+        SCHEME_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="projectReleaseDate != null" >
+        PROJECT_RELEASE_DATE,
+      </if>
+      <if test="subscribeStartDate != null" >
+        SUBSCRIBE_START_DATE,
+      </if>
+      <if test="subscribeEndDate != null" >
+        SUBSCRIBE_END_DATE,
+      </if>
+      <if test="payStartDate != null" >
+        PAY_START_DATE,
+      </if>
+      <if test="payEndDate != null" >
+        PAY_END_DATE,
+      </if>
+      <if test="followAmount != null" >
+        FOLLOW_AMOUNT,
+      </if>
+      <if test="followAmountDesc != null" >
+        FOLLOW_AMOUNT_DESC,
+      </if>
+      <if test="fundPeake != null" >
+        FUND_PEAKE,
+      </if>
+      <if test="groupForceAmount != null" >
+        GROUP_FORCE_AMOUNT,
+      </if>
+      <if test="groupForceRatio != null" >
+        GROUP_FORCE_RATIO,
+      </if>
+      <if test="compForceRatio != null" >
+        COMP_FORCE_RATIO,
+      </if>
+      <if test="compForceAmount != null" >
+        COMP_FORCE_AMOUNT,
+      </if>
+      <if test="compChoiceRatio != null" >
+        COMP_CHOICE_RATIO,
+      </if>
+      <if test="compChoiceAmount != null" >
+        COMP_CHOICE_AMOUNT,
+      </if>
+      <if test="leverageDes != null" >
+        LEVERAGE_DES,
+      </if>
+      <if test="followChemeLink != null" >
+        FOLLOW_CHEME_LINK,
+      </if>
+      <if test="personamt != null" >
+        personAmt,
+      </if>
+      <if test="yxpersonamt != null" >
+        yxpersonAmt,
+      </if>
+      <if test="jtpersonamt != null" >
+        jtpersonAmt,
+      </if>
+      <if test="subscribeRemind != null" >
+        SUBSCRIBE_REMIND,
+      </if>
+      <if test="maxamount != null" >
+        maxAmount,
+      </if>
+      <if test="minamount != null" >
+        minAmount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schemeId != null" >
+        #{schemeId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectReleaseDate != null" >
+        #{projectReleaseDate},
+      </if>
+      <if test="subscribeStartDate != null" >
+        #{subscribeStartDate},
+      </if>
+      <if test="subscribeEndDate != null" >
+        #{subscribeEndDate},
+      </if>
+      <if test="payStartDate != null" >
+        #{payStartDate},
+      </if>
+      <if test="payEndDate != null" >
+        #{payEndDate},
+      </if>
+      <if test="followAmount != null" >
+        #{followAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="followAmountDesc != null" >
+        #{followAmountDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fundPeake != null" >
+        #{fundPeake,jdbcType=DECIMAL},
+      </if>
+      <if test="groupForceAmount != null" >
+        #{groupForceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="groupForceRatio != null" >
+        #{groupForceRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="compForceRatio != null" >
+        #{compForceRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="compForceAmount != null" >
+        #{compForceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="compChoiceRatio != null" >
+        #{compChoiceRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="compChoiceAmount != null" >
+        #{compChoiceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="leverageDes != null" >
+        #{leverageDes,jdbcType=VARCHAR},
+      </if>
+      <if test="followChemeLink != null" >
+        #{followChemeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="personamt != null" >
+        #{personamt,jdbcType=DECIMAL},
+      </if>
+      <if test="yxpersonamt != null" >
+        #{yxpersonamt,jdbcType=DECIMAL},
+      </if>
+      <if test="jtpersonamt != null" >
+        #{jtpersonamt,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeRemind != null" >
+        #{subscribeRemind,jdbcType=VARCHAR},
+      </if>
+      <if test="maxamount != null" >
+        #{maxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="minamount != null" >
+        #{minamount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.FollowSchemeInfo" >
+    update follow_scheme_info
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectReleaseDate != null" >
+        PROJECT_RELEASE_DATE = #{projectReleaseDate},
+      </if>
+      <if test="subscribeStartDate != null" >
+        SUBSCRIBE_START_DATE = #{subscribeStartDate},
+      </if>
+      <if test="subscribeEndDate != null" >
+        SUBSCRIBE_END_DATE = #{subscribeEndDate},
+      </if>
+      <if test="payStartDate != null" >
+        PAY_START_DATE = #{payStartDate},
+      </if>
+      <if test="payEndDate != null" >
+        PAY_END_DATE = #{payEndDate},
+      </if>
+      <if test="followAmount != null" >
+        FOLLOW_AMOUNT = #{followAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="followAmountDesc != null" >
+        FOLLOW_AMOUNT_DESC = #{followAmountDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fundPeake != null" >
+        FUND_PEAKE = #{fundPeake,jdbcType=DECIMAL},
+      </if>
+      <if test="groupForceAmount != null" >
+        GROUP_FORCE_AMOUNT = #{groupForceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="groupForceRatio != null" >
+        GROUP_FORCE_RATIO = #{groupForceRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="compForceRatio != null" >
+        COMP_FORCE_RATIO = #{compForceRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="compForceAmount != null" >
+        COMP_FORCE_AMOUNT = #{compForceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="compChoiceRatio != null" >
+        COMP_CHOICE_RATIO = #{compChoiceRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="compChoiceAmount != null" >
+        COMP_CHOICE_AMOUNT = #{compChoiceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="leverageDes != null" >
+        LEVERAGE_DES = #{leverageDes,jdbcType=VARCHAR},
+      </if>
+      <if test="followChemeLink != null" >
+        FOLLOW_CHEME_LINK = #{followChemeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="personamt != null" >
+        personAmt = #{personamt,jdbcType=DECIMAL},
+      </if>
+      <if test="yxpersonamt != null" >
+        yxpersonAmt = #{yxpersonamt,jdbcType=DECIMAL},
+      </if>
+      <if test="jtpersonamt != null" >
+        jtpersonAmt = #{jtpersonamt,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeRemind != null" >
+        SUBSCRIBE_REMIND = #{subscribeRemind,jdbcType=VARCHAR},
+      </if>
+      <if test="maxamount != null" >
+        maxAmount = #{maxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="minamount != null" >
+        minAmount = #{minamount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SCHEME_ID = #{schemeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.FollowSchemeInfo" >
+    update follow_scheme_info
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      PROJECT_RELEASE_DATE = #{projectReleaseDate},
+      SUBSCRIBE_START_DATE = #{subscribeStartDate},
+      SUBSCRIBE_END_DATE = #{subscribeEndDate},
+      PAY_START_DATE = #{payStartDate},
+      PAY_END_DATE = #{payEndDate},
+      FOLLOW_AMOUNT = #{followAmount,jdbcType=DECIMAL},
+      FOLLOW_AMOUNT_DESC = #{followAmountDesc,jdbcType=VARCHAR},
+      FUND_PEAKE = #{fundPeake,jdbcType=DECIMAL},
+      GROUP_FORCE_AMOUNT = #{groupForceAmount,jdbcType=DECIMAL},
+      GROUP_FORCE_RATIO = #{groupForceRatio,jdbcType=DECIMAL},
+      COMP_FORCE_RATIO = #{compForceRatio,jdbcType=DECIMAL},
+      COMP_FORCE_AMOUNT = #{compForceAmount,jdbcType=DECIMAL},
+      COMP_CHOICE_RATIO = #{compChoiceRatio,jdbcType=DECIMAL},
+      COMP_CHOICE_AMOUNT = #{compChoiceAmount,jdbcType=DECIMAL},
+      LEVERAGE_DES = #{leverageDes,jdbcType=VARCHAR},
+      FOLLOW_CHEME_LINK = #{followChemeLink,jdbcType=VARCHAR},
+      personAmt = #{personamt,jdbcType=DECIMAL},
+      yxpersonAmt = #{yxpersonamt,jdbcType=DECIMAL},
+      jtpersonAmt = #{jtpersonamt,jdbcType=DECIMAL},
+      SUBSCRIBE_REMIND = #{subscribeRemind,jdbcType=VARCHAR},
+      maxAmount = #{maxamount,jdbcType=DECIMAL},
+      minAmount = #{minamount,jdbcType=DECIMAL}
+    where SCHEME_ID = #{schemeId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from follow_scheme_info
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteRelateByProject" parameterType="java.lang.String" >
+    delete from follow_scheme_info
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

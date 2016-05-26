@@ -1,0 +1,155 @@
+package com.gxcz.xuhui.investment.service.impl;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gxcz.xuhui.investment.dao.FollowSchemeInfoMapper;
+import com.gxcz.xuhui.investment.dao.ForceFollowInfoMapper;
+import com.gxcz.xuhui.investment.dao.ProjectBasicInfoMapper;
+import com.gxcz.xuhui.investment.dao.SubscribeInfoMapper;
+import com.gxcz.xuhui.investment.dao.UserProjectRelateMapper;
+import com.gxcz.xuhui.investment.model.ProjectBasicInfo;
+import com.gxcz.xuhui.investment.model.UserProjectRelate;
+import com.gxcz.xuhui.investment.model.dto.ProjectBasicInfoDTO;
+import com.gxcz.xuhui.investment.model.dto.UserInfoDTO;
+import com.gxcz.xuhui.investment.model.dto.UserProjectRelateDTO;
+
+@Service("userProjectRelateService")
+public class UserProjectRelateService implements IUserProjectRelateService {
+	private UserProjectRelateMapper userProjectRelateMapper=null;
+	private SubscribeInfoMapper subscribeInfoMapper=null;
+	private ForceFollowInfoMapper forceFollowInfoMapper=null;
+	private FollowSchemeInfoMapper followSchemeInfoMapper=null;
+	private ProjectBasicInfoMapper projectBasicInfoMapper=null;
+	 
+	
+	public SubscribeInfoMapper getSubscribeInfoMapper() {
+		return subscribeInfoMapper;
+	}
+	@Autowired
+	public void setSubscribeInfoMapper(SubscribeInfoMapper subscribeInfoMapper) {
+		this.subscribeInfoMapper = subscribeInfoMapper;
+	}
+	public ForceFollowInfoMapper getForceFollowInfoMapper() {
+		return forceFollowInfoMapper;
+	}
+	@Autowired
+	public void setForceFollowInfoMapper(ForceFollowInfoMapper forceFollowInfoMapper) {
+		this.forceFollowInfoMapper = forceFollowInfoMapper;
+	}
+	public FollowSchemeInfoMapper getFollowSchemeInfoMapper() {
+		return followSchemeInfoMapper;
+	}
+	@Autowired
+	public void setFollowSchemeInfoMapper(FollowSchemeInfoMapper followSchemeInfoMapper) {
+		this.followSchemeInfoMapper = followSchemeInfoMapper;
+	}
+	public ProjectBasicInfoMapper getProjectBasicInfoMapper() {
+		return projectBasicInfoMapper;
+	}
+	@Autowired
+	public void setProjectBasicInfoMapper(ProjectBasicInfoMapper projectBasicInfoMapper) {
+		this.projectBasicInfoMapper = projectBasicInfoMapper;
+	}
+	public UserProjectRelateMapper getUserProjectRelateMapper() {
+		return userProjectRelateMapper;
+	}
+	@Autowired
+	public void setUserProjectRelateMapper(UserProjectRelateMapper userProjectRelateMapper) {
+		this.userProjectRelateMapper = userProjectRelateMapper;
+	}
+
+	@Override
+	public int insert(UserProjectRelate record) {
+		return userProjectRelateMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(UserProjectRelate record) {
+		return userProjectRelateMapper.insertSelective(record);
+	}
+
+	/***
+	 * 根据用户查询自己所属的项目
+	 */
+	@Override
+	public List<UserProjectRelateDTO> getUserProjectList(UserProjectRelateDTO userProjectRelateDTO) {
+		return userProjectRelateMapper.getUserProjectList(userProjectRelateDTO);
+	}
+	@Override
+	public int deleteRelateByProject(String projectId) {
+		//删除关系，删除项目关联的表
+		userProjectRelateMapper.deleteRelateByProject(projectId);
+		subscribeInfoMapper.deleteRelateByProject(projectId);
+		forceFollowInfoMapper.deleteRelateByProject(projectId);
+		followSchemeInfoMapper.deleteRelateByProject(projectId);
+		int reuslt=projectBasicInfoMapper.deleteByPrimaryKey(projectId);
+		return reuslt;
+	}
+	@Override
+	public int saveUserProject(UserProjectRelateDTO record) {
+		ProjectBasicInfo projectBasic=new ProjectBasicInfo();
+		String projectId=UUID.randomUUID().toString();
+		projectBasic.setProjectId(projectId);
+		projectBasic.setProjectName(record.getProjectName());
+		projectBasic.setProjectarea(record.getProjectArea());
+		
+		UserProjectRelate userProject=new UserProjectRelate();
+		userProject.setUid(record.getUid());
+		userProject.setProjectId(projectId);
+		userProject.setType("3");
+		userProject.setPermissionFlag("111111");
+		userProject.setUserprojRelateId(UUID.randomUUID().toString());
+		projectBasicInfoMapper.insert(projectBasic);
+		int result=insert(userProject);
+		UserProjectRelate squserProject=new UserProjectRelate();
+		squserProject.setUid(record.getUid());
+		squserProject.setProjectId(projectId);
+		squserProject.setType("2");//授权
+		squserProject.setPermissionFlag("111111");
+		squserProject.setUserprojRelateId(UUID.randomUUID().toString());
+		result=insert(squserProject);
+		return result;
+	}
+	//查询项目对应的用户
+	@Override
+	public List<UserInfoDTO> getUserByProject(String projectId) {
+		return userProjectRelateMapper.getUserByProject(projectId);
+	}
+	@Override
+	public int deleteRelateByUserProject(UserProjectRelateDTO userProjectRelateDTO) {
+		return userProjectRelateMapper.deleteRelateByUserProject(userProjectRelateDTO);
+	}
+
+ 
+	//批量新增
+	@Override
+	public int insertRelateList(List list) {
+		return userProjectRelateMapper.insertRelateList(list);
+	}
+
+	//批量删除
+	@Override
+	public int deleteRelateList(List list) {
+		return userProjectRelateMapper.deleteRelateList(list);
+	}
+	
+	//批量修改
+		@Override
+		public int updateRelateList(List list) {
+			return userProjectRelateMapper.updateRelateList(list);
+		}
+		
+		@Override
+		public List<UserInfoDTO> getUserRelateByProject(ProjectBasicInfoDTO ProjectInfoDto) {
+			// TODO Auto-generated method stub
+			return userProjectRelateMapper.getUserRelateByProject(ProjectInfoDto);
+		}
+		@Override
+		public List<UserInfoDTO> getRelateByUserId(UserProjectRelateDTO userProjectRelateDTO) {
+			return userProjectRelateMapper.getRelateByUserId(userProjectRelateDTO);
+		}
+}

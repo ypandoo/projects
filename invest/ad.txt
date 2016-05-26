@@ -1,0 +1,6 @@
+$user = "ldapuser"; 
+$pswd = "CIFILdapuserRead"; 
+
+ad域使用链接
+http://stackoverflow.com/questions/16864306/fatal-error-call-to-undefined-function-ldap-connect
+http://blog.csdn.net/secondjanuary/article/details/8979686

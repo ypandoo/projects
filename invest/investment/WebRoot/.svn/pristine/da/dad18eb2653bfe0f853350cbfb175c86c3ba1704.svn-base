@@ -1,0 +1,10 @@
+#contentFrame{min-height: 450px;border: 1px solid #e8e8e8;border-radius: 3px;margin: 10px auto;overflow: hidden;}
+#contentFrame #titleTab{height: 40px;border-bottom: 1px solid #e8e8e8;padding: 0px 10px;display: inline-block;width: 100%;}
+#contentFrame #titleTab .tabSTY{height: 30px;line-height: 30px;margin: 11px 10px 0px 5px;padding: 0px 15px;
+	float: left;cursor: pointer;border-left: 1px solid #FFF;border-right: 1px solid #FFF;}
+#contentFrame #titleTab .focusOn{background: url(./../images/tab.png);border-left: 1px solid #e8e8e8;
+	border-right: 1px solid #e8e8e8;color: #FF2608;font-weight: 600;}
+
+#contentFrame .info_STY{height: 430px;overflow-y: auto;}
+#contentFrame pre{line-height: 20px;padding: 10px 20px;}
+#contentFrame #law_info div{padding:5px 0px 10px 30px;}

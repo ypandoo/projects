@@ -1,0 +1,285 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>项目详细</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="css/public.css">
+<link rel="stylesheet" type="text/css" href="css/header.css">
+<link rel="stylesheet" type="text/css" href="css/projectDetail.css">
+<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../plugins/jquery.json-2.4.js"></script>
+<script type="text/javascript" src="../plugins/dateFormat.js"></script>
+<script type="text/javascript" src="../plugins/util.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/projectDetail.js"></script>
+</head>
+<body>
+<jsp:include page="header.jsp"></jsp:include>
+<div id="contentLayer">
+	<div id="naviTitle">
+		<a href="index.jsp">首页</a> ><a href="projectList.jsp">项目信息查看 </a> > <a id="naviProName" href="#">合肥高新项目</a>
+	</div>
+	<div id="contentFrame">
+		<div id="titleTab">
+			<div anchor="basic" class="tabSTY focusOn">项目基础信息</div>
+			<div anchor="scheme" class="tabSTY">跟投计划</div>
+			<div anchor="danger" class="tabSTY">风险提示</div>
+			<div anchor="protocal" class="tabSTY">跟投协议</div>
+			<div anchor="force" class="tabSTY">强制跟投人员</div>
+			<div anchor="news" class="tabSTY">项目动态新闻</div>
+		</div>
+		<div id="basic_info" class="info_STY">
+			<div class="moduleTitle" ind="0_0">
+				<img src="./images/arrow_down.png" width="13" height="13" />基础信息
+			</div>
+			<div id="0_0" class="content">
+				<div class="titleSTY">项目体量</div>
+				<table border="1"><tr>
+					<td class="titleTd">占地面积</td>
+					<td width="300" id="floorArea">9.8万平方米</td>
+					<td class="titleTd">计容面积</td>
+					<td id="structArea">4.4万平方米</td>
+				</tr><tr>
+					<td class="titleTd">容积率</td>
+					<td id="plotArea"></td>
+					<td class="titleTd">可销售的计容建面</td>
+					<td id="saleStructArea"></td>
+				</tr></table>
+				<div class="titleSTY">拿地情况</div>
+				<table border="1"><tr>
+					<td class="titleTd">土地获取时间</td>
+					<td width="300" id="groundInp"></td>
+					<td class="titleTd">地价总额</td>
+					<td id="groundAmount"></td>
+				</tr><tr>
+					<td class="titleTd">获取方式</td>
+					<td id="groundType"></td>
+					<td class="titleTd">楼面地价</td>
+					<td id="buildareaprice"></td>
+				</tr><tr>
+					<td class="titleTd">项目区位</td>
+					<td colspan="3" class="richTd" id="groundPosition"></td>
+				</tr><tr>
+					<td class="titleTd">产品定位</td>
+					<td colspan="3" class="richTd" id="groundPositioning"></td>
+				</tr><tr>
+					<td class="titleTd">规划方案</td>
+					<td colspan="3" class="richTd" id="groundPlanning"></td>
+				</tr></table>
+			</div>
+			<div class="moduleTitle" ind="0_1">
+				<img src="./images/arrow_up.png" width="13" height="13" />经营计划
+			</div>
+			<div id="0_1" class="content" style="display:block;">
+				<div class="titleSTY">预计销售计划</div>
+				<table border="1"><tr>
+					<td class="titleTd">项目均价</td>
+					<td width="300" id="planFold"></td>
+					<td class="titleTd">持有型物业租金水平</td>
+					<td id="planRent"></td>
+				</tr></table>
+				<div class="titleSTY">预计回报水平</div>
+				<table border="1"><tr>
+					<td class="titleTd">项目IRR</td>
+					<td width="300" id="planIrr"></td>
+					<td class="titleTd">预计销售毛利率</td>
+					<td id="planGrossMargin"></td>
+				</tr><tr class="displayNone">
+					<td class="titleTd">跟投MOIC(税前)</td>
+					<td width="300" id="planMoic"></td>
+					<td class="titleTd"></td>
+					<td></td>
+				</tr></table>
+				<div class="titleSTY">预计运营开发计划</div>
+				<table border="1"><tr>
+					<td class="titleTd">开工时间</td>
+					<td width="300" id="stageStartInp"></td>
+					<td class="titleTd">开盘时间</td>
+					<td id="stageOpenInp"></td>
+				</tr><tr>
+					<!-- <td class="titleTd">资金峰值时间</td>
+					<td id="peakInp"></td> -->
+					<!-- <td class="titleTd">现金流回正时间</td>
+					<td id="cashflowReturnInp"></td> -->
+					<td class="titleTd">现金流回正时间</td>
+					<td id="returnDateInp"></td>
+					<td class="titleTd">交付时间</td>
+					<td id="deliverInp"></td>
+				</tr><tr>
+					<td class="titleTd">结转时间</td>
+					<td id="carryoverInp"></td>
+					<td class="titleTd">清算时间</td>
+					<td colspan="3" id="liquidateInp"></td>
+				</tr><tr>
+					<td class="titleTd">持有物业处理方案</td>
+					<td colspan="3" class="richTd" id="planPropertyScheme"></td>
+				</tr><tr class="displayNone">
+					<td class="titleTd">财务测算文件</td>
+					<td colspan="3" class="richTd" id="planFinanceCalculate"></td>
+				</tr></table>
+			</div>
+			<div class="moduleTitle" ind="0_2">
+				<img src="./images/arrow_up.png" width="13" height="13" />合作信息
+			</div>
+			<div id="0_2" class="content" style="display:block;">
+				<div class="titleSTY">预计回报水平</div>
+				<table border="1"><tr>
+					<td class="titleTd">合作方背景和资质</td>
+					<td colspan="3" class="richTd" id="corpPartnerBackground"></td>
+				</tr><tr>
+					<td class="titleTd">项目出资比例</td>
+					<td colspan="3" id="corpContributiveRatio"></td>
+				</tr><tr class="displayNone">
+					<td class="titleTd">董事会组成</td>
+					<td colspan="3" class="richTd" id="corpBoardMember"></td>
+				</tr><tr class="displayNone">
+					<td class="titleTd">项目公司股东会及董事会表决比例和表决规则</td>
+					<td colspan="3" class="richTd" id="corpVoteRule"></td>
+				</tr></table>
+			</div>
+			<div class="moduleTitle" ind="0_3">
+				<img src="./images/arrow_up.png" width="13" height="13" />其他信息
+			</div>
+			<div id="0_3" class="content" style="display:block;">
+				<table border="1"><tr>
+					<td class="titleTd">答疑邮箱</td>
+					<td colspan="3" id="restAnswerMail"></td>
+				</tr><!-- <tr>
+					<td class="titleTd">答疑讨论区链接</td>
+					<td colspan="3" id="restAnswerLink"></td>
+				</tr> --><tr>
+					<td class="titleTd">项目信息管理员</td>
+					<td colspan="3" class="richTd" id="restProjectManagers"></td>
+				</tr><tr>
+					<td class="titleTd">项目跟投管理员</td>
+					<td colspan="3" class="richTd" id="restFollowerManagers"></td>
+				</tr></table>
+			</div>
+			<div class="moduleTitle" ind="0_4" style="display:none;">
+				<img src="./images/arrow_up.png" width="13" height="13" />相关图片
+			</div>
+			<div id="0_4" class="content" style="display:none;">
+				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
+				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
+				<div class="picSTY"><img src="./images/254_142.png" width="254" height="142"></div>
+			</div>
+		</div>
+		<div id="scheme_info" class="info_STY" style="display:none;">
+			<div class="content">
+				<div class="titleSTY" class="displayNone">跟投计划安排</div>
+				<table border="1"><tr>
+					<td class="titleTd">认购开始时间</td>
+					<td width="300" id="subscribeStartInp"></td>
+					<td class="titleTd">认购结束时间</td>
+					<td id="subscribeEndtInp"></td>
+				</tr><tr>
+					<td class="titleTd">付款开始时间</td>
+					<td id="payStartInp"></td>
+					<td class="titleTd">付款结束时间</td>
+					<td id="payEndInp"></td>
+				</tr><tr>
+					<td class="titleTd">资金峰值</td>
+					<td id="fundPeake"></td>
+					<td class="titleTd">可跟投总额(含杠杆)</td>
+					<td id="followAmount"></td>
+				</tr><!-- <tr>
+					<td class="titleTd">可跟投总额包括</td>
+					<td colspan="3" class="richTd" id="followAmountDesc"></td>
+				</tr> --><tr>
+					<td class="titleTd">集团强投包比例</td>
+					<td id="groupForceRatio"></td>
+					<td class="titleTd">集团强投包总额</td>
+					<td id="groupForceAmount"></td>
+				</tr><tr>
+					<td class="titleTd">城市公司强投包比例</td>
+					<td id="compForceRatio"></td>
+					<td class="titleTd">城市公司强投包总额</td>
+					<td id="compForceAmount"></td>
+				</tr><tr>
+					<td class="titleTd">选投包比例(无杠杆)</td>
+					<td id="compChoiceRatio"></td>
+					<td class="titleTd">选投包总额(无杠杆)</td>
+					<td id="compChoiceAmount"></td>
+				</tr><tr>
+					<td class="titleTd">杠杆认购说明</td>
+					<td colspan="3" class="richTd" id="leverageDes"></td>
+				</tr><tr>
+					<td class="titleTd">项目跟投小组</td>
+					<td colspan="3" class="richTd"><textarea id="followAmountDesc" style="height:100%;width:100%;resize:none;border:none;outline:none;" readonly></textarea></td>
+				</tr><tr>
+					<td class="titleTd">募集方式</td><!-- "认购提醒"字段变更为"募集方式" -->
+					<td colspan="3" class="richTd" id="subscribeRemind"></td>
+				</tr><tr>
+					<td class="titleTd">跟投方案</td>
+					<td colspan="3" class="richTd" id="followChemeLink"></td>
+				</tr></table>
+			</div>
+		</div>
+		<div id="danger_info" class="info_STY" style="display:none;">
+			<pre>
+
+1.跟投项目属于长期投资、股权而非债券投资，需与其他投资人共担风险，且投资回报具有波动性、不确定型。
+2.根据不同的项目，跟投人员短期内的现金回流情况不同。
+3.不同的城市公司、跟投项目的投资收益不具有可比性，同一城市公司或团队的不同跟投项目的投资收益也不具有可比性，只能对跟投项目的经营结果做出预测，但无法保证。
+4.跟投人员并非项目公司的直接股东或投资人，作为间接投资人，无权控制或参与项目运营，跟投人员须依赖有限合伙企业或代持人来执行项目层面的监督或建议。
+5.项目开发运作期内，不可转让、赎回跟投份额，跟投人无法在项目本金分配、分红前实现投资变现。
+6.跟投员工中途离职不影响其已购份额的本金收回与利润分配，其本金与利润分配均需满足本制度规定的分配条件以及项目公司合作约定条件等。
+7.项目不利因素提示：
+  7.1受当地预售款资金监管政策影响，可能存在因资金使用受限导致无法及时分配资金的风险。
+  7.2受当地税务政策影响，可能存在项目实际税负率波动以及项目清算时间的风险。
+  7.3操盘团队面临来自行业的竞争，跟投项目的经营结果可能会在一定程度上受到竞争因素的影响，项目管理团队可以针对市场变化采取合理的经营措施。
+			</pre>
+		</div>
+		<div id="protocal_info" class="info_STY" style="display:none;">
+			<div>协议下载地址：<a id="protocalDown" href="javascript:void(0)">合肥高新项目跟投协议内容.docx</a></div>
+		</div>
+		<div id="force_info" class="info_STY" style="display:none;">
+			<br><div class="titleSTY">强制跟投人员名单</div>
+			<table border="1"><thead><tr>
+				<td rowspan="2" width="50">序号</td>
+				<td rowspan="2" width="90">姓名</td>
+				<td rowspan="2" width="150">认购类型</td> <!-- "所属公司"字段名改为：认购类型 -->
+				<td rowspan="2" width="150">部门</td>
+				<td rowspan="2" width="150">职务</td>
+				<td colspan="2" height="17">个人额度范围</td>
+				<td rowspan="2">备注</td>
+			</tr><tr>
+				<td width="150">下限(万元)</td>
+				<td width="150" height="17">上限(万元)</td>
+			</tr></thead>
+			<tbody id="forceTbody">
+				<!-- <tr>
+					<td height="30">1</td>
+					<td>张三</td>
+					<td>集团</td>
+					<td>集团高管</td>
+					<td>执行副总裁</td>
+					<td>10,000</td>
+					<td>22,000</td>
+					<td></td>
+				</tr> -->
+			</tbody></table>
+		</div>
+		<div id="news_info" class="info_STY" style="display:none;">
+			<br><table border="1"><thead><tr>
+				<td width="50" height="34">序号</td>
+				<td width="650">标题</td>
+				<td width="200">创建时间</td>
+				<td>作者</td>
+			</tr></thead>
+			<tbody id="newsTbody">
+				<!-- <tr>
+					<td height="30">1</td>
+					<td>合肥高新项目付款对账完成公示</td>
+					<td>2014-09-01</td>
+					<td>李四</td>
+				</tr> -->
+			</tbody></table>
+		</div>
+	</div>
+</div>
+<div id="footer">旭辉集团股份有限公司</div>
+</body>
+</html>

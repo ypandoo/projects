@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+
+<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="http://im.kdweibo.com/pub/js/qingjs.js"></script>
+<script type="text/javascript" src="../plugins/util.js"></script>
+
+<style type="text/css">
+</style>
+<script type="text/javascript">
+var url = "index.jsp";
+var accountName = "";
+var openid = "";
+$(function(){
+	$(function(){
+		XuntongJSBridge.call('hideOptionMenu');//隐藏右上角按钮
+	});
+	url = getReqParam("url") || "index.jsp";
+	getPersonInfo();
+});
+function getPersonInfo(){
+	var _flag = false;
+	if(XuntongJSBridge){
+		XuntongJSBridge.call('getPersonInfo',{},function(result){
+			// 云之家调试模式
+			_flag = true;
+			// alert("用户数据："+JSON.stringify(result));
+			var js = $.parseJSON(JSON.stringify(result));
+			if(js.success || js.success == "true"){
+				//if(js.data.email){
+					if(js.data.name){
+					//var arr = js.data.email.split("@");
+					accountName =js.data.name;
+					//alert(accountName);
+					loginForApp();
+				}
+			}else{
+			//	accountName = getReqParam("openid") || "admin";
+				//accountName = getReqParam("openid") 
+				//loginForApp();
+				alert("云之家用户问题，请联系集团信息中心！");
+			}
+		});
+	}
+	if(!_flag){
+		// 浏览器调试模式
+		accountName = getReqParam("openid") || "admin";
+		loginForApp();
+	}
+}
+function loginForApp(){
+	debugger;
+	$.ajax({
+		type:'post',//可选get
+		url:'../userController/loginForApp2.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		cache:false,
+		data:{
+			"loginId":accountName
+		},
+		success:function(msg){
+			if(msg.success){
+				// alert("登录成功");
+				location.href = url;
+			}else{
+				//alert("登录失败，无相关权限!");
+				//alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+			//alert("登录失败，无相关权限!");
+		}
+	})
+}
+</script>
+</head>
+<body>
+</body>
+</html>

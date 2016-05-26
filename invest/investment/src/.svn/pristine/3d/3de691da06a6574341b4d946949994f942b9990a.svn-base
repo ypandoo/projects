@@ -1,0 +1,36 @@
+package com.gxcz.xuhui.investment.service;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import com.gxcz.xuhui.investment.model.CompleteSubscribeRecord;
+import com.gxcz.xuhui.investment.model.SubscribeInfo;
+import com.gxcz.xuhui.investment.model.SubscribeSummaryInfo;
+import com.gxcz.xuhui.investment.model.dto.CompleteSubscribeRecordDTO;
+import com.gxcz.xuhui.investment.model.dto.QueryParamDTO;
+
+public interface ICompleteSubscribeRecordService {
+	
+	int insert(CompleteSubscribeRecord csr);
+	
+	int confirm(String csrid,BigDecimal confirmAmt,BigDecimal leveageAmt);
+	
+	int adjust(String csrid,BigDecimal subscribeAmt,BigDecimal leveageAmt);
+	
+	int deleteByPrimaryKey(String csrId);
+	
+	List<CompleteSubscribeRecordDTO> queryAllUnCompleteRecord(QueryParamDTO queryDto);
+	
+	SubscribeSummaryInfo getSubscribeSummary();
+	
+	SubscribeSummaryInfo getSubscribeSummaryByUserId(String uid);
+	
+	SubscribeSummaryInfo getSubscribeSummaryByProjectId(String projectId);
+
+	List<CompleteSubscribeRecordDTO> getSubscribeByList(List subscribeIdList);
+
+	int updateBatch(List<CompleteSubscribeRecord> list);
+	
+	int updateByPrimaryKeySelective(CompleteSubscribeRecord record);
+	
+}

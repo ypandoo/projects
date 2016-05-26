@@ -1,0 +1,201 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>数据维护系统 - 缴款确认列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../plugins/pagination.css" />
+<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../plugins/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../plugins/jquery.pagination.js"></script>
+<script type="text/javascript" src="../plugins/ajaxfileupload.js"></script>
+
+<style type="text/css">
+body{font-size: 12px;}
+#rightLayer #searchLayer{text-align: right;margin:0px auto 10px;position: relative;}
+#rightLayer #searchLayer .btnSTY{float: left;margin: 10px 5px 0px;}
+#rightLayer #searchLayer input{width: 200px;height: 25px;padding:0px 5px;}
+#rightLayer #searchLayer .dateSTY{width: 100px;}
+
+#rightLayer #payInTable{border: 1px solid #e8e8e8;border-spacing: 1px;border-collapse: collapse;font-size: 1em;}
+#rightLayer #payInTable thead{background: url(images/thead_bg.png);}
+#rightLayer #payInTable td{text-align: center;border: 1px solid #e8e8e8;}
+#rightLayer #payInTable input{width: 60px;height: 25px;}
+</style>
+<script type="text/javascript">
+var payInList = null;
+$(function(){
+	initPayInParams();
+	initPayInListeners();
+	initPayInPages();
+});
+function initPayInParams(){
+	// PayInDetailController
+	payInList = [];
+}
+function initPayInListeners(){
+	$("#searTextBtn").click(getPayInList);
+
+	// 导出缴款模板
+	$("#rightLayer #exportSubBtn").click(function(){
+		location.href = "../subscribe/callSubscribeRecordByPI.action?projectId="+projectId;
+	});
+	// 导入缴款数据
+	$("#rightLayer #importBtn").click(function(){
+		$("#piFileUp").click();
+	});
+	// 导出缴款数据
+	$("#rightLayer #exportBonusBtn").click(function(){
+		location.href = "../PayInDetailController/callPayInExport.action?projectId="+projectId+"&piIds=";
+	});
+	// 删除单条数据
+	$("#payInTbody .delBtn").live("click", delPayInFunc);
+
+	$("#piFileUp").live("change", importPIFunc); 
+}
+function initPayInPages() {
+	getPayInList();
+}
+function getPayInList(){
+	var _sDate = $("#sDateInp").val();
+	var _eDate = $("#eDateInp").val();
+	var _searText = $("#searTextInp").val();
+	var _obj = '{"projectId":"'+projectId+'",'+
+			// '"projectName":"'+_searText+'",'+
+			// '"startDate":'+_sDate+','+
+			// '"endDate":'+_eDate+','+
+			// '"piId":"",'+
+			// '"piTimes":0,'+
+			// '"subscribeAmt":0,'+
+			// '"piDate":"",'+
+			// '"piAmt":0,'+
+			// '"numberCode":"",'+
+			'"uname":"'+_searText+'",'+
+			// '"userId":""'+
+			'"startPage":"'+0+'",'+
+			'"endPage":"'+999+'"'+
+			'}';
+	$.ajax({
+		type:'post',//可选get
+		url:'../PayInDetailController/selectListByDetail.action',
+		contentType: "application/json; charset=utf-8",
+		dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:_obj,
+		success:function(msg){
+			if(msg.success){
+				payInList = msg.dataDto;
+				loadPayInList();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+function loadPayInList(){
+	$("#payInTbody").empty();
+	if(payInList){
+		var tempHtml = "";
+		$.each(payInList, function(ind,val){
+			tempHtml += '<tr><td height="35">'+(ind+1)+'</td>'+
+				'<td>'+val.uname+'</td>'+
+				'<td>'+(val.service||"")+'</td>'+
+				'<td>'+val.subType+'</td>'+
+				'<td>'+formatMillions(val.subscribeAmt)+'</td>'+
+				'<td>'+val.piTimes+'</td>'+
+				'<td>'+(new Date(val.piDate)).format('yyyy-MM-dd')+'</td>'+
+				'<td>'+formatMillions(val.piAmt)+'</td>'+
+				'<td><a class="delBtn" ind="'+ind+'" href="javascript:void(0)">删除</a></td></tr>';
+		});
+		$("#payInTbody").html(tempHtml);
+	}
+}
+
+function importPIFunc(){
+	if($("#piFileUp").val() == ""){
+		return false;
+	}
+	$.ajaxFileUpload({
+		url: '../PayInDetailController/callPayInImport.action', //用于文件上传的服务器端请求地址
+		secureuri: false, //是否需要安全协议，一般设置为false
+		fileElementId: 'piFileUp', //文件上传域的ID
+		dataType: 'JSON', //返回值类型 一般设置为json
+		data:{
+			// "filePath":"d://BonusDetail.xlsx"
+		},
+		success: function (data, status){  //服务器成功响应处理函数			
+			if(status == "success"){
+				alert("导入成功!");
+				getPayInList();
+				//$("#piFileUp").prop("outerHTML", $("#piFileUp").prop("outerHTML"));
+			}else{
+				alert("1:"+data.error);
+			}
+		},
+		error: function (data, status, e){//服务器响应失败处理函数		
+			alert("2:"+e);
+		}
+	})
+}
+
+function delPayInFunc(){
+	var _ind = $(this).attr("ind");
+	var _dataObj = payInList[_ind];
+
+	$.ajax({
+		type:'post',//可选get
+		url:'../PayInDetailController/delete.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			"piId": _dataObj.piId
+		},
+		success:function(msg){
+			if(msg.success){
+				alert("删除成功!");
+				getPayInList();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+</script>
+</head>
+<body id="rightLayer">
+<div id="searchLayer">
+	<input type="file" id="piFileUp" name="piFileUp">
+	<button id="exportSubBtn" class="btnSTY">导出缴款模板</button>
+	<button id="importBtn" class="btnSTY">导入缴款</button>
+	<button id="exportBonusBtn" class="btnSTY">导出缴款</button>
+	<!-- 缴款日期：<input id="sDateInp" readonly class="dateSTY" />至<input id="eDateInp" readonly class="dateSTY" style="margin-right: 40px;" /> -->
+	<input id="searTextInp" placeholder="请输入认购人查询" type="search"/><button id="searTextBtn">搜索</button>
+</div>
+<table id="payInTable" border="1" width="100%"><thead><tr>
+	<td height="34" width="40">序号</td>
+	<td width="110">跟投人</td>
+	<td width="110">部门</td>
+	<td width="100">认购类型</td>
+	<td width="120">平衡额度<br>(不含杠杆)(万元)</td>
+	<td width="120">缴款批次</td>
+	<td width="150">缴款日期</td>
+	<td>缴款金额(万元)</td>
+	<td>操作</td>
+</tr></thead>
+<tbody id="payInTbody">
+	<!-- <tr><td height="35">1</td>
+		<td>张三</td>
+		<td>合肥高新项目</td>
+		<td>55</td>
+		<td>2</td>
+		<td>2014-09-01</td>
+		<td>5.5</td>
+		<td><a href="javascript:void(0)">删除</a></td></tr> -->
+</tbody></table>
+</body>
+</html>

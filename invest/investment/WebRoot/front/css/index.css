@@ -1,0 +1,26 @@
+body{margin-top: -10px;}
+
+#header{background: url(../images/header.jpg) 0 no-repeat;height: 440px;width:100%;min-width: 1280px;background-size: 100%;background-position-y: 95%;
+	/*background-image: url('../images/header.jpg');
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/header.jpg',sizingMethod='scale');*/}
+
+#contentLayer{min-height: 145px;width:80%;min-width:1280px;margin:10px auto;}
+#contentLayer #dynamicNewsLayer{float: left;width: 25%;height: 145px;border:1px solid #E8E8E8;}
+#contentLayer #dynamicNewsLayer .list{height: 110px;overflow: hidden;}
+#contentLayer #dynamicNewsLayer .list div{height: 20px;line-height: 20px;padding: 1px 5px;white-space: nowrap;
+	text-overflow: ellipsis;overflow: hidden;}
+#contentLayer #projectListLayer{float: left;width: 49%;height: 145px;border:1px solid #E8E8E8;border-left: none;
+	border-right: none;}
+#contentLayer #projectListLayer .list{height: 110px;overflow: hidden;padding: 5px 10px;}
+#contentLayer #projectListLayer .list .listSTY{float: left;width: 150px;height: 100px;border: 1px solid #E8E8E8;margin: 0px 8px;}
+#contentLayer #projectListLayer .list .listSTY .proPic{height: 65px;width: 110px;margin: 5px auto;border:1px solid #E8E8E8;}
+#contentLayer #projectListLayer .list .listSTY .proName{width: 100%;text-align: center;}
+#contentLayer #infoViewLayer{float: left;width: 25%;height: 145px;border:1px solid #E8E8E8;}
+#contentLayer #infoViewLayer .list{height: 110px;overflow: hidden;}
+#contentLayer #infoViewLayer .list div{height: 27px;line-height: 27px;padding: 0px 10px;}
+#contentLayer .title{font-size: 1.25em;line-height: 25px;padding: 5px 0px 0px 8px;font-weight: bold;color: #515151;}
+#contentLayer .moreSTY{float: right;cursor: pointer;font-size: 0.7em;}
+#contentLayer .viewSTY{color: #FF2608;font-weight: bold;}
+
+#footer{height:30px;background: #E3E3E3;text-align: center;line-height: 30px;width: 100%;min-width: 1280px;}

@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.ProjectBasicInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.ProjectBasicInfo" >
+    <id column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="COMP_ID" property="compId" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="PROJECT_STATUS" property="projectStatus" jdbcType="VARCHAR" />
+    <result column="FLOOR_AREA" property="floorArea" jdbcType="DECIMAL" />
+    <result column="STRUCT_AREA" property="structArea" jdbcType="DECIMAL" />
+    <result column="PLOT_AREA" property="plotArea" jdbcType="VARCHAR" />
+    <result column="SALE_STRUCT_AREA" property="saleStructArea" jdbcType="DECIMAL" />
+    <result column="GROUND_DATE" property="groundDate"  />
+    <result column="GROUND_AMOUNT" property="groundAmount" jdbcType="DECIMAL" />
+    <result column="GROUND_TYPE" property="groundType" jdbcType="VARCHAR" />
+    <result column="GROUND_POSITION" property="groundPosition" jdbcType="VARCHAR" />
+    <result column="GROUND_POSITIONING" property="groundPositioning" jdbcType="VARCHAR" />
+    <result column="GROUND_PLANNING" property="groundPlanning" jdbcType="VARCHAR" />
+    <result column="PLAN_FOLD" property="planFold" jdbcType="DECIMAL" />
+    <result column="PLAN_RENT" property="planRent" jdbcType="VARCHAR" />
+    <result column="PLAN_IRR" property="planIrr" jdbcType="DECIMAL" />
+    <result column="PLAN_GROSS_MARGIN" property="planGrossMargin" jdbcType="DECIMAL" />
+    <result column="PLAN_MOIC" property="planMoic" jdbcType="DECIMAL" />
+    <result column="PLAN_STAGE_START_DATE" property="planStageStartDate"  />
+    <result column="PLAN_STAGE_OPEN_DATE" property="planStageOpenDate"  />
+    <result column="PLAN_PEAKE_DATE" property="planPeakeDate"  />
+    <result column="PLAN_CASHFLOW_RETURN_DATE" property="planCashflowReturnDate"  />
+    <result column="PLAN_DELIVER_DATE" property="planDeliverDate"  />
+    <result column="PLAN_CARRYOVER_DATE" property="planCarryoverDate"  />
+    <result column="PLAN_LIQUIDATE_DATE" property="planLiquidateDate"  />
+    <result column="PLAN_PROPERTY_SCHEME" property="planPropertyScheme" jdbcType="VARCHAR" />
+    <result column="PLAN_FINANCE_CALCULATE" property="planFinanceCalculate" jdbcType="VARCHAR" />
+    <result column="CORP_PARTNER_BACKGROUND" property="corpPartnerBackground" jdbcType="VARCHAR" />
+    <result column="CORP_CONTRIBUTIVE_RATIO" property="corpContributiveRatio" jdbcType="VARCHAR" />
+    <result column="CORP_BOARD_MEMBER" property="corpBoardMember" jdbcType="VARCHAR" />
+    <result column="CORP_VOTE_RULE" property="corpVoteRule" jdbcType="VARCHAR" />
+    <result column="REST_ANSWER_MAIL" property="restAnswerMail" jdbcType="VARCHAR" />
+    <result column="REST_ANSWER_LINK" property="restAnswerLink" jdbcType="VARCHAR" />
+    <result column="REST_PROJECT_MANAGERS" property="restProjectManagers" jdbcType="VARCHAR" />
+    <result column="REST_FOLLOWER_MANAGERS" property="restFollowerManagers" jdbcType="VARCHAR" />
+    <result column="PROJECT_IMAGES" property="projectImages" jdbcType="VARCHAR" />
+    <result column="SCHEME_ID" property="schemeId" jdbcType="VARCHAR" />
+    <result column="RISK_DISCLAIMER_DES" property="riskDisclaimerDes" jdbcType="VARCHAR" />
+    <result column="SCHEME_PROTOCOL" property="schemeProtocol" jdbcType="VARCHAR" />
+    <result column="projectArea" property="projectarea" jdbcType="VARCHAR" />
+    <result column="buildAreaPrice" property="buildareaprice" jdbcType="DECIMAL" />
+    <result column="returnDate" property="returndate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PROJECT_ID, COMP_ID, PROJECT_NAME, PROJECT_STATUS, FLOOR_AREA, STRUCT_AREA, PLOT_AREA, 
+    SALE_STRUCT_AREA, GROUND_DATE, GROUND_AMOUNT, GROUND_TYPE, GROUND_POSITION, GROUND_POSITIONING, 
+    GROUND_PLANNING, PLAN_FOLD, PLAN_RENT, PLAN_IRR, PLAN_GROSS_MARGIN, PLAN_MOIC, PLAN_STAGE_START_DATE, 
+    PLAN_STAGE_OPEN_DATE, PLAN_PEAKE_DATE, PLAN_CASHFLOW_RETURN_DATE, PLAN_DELIVER_DATE, 
+    PLAN_CARRYOVER_DATE, PLAN_LIQUIDATE_DATE, PLAN_PROPERTY_SCHEME, PLAN_FINANCE_CALCULATE, 
+    CORP_PARTNER_BACKGROUND, CORP_CONTRIBUTIVE_RATIO, CORP_BOARD_MEMBER, CORP_VOTE_RULE, 
+    REST_ANSWER_MAIL, REST_ANSWER_LINK, REST_PROJECT_MANAGERS, REST_FOLLOWER_MANAGERS, 
+    PROJECT_IMAGES, SCHEME_ID, RISK_DISCLAIMER_DES, SCHEME_PROTOCOL, projectArea, buildAreaPrice, 
+    returnDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_basic_info
+    where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from project_basic_info
+    where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.ProjectBasicInfo" >
+    insert into project_basic_info (PROJECT_ID, COMP_ID, PROJECT_NAME, 
+      PROJECT_STATUS, FLOOR_AREA, STRUCT_AREA, 
+      PLOT_AREA, SALE_STRUCT_AREA, GROUND_DATE, 
+      GROUND_AMOUNT, GROUND_TYPE, GROUND_POSITION, 
+      GROUND_POSITIONING, GROUND_PLANNING, PLAN_FOLD, 
+      PLAN_RENT, PLAN_IRR, PLAN_GROSS_MARGIN, 
+      PLAN_MOIC, PLAN_STAGE_START_DATE, PLAN_STAGE_OPEN_DATE, 
+      PLAN_PEAKE_DATE, PLAN_CASHFLOW_RETURN_DATE, 
+      PLAN_DELIVER_DATE, PLAN_CARRYOVER_DATE, 
+      PLAN_LIQUIDATE_DATE, PLAN_PROPERTY_SCHEME, 
+      PLAN_FINANCE_CALCULATE, CORP_PARTNER_BACKGROUND, 
+      CORP_CONTRIBUTIVE_RATIO, CORP_BOARD_MEMBER, 
+      CORP_VOTE_RULE, REST_ANSWER_MAIL, REST_ANSWER_LINK, 
+      REST_PROJECT_MANAGERS, REST_FOLLOWER_MANAGERS, 
+      PROJECT_IMAGES, SCHEME_ID, RISK_DISCLAIMER_DES, 
+      SCHEME_PROTOCOL, projectArea, buildAreaPrice, 
+      returnDate)
+    values (#{projectId,jdbcType=VARCHAR}, #{compId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{projectStatus,jdbcType=VARCHAR}, #{floorArea,jdbcType=DECIMAL}, #{structArea,jdbcType=DECIMAL}, 
+      #{plotArea,jdbcType=VARCHAR}, #{saleStructArea,jdbcType=DECIMAL}, #{groundDate}, 
+      #{groundAmount,jdbcType=DECIMAL}, #{groundType,jdbcType=VARCHAR}, #{groundPosition,jdbcType=VARCHAR}, 
+      #{groundPositioning,jdbcType=VARCHAR}, #{groundPlanning,jdbcType=VARCHAR}, #{planFold,jdbcType=DECIMAL}, 
+      #{planRent,jdbcType=VARCHAR}, #{planIrr,jdbcType=DECIMAL}, #{planGrossMargin,jdbcType=DECIMAL}, 
+      #{planMoic,jdbcType=DECIMAL}, #{planStageStartDate}, #{planStageOpenDate}, 
+      #{planPeakeDate}, #{planCashflowReturnDate}, 
+      #{planDeliverDate}, #{planCarryoverDate}, 
+      #{planLiquidateDate}, #{planPropertyScheme,jdbcType=VARCHAR}, 
+      #{planFinanceCalculate,jdbcType=VARCHAR}, #{corpPartnerBackground,jdbcType=VARCHAR}, 
+      #{corpContributiveRatio,jdbcType=VARCHAR}, #{corpBoardMember,jdbcType=VARCHAR}, 
+      #{corpVoteRule,jdbcType=VARCHAR}, #{restAnswerMail,jdbcType=VARCHAR}, #{restAnswerLink,jdbcType=VARCHAR}, 
+      #{restProjectManagers,jdbcType=VARCHAR}, #{restFollowerManagers,jdbcType=VARCHAR}, 
+      #{projectImages,jdbcType=VARCHAR}, #{schemeId,jdbcType=VARCHAR}, #{riskDisclaimerDes,jdbcType=VARCHAR}, 
+      #{schemeProtocol,jdbcType=VARCHAR}, #{projectarea,jdbcType=VARCHAR}, #{buildareaprice,jdbcType=DECIMAL}, 
+      #{returndate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.ProjectBasicInfo" >
+    insert into project_basic_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="compId != null" >
+        COMP_ID,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="projectStatus != null" >
+        PROJECT_STATUS,
+      </if>
+      <if test="floorArea != null" >
+        FLOOR_AREA,
+      </if>
+      <if test="structArea != null" >
+        STRUCT_AREA,
+      </if>
+      <if test="plotArea != null" >
+        PLOT_AREA,
+      </if>
+      <if test="saleStructArea != null" >
+        SALE_STRUCT_AREA,
+      </if>
+      <if test="groundDate != null" >
+        GROUND_DATE,
+      </if>
+      <if test="groundAmount != null" >
+        GROUND_AMOUNT,
+      </if>
+      <if test="groundType != null" >
+        GROUND_TYPE,
+      </if>
+      <if test="groundPosition != null" >
+        GROUND_POSITION,
+      </if>
+      <if test="groundPositioning != null" >
+        GROUND_POSITIONING,
+      </if>
+      <if test="groundPlanning != null" >
+        GROUND_PLANNING,
+      </if>
+      <if test="planFold != null" >
+        PLAN_FOLD,
+      </if>
+      <if test="planRent != null" >
+        PLAN_RENT,
+      </if>
+      <if test="planIrr != null" >
+        PLAN_IRR,
+      </if>
+      <if test="planGrossMargin != null" >
+        PLAN_GROSS_MARGIN,
+      </if>
+      <if test="planMoic != null" >
+        PLAN_MOIC,
+      </if>
+      <if test="planStageStartDate != null" >
+        PLAN_STAGE_START_DATE,
+      </if>
+      <if test="planStageOpenDate != null" >
+        PLAN_STAGE_OPEN_DATE,
+      </if>
+      <if test="planPeakeDate != null" >
+        PLAN_PEAKE_DATE,
+      </if>
+      <if test="planCashflowReturnDate != null" >
+        PLAN_CASHFLOW_RETURN_DATE,
+      </if>
+      <if test="planDeliverDate != null" >
+        PLAN_DELIVER_DATE,
+      </if>
+      <if test="planCarryoverDate != null" >
+        PLAN_CARRYOVER_DATE,
+      </if>
+      <if test="planLiquidateDate != null" >
+        PLAN_LIQUIDATE_DATE,
+      </if>
+      <if test="planPropertyScheme != null" >
+        PLAN_PROPERTY_SCHEME,
+      </if>
+      <if test="planFinanceCalculate != null" >
+        PLAN_FINANCE_CALCULATE,
+      </if>
+      <if test="corpPartnerBackground != null" >
+        CORP_PARTNER_BACKGROUND,
+      </if>
+      <if test="corpContributiveRatio != null" >
+        CORP_CONTRIBUTIVE_RATIO,
+      </if>
+      <if test="corpBoardMember != null" >
+        CORP_BOARD_MEMBER,
+      </if>
+      <if test="corpVoteRule != null" >
+        CORP_VOTE_RULE,
+      </if>
+      <if test="restAnswerMail != null" >
+        REST_ANSWER_MAIL,
+      </if>
+      <if test="restAnswerLink != null" >
+        REST_ANSWER_LINK,
+      </if>
+      <if test="restProjectManagers != null" >
+        REST_PROJECT_MANAGERS,
+      </if>
+      <if test="restFollowerManagers != null" >
+        REST_FOLLOWER_MANAGERS,
+      </if>
+      <if test="projectImages != null" >
+        PROJECT_IMAGES,
+      </if>
+      <if test="schemeId != null" >
+        SCHEME_ID,
+      </if>
+      <if test="riskDisclaimerDes != null" >
+        RISK_DISCLAIMER_DES,
+      </if>
+      <if test="schemeProtocol != null" >
+        SCHEME_PROTOCOL,
+      </if>
+      <if test="projectarea != null" >
+        projectArea,
+      </if>
+      <if test="buildareaprice != null" >
+        buildAreaPrice,
+      </if>
+      <if test="returndate != null" >
+        returnDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="compId != null" >
+        #{compId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        #{floorArea,jdbcType=DECIMAL},
+      </if>
+      <if test="structArea != null" >
+        #{structArea,jdbcType=DECIMAL},
+      </if>
+      <if test="plotArea != null" >
+        #{plotArea,jdbcType=VARCHAR},
+      </if>
+      <if test="saleStructArea != null" >
+        #{saleStructArea,jdbcType=DECIMAL},
+      </if>
+      <if test="groundDate != null" >
+        #{groundDate},
+      </if>
+      <if test="groundAmount != null" >
+        #{groundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="groundType != null" >
+        #{groundType,jdbcType=VARCHAR},
+      </if>
+      <if test="groundPosition != null" >
+        #{groundPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="groundPositioning != null" >
+        #{groundPositioning,jdbcType=VARCHAR},
+      </if>
+      <if test="groundPlanning != null" >
+        #{groundPlanning,jdbcType=VARCHAR},
+      </if>
+      <if test="planFold != null" >
+        #{planFold,jdbcType=DECIMAL},
+      </if>
+      <if test="planRent != null" >
+        #{planRent,jdbcType=VARCHAR},
+      </if>
+      <if test="planIrr != null" >
+        #{planIrr,jdbcType=DECIMAL},
+      </if>
+      <if test="planGrossMargin != null" >
+        #{planGrossMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="planMoic != null" >
+        #{planMoic,jdbcType=DECIMAL},
+      </if>
+      <if test="planStageStartDate != null" >
+        #{planStageStartDate},
+      </if>
+      <if test="planStageOpenDate != null" >
+        #{planStageOpenDate},
+      </if>
+      <if test="planPeakeDate != null" >
+        #{planPeakeDate},
+      </if>
+      <if test="planCashflowReturnDate != null" >
+        #{planCashflowReturnDate},
+      </if>
+      <if test="planDeliverDate != null" >
+        #{planDeliverDate},
+      </if>
+      <if test="planCarryoverDate != null" >
+        #{planCarryoverDate},
+      </if>
+      <if test="planLiquidateDate != null" >
+        #{planLiquidateDate},
+      </if>
+      <if test="planPropertyScheme != null" >
+        #{planPropertyScheme,jdbcType=VARCHAR},
+      </if>
+      <if test="planFinanceCalculate != null" >
+        #{planFinanceCalculate,jdbcType=VARCHAR},
+      </if>
+      <if test="corpPartnerBackground != null" >
+        #{corpPartnerBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="corpContributiveRatio != null" >
+        #{corpContributiveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="corpBoardMember != null" >
+        #{corpBoardMember,jdbcType=VARCHAR},
+      </if>
+      <if test="corpVoteRule != null" >
+        #{corpVoteRule,jdbcType=VARCHAR},
+      </if>
+      <if test="restAnswerMail != null" >
+        #{restAnswerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="restAnswerLink != null" >
+        #{restAnswerLink,jdbcType=VARCHAR},
+      </if>
+      <if test="restProjectManagers != null" >
+        #{restProjectManagers,jdbcType=VARCHAR},
+      </if>
+      <if test="restFollowerManagers != null" >
+        #{restFollowerManagers,jdbcType=VARCHAR},
+      </if>
+      <if test="projectImages != null" >
+        #{projectImages,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeId != null" >
+        #{schemeId,jdbcType=VARCHAR},
+      </if>
+      <if test="riskDisclaimerDes != null" >
+        #{riskDisclaimerDes,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeProtocol != null" >
+        #{schemeProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="projectarea != null" >
+        #{projectarea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildareaprice != null" >
+        #{buildareaprice,jdbcType=DECIMAL},
+      </if>
+      <if test="returndate != null" >
+        #{returndate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.ProjectBasicInfo" >
+    update project_basic_info
+    <set >
+      <if test="compId != null" >
+        COMP_ID = #{compId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        PROJECT_STATUS = #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="floorArea != null" >
+        FLOOR_AREA = #{floorArea,jdbcType=DECIMAL},
+      </if>
+      <if test="structArea != null" >
+        STRUCT_AREA = #{structArea,jdbcType=DECIMAL},
+      </if>
+      <if test="plotArea != null" >
+        PLOT_AREA = #{plotArea,jdbcType=VARCHAR},
+      </if>
+      <if test="saleStructArea != null" >
+        SALE_STRUCT_AREA = #{saleStructArea,jdbcType=DECIMAL},
+      </if>
+      <if test="groundDate != null" >
+        GROUND_DATE = #{groundDate},
+      </if>
+      <if test="groundAmount != null" >
+        GROUND_AMOUNT = #{groundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="groundType != null" >
+        GROUND_TYPE = #{groundType,jdbcType=VARCHAR},
+      </if>
+      <if test="groundPosition != null" >
+        GROUND_POSITION = #{groundPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="groundPositioning != null" >
+        GROUND_POSITIONING = #{groundPositioning,jdbcType=VARCHAR},
+      </if>
+      <if test="groundPlanning != null" >
+        GROUND_PLANNING = #{groundPlanning,jdbcType=VARCHAR},
+      </if>
+      <if test="planFold != null" >
+        PLAN_FOLD = #{planFold,jdbcType=DECIMAL},
+      </if>
+      <if test="planRent != null" >
+        PLAN_RENT = #{planRent,jdbcType=VARCHAR},
+      </if>
+      <if test="planIrr != null" >
+        PLAN_IRR = #{planIrr,jdbcType=DECIMAL},
+      </if>
+      <if test="planGrossMargin != null" >
+        PLAN_GROSS_MARGIN = #{planGrossMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="planMoic != null" >
+        PLAN_MOIC = #{planMoic,jdbcType=DECIMAL},
+      </if>
+      <if test="planStageStartDate != null" >
+        PLAN_STAGE_START_DATE = #{planStageStartDate},
+      </if>
+      <if test="planStageOpenDate != null" >
+        PLAN_STAGE_OPEN_DATE = #{planStageOpenDate},
+      </if>
+      <if test="planPeakeDate != null" >
+        PLAN_PEAKE_DATE = #{planPeakeDate},
+      </if>
+      <if test="planCashflowReturnDate != null" >
+        PLAN_CASHFLOW_RETURN_DATE = #{planCashflowReturnDate},
+      </if>
+      <if test="planDeliverDate != null" >
+        PLAN_DELIVER_DATE = #{planDeliverDate},
+      </if>
+      <if test="planCarryoverDate != null" >
+        PLAN_CARRYOVER_DATE = #{planCarryoverDate},
+      </if>
+      <if test="planLiquidateDate != null" >
+        PLAN_LIQUIDATE_DATE = #{planLiquidateDate},
+      </if>
+      <if test="planPropertyScheme != null" >
+        PLAN_PROPERTY_SCHEME = #{planPropertyScheme,jdbcType=VARCHAR},
+      </if>
+      <if test="planFinanceCalculate != null" >
+        PLAN_FINANCE_CALCULATE = #{planFinanceCalculate,jdbcType=VARCHAR},
+      </if>
+      <if test="corpPartnerBackground != null" >
+        CORP_PARTNER_BACKGROUND = #{corpPartnerBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="corpContributiveRatio != null" >
+        CORP_CONTRIBUTIVE_RATIO = #{corpContributiveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="corpBoardMember != null" >
+        CORP_BOARD_MEMBER = #{corpBoardMember,jdbcType=VARCHAR},
+      </if>
+      <if test="corpVoteRule != null" >
+        CORP_VOTE_RULE = #{corpVoteRule,jdbcType=VARCHAR},
+      </if>
+      <if test="restAnswerMail != null" >
+        REST_ANSWER_MAIL = #{restAnswerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="restAnswerLink != null" >
+        REST_ANSWER_LINK = #{restAnswerLink,jdbcType=VARCHAR},
+      </if>
+      <if test="restProjectManagers != null" >
+        REST_PROJECT_MANAGERS = #{restProjectManagers,jdbcType=VARCHAR},
+      </if>
+      <if test="restFollowerManagers != null" >
+        REST_FOLLOWER_MANAGERS = #{restFollowerManagers,jdbcType=VARCHAR},
+      </if>
+      <if test="projectImages != null" >
+        PROJECT_IMAGES = #{projectImages,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeId != null" >
+        SCHEME_ID = #{schemeId,jdbcType=VARCHAR},
+      </if>
+      <if test="riskDisclaimerDes != null" >
+        RISK_DISCLAIMER_DES = #{riskDisclaimerDes,jdbcType=VARCHAR},
+      </if>
+      <if test="schemeProtocol != null" >
+        SCHEME_PROTOCOL = #{schemeProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="projectarea != null" >
+        projectArea = #{projectarea,jdbcType=VARCHAR},
+      </if>
+      <if test="buildareaprice != null" >
+        buildAreaPrice = #{buildareaprice,jdbcType=DECIMAL},
+      </if>
+      <if test="returndate != null" >
+        returnDate = #{returndate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.ProjectBasicInfo" >
+    update project_basic_info set 
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR} 
+      <if test="compId !=null and compId !='' and compId !='null'">
+       ,COMP_ID = #{compId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectStatus !=null and projectStatus !='' and projectStatus !='null'">
+       ,PROJECT_STATUS = #{projectStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="floorArea !=null and floorArea !='' ">
+       ,FLOOR_AREA = #{floorArea,jdbcType=DECIMAL}
+      </if>
+      <if test="structArea !=null and structArea !='' ">
+       ,STRUCT_AREA = #{structArea,jdbcType=DECIMAL}
+      </if>
+      <if test="plotArea !=null and plotArea !='' ">
+       ,PLOT_AREA = #{plotArea,jdbcType=VARCHAR}
+      </if>
+      <if test="saleStructArea !=null and saleStructArea !='' ">
+       ,SALE_STRUCT_AREA = #{saleStructArea,jdbcType=DECIMAL}
+      </if>
+      <if test="groundDate !=null and groundDate!='' and groundDate!='null'">
+       ,GROUND_DATE = #{groundDate}
+      </if>
+      <if test="groundAmount !=null and groundAmount !='' ">
+       ,GROUND_AMOUNT = #{groundAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="groundType !=null and groundType !='' and groundType !='null'">
+       ,GROUND_TYPE = #{groundType,jdbcType=VARCHAR}
+      </if>
+      <if test="groundPosition !=null and groundPosition !='' and groundPosition !='null'">
+       ,GROUND_POSITION = #{groundPosition,jdbcType=VARCHAR}
+      </if>
+      <if test="groundPositioning !=null and groundPositioning !='' and groundPositioning !='null'">
+       ,GROUND_POSITIONING = #{groundPositioning,jdbcType=VARCHAR}
+      </if>
+      <if test="groundPlanning !=null and groundPlanning !='' and groundPlanning !='null'">
+       ,GROUND_PLANNING = #{groundPlanning,jdbcType=VARCHAR}
+      </if>
+      <if test="planFold !=null and planFold !='' ">
+       ,PLAN_FOLD = #{planFold,jdbcType=DECIMAL}
+      </if>
+      <if test="planRent !=null and planRent !='' and planRent !='null'">
+       ,PLAN_RENT = #{planRent,jdbcType=VARCHAR}
+      </if>
+      <if test="planIrr !=null and planIrr !='' ">
+       ,PLAN_IRR = #{planIrr,jdbcType=DECIMAL}
+      </if>
+      <if test="planGrossMargin !=null and planGrossMargin !='' ">
+       ,PLAN_GROSS_MARGIN = #{planGrossMargin,jdbcType=DECIMAL}
+      </if>
+      <if test="planMoic!=null and planMoic!='' ">
+       ,PLAN_MOIC = #{planMoic,jdbcType=DECIMAL}
+      </if>
+      <if test="planStageStartDate !=null and planStageStartDate !='' and planStageStartDate !='null'">
+       ,PLAN_STAGE_START_DATE = #{planStageStartDate}
+      </if>
+      <if test="planStageOpenDate !=null and planStageOpenDate !='' and planStageOpenDate !='null'">
+       ,PLAN_STAGE_OPEN_DATE = #{planStageOpenDate}
+      </if>
+      <if test="planPeakeDate !=null and planPeakeDate !='' and planPeakeDate !='null'">
+       ,PLAN_PEAKE_DATE = #{planPeakeDate}
+      </if>
+      <if test="planCashflowReturnDate !=null and planCashflowReturnDate !='' and planCashflowReturnDate !='null'">
+       ,PLAN_CASHFLOW_RETURN_DATE = #{planCashflowReturnDate}
+      </if>
+      <if test="planDeliverDate !=null and planDeliverDate !='' and planDeliverDate !='null'">
+       ,PLAN_DELIVER_DATE = #{planDeliverDate}
+      </if>
+      <if test="planCarryoverDate !=null and planCarryoverDate !='' and planCarryoverDate !='null'">
+       ,PLAN_CARRYOVER_DATE = #{planCarryoverDate}
+      </if>
+      <if test="planLiquidateDate !=null and planLiquidateDate !='' and planLiquidateDate !='null'">
+       ,PLAN_LIQUIDATE_DATE = #{planLiquidateDate}
+      </if>
+      <if test="planPropertyScheme !=null and planPropertyScheme !='' and planPropertyScheme !='null'">
+       ,PLAN_PROPERTY_SCHEME = #{planPropertyScheme,jdbcType=VARCHAR}
+      </if>
+      <if test="planFinanceCalculate !=null and planFinanceCalculate !='' and planFinanceCalculate !='null'">
+       ,PLAN_FINANCE_CALCULATE = #{planFinanceCalculate,jdbcType=VARCHAR}
+      </if>
+      <if test="corpPartnerBackground !=null and corpPartnerBackground !='' and corpPartnerBackground !='null'">
+       ,CORP_PARTNER_BACKGROUND = #{corpPartnerBackground,jdbcType=VARCHAR}
+      </if>
+      <if test="corpContributiveRatio !=null and corpContributiveRatio !='' and corpContributiveRatio !='null'">
+       ,CORP_CONTRIBUTIVE_RATIO = #{corpContributiveRatio,jdbcType=VARCHAR}
+      </if>
+      <if test="corpBoardMember !=null and corpBoardMember !='' and corpBoardMember !='null'">
+       ,CORP_BOARD_MEMBER = #{corpBoardMember,jdbcType=VARCHAR}
+      </if>
+      <if test="corpVoteRule !=null and corpVoteRule !='' and corpVoteRule !='null'">
+       ,CORP_VOTE_RULE = #{corpVoteRule,jdbcType=VARCHAR}
+      </if>
+      <if test="restAnswerMail !=null and restAnswerMail !='' and restAnswerMail !='null'">
+       ,REST_ANSWER_MAIL = #{restAnswerMail,jdbcType=VARCHAR}
+      </if>
+      <if test="restAnswerLink !=null and restAnswerLink !='' and restAnswerLink !='null'">
+       ,REST_ANSWER_LINK = #{restAnswerLink,jdbcType=VARCHAR}
+      </if>
+      <if test="restProjectManagers !=null and restProjectManagers !='' and restProjectManagers !='null'">
+       ,REST_PROJECT_MANAGERS = #{restProjectManagers,jdbcType=VARCHAR}
+      </if>
+      <if test="restFollowerManagers !=null and restFollowerManagers !='' and restFollowerManagers !='null'">
+       ,REST_FOLLOWER_MANAGERS = #{restFollowerManagers,jdbcType=VARCHAR}
+      </if>
+      <if test="projectImages !=null and projectImages !='' and projectImages !='null'">
+         ,PROJECT_IMAGES = #{projectImages,jdbcType=VARCHAR}
+      </if>
+      <if test="schemeId !=null and schemeId !='' and schemeId !='null'">
+       ,SCHEME_ID = #{schemeId,jdbcType=VARCHAR}
+      </if>
+      <if test="riskDisclaimerDes !=null and riskDisclaimerDes !='' and riskDisclaimerDes !='null'">
+       ,RISK_DISCLAIMER_DES = #{riskDisclaimerDes,jdbcType=VARCHAR}
+      </if>
+      <if test="schemeProtocol !=null and schemeProtocol !='' and schemeProtocol !='null'">
+       ,SCHEME_PROTOCOL = #{schemeProtocol,jdbcType=VARCHAR}
+      </if>
+      <if test="projectarea !=null and projectarea !='' and projectarea !='null'">
+      	 ,projectArea = #{projectarea,jdbcType=VARCHAR}
+      </if>
+      <if test="buildareaprice !=null and buildareaprice !='' ">
+       ,buildAreaPrice = #{buildareaprice,jdbcType=DECIMAL}
+      </if>
+      <if test="returndate !=null and returndate !='' and returndate !='null'">
+       ,returnDate = #{returndate,jdbcType=VARCHAR}
+      </if>
+    where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </update>
+  <resultMap type="com.gxcz.xuhui.investment.model.dto.ProjectBasicInfoDTO" id="projectlist_resutMap">
+    <id column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="compy_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="FOLLOW_AMOUNT" property="followAmount" jdbcType="NUMERIC" />
+    <result column="COMP_FORCE_AMOUNT" property="compForceAmount" jdbcType="NUMERIC" />
+    <result column="GROUP_FORCE_AMOUNT" property="groupForceAmount" jdbcType="NUMERIC" />
+    <result column="COMP_CHOICE_AMOUNT" property="compChoiceAmount" jdbcType="NUMERIC" />
+    <result column="PROJECT_IMAGES" property="projectImages" jdbcType="VARCHAR" />
+    <result column="REST_ANSWER_LINK" property="restAnswerLink" jdbcType="VARCHAR" />
+    <result column="subscribe_start_date" property="subscribeStartDate"  />
+    <result column="subscribe_end_date" property="subscribeEndDate"  />
+    <result column="pay_start_date" property="payStartDate"  />
+    <result column="pay_end_date" property="payEndDate"  />
+    <result column="personAmt" property="personAmt" jdbcType="NUMERIC" />
+    <result column="yxpersonAmt" property="yxpersonAmt" jdbcType="NUMERIC" />
+    <result column="jtpersonAmt" property="jtpersonAmt" jdbcType="NUMERIC" />
+    <result column="projectid" property="isPurchase" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="projectList_column_sql">
+  	project.PROJECT_ID,project.PROJECT_NAME,company.compy_name,
+  	project.REST_ANSWER_LINK,
+	project.PROJECT_IMAGES,follschme.subscribe_start_date,follschme.subscribe_end_date,
+	follschme.pay_start_date,follschme.pay_end_date,
+	follschme.FOLLOW_AMOUNT,follschme.COMP_FORCE_AMOUNT,follschme.GROUP_FORCE_AMOUNT,follschme.COMP_CHOICE_AMOUNT,
+	follschme.personAmt,follschme.yxpersonAmt,follschme.jtpersonAmt,rgprojectb.projectid
+  </sql>
+  <select id="getProjectList" resultMap="projectlist_resutMap" parameterType="com.gxcz.xuhui.investment.model.dto.ProjectBasicInfoDTO">
+     select  <include refid="projectList_column_sql"/>
+	from  project_basic_info project 
+	left join front_company_info company on company.ID=project.COMP_ID 
+	left join follow_scheme_info follschme on follschme.project_id=project.project_id
+	left join (select PROJECT_ID projectid from COMPLETE_SUBSCRIBE_RECORD where uid=#{userid} ) rgprojectb 
+	on rgprojectb.projectid=project.project_id
+	where 1=1 
+	and (company.compy_name like CONCAT('%',#{searchName,jdbcType=VARCHAR},'%') or project.project_name like CONCAT('%',#{searchName,jdbcType=VARCHAR},'%'))
+	<if test="filiableName!=null and filiableName!='' and filiableName!='null'">
+		and (project.projectArea like CONCAT('%',#{filiableName},'%') or 
+		project.project_id in (
+			select PROJECT_ID from force_follow_info where name=#{userid}
+		))
+	 </if>
+	<if test="releaseStartDate!=null and releaseStartDate!=''">
+		<!-- 
+		<![CDATA[ and follschme.project_release_date >= #{releaseStartDate}    ]]>
+		 -->
+		<![CDATA[ and follschme.subscribe_start_date >= #{releaseStartDate}    ]]>
+	</if>
+	<if test="releaseEndDate!=null and releaseEndDate!=''">
+		<![CDATA[ and follschme.subscribe_start_date <= #{releaseEndDate}    ]]>
+	</if>
+	
+	<if test="isperson!=null and isperson!=''">
+		and project.project_id not in (
+			select PROJECT_ID from COMPLETE_SUBSCRIBE_RECORD where uid=#{userid} 
+		)
+		<![CDATA[ 
+			and follschme.SUBSCRIBE_START_DATE <= current_timestamp()
+			and follschme.SUBSCRIBE_END_DATE >= current_timestamp() 
+		]]>
+	</if>
+ 	order by follschme.SUBSCRIBE_START_DATE desc
+	limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="fetchPorjectSubscribeProtocalList" parameterType="string" resultType="string">
+  	select SCHEME_PROTOCOL
+    from project_basic_info
+    where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </select>
+</mapper>

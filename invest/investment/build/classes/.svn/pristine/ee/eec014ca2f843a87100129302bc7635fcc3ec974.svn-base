@@ -1,0 +1,150 @@
+package com.gxcz.xuhui.investment.model;
+
+import java.math.BigDecimal;
+
+public class CompleteSubscribeRecord {
+    private String csrId;
+
+    private String projectId;
+
+    private String uid;
+
+    private BigDecimal contributiveAmount;
+
+    private BigDecimal leverageAmount;
+
+    private BigDecimal contributiveConfirmAmount;
+
+    private BigDecimal bonusAmount;
+
+    private BigDecimal completeBonusAmount;
+
+    private BigDecimal adjustamt;
+
+    private Integer status;
+    
+    private String bankNo;
+    
+    private BigDecimal confirmLeverageAmt;
+    
+    private BigDecimal adjustLeverageAmt;
+    
+    private String number ;
+    
+    
+   
+
+	public BigDecimal getConfirmLeverageAmt() {
+		return confirmLeverageAmt;
+	}
+
+	public void setConfirmLeverageAmt(BigDecimal confirmLeverageAmt) {
+		this.confirmLeverageAmt = confirmLeverageAmt;
+	}
+
+	public BigDecimal getAdjustLeverageAmt() {
+		return adjustLeverageAmt;
+	}
+
+	public void setAdjustLeverageAmt(BigDecimal adjustLeverageAmt) {
+		this.adjustLeverageAmt = adjustLeverageAmt;
+	}
+
+	public String getCsrId() {
+        return csrId;
+    }
+
+    public void setCsrId(String csrId) {
+        this.csrId = csrId == null ? null : csrId.trim();
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId == null ? null : projectId.trim();
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
+    }
+
+    public BigDecimal getContributiveAmount() {
+        return contributiveAmount;
+    }
+
+    public void setContributiveAmount(BigDecimal contributiveAmount) {
+        this.contributiveAmount = contributiveAmount;
+    }
+
+    public BigDecimal getLeverageAmount() {
+        return leverageAmount;
+    }
+
+    public void setLeverageAmount(BigDecimal leverageAmount) {
+        this.leverageAmount = leverageAmount;
+    }
+
+    public BigDecimal getContributiveConfirmAmount() {
+        return contributiveConfirmAmount;
+    }
+
+    public void setContributiveConfirmAmount(BigDecimal contributiveConfirmAmount) {
+        this.contributiveConfirmAmount = contributiveConfirmAmount;
+    }
+
+    public BigDecimal getBonusAmount() {
+        return bonusAmount;
+    }
+
+    public void setBonusAmount(BigDecimal bonusAmount) {
+        this.bonusAmount = bonusAmount;
+    }
+
+    public BigDecimal getCompleteBonusAmount() {
+        return completeBonusAmount;
+    }
+
+    public void setCompleteBonusAmount(BigDecimal completeBonusAmount) {
+        this.completeBonusAmount = completeBonusAmount;
+    }
+
+    public BigDecimal getAdjustamt() {
+        return adjustamt;
+    }
+
+    public void setAdjustamt(BigDecimal adjustamt) {
+        this.adjustamt = adjustamt;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+	public String getBankNo() {
+		return bankNo;
+	}
+
+	public void setBankNo(String bankNo) {
+		this.bankNo = bankNo;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	
+	
+}

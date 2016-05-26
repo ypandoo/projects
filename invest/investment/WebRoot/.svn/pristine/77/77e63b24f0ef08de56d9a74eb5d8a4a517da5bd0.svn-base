@@ -1,0 +1,31 @@
+#header{}
+
+#contentLayer .searSTY{float: left;margin-right: 10%;}
+#contentLayer .floatR{float: right;margin-right: 0;}
+
+#contentLayer #naviTitle{height: 25px;line-height: 25px;}
+#contentLayer #searchLayer{overflow: hidden;margin: 5px 0px;}
+#contentLayer #searchLayer #searchText{width: 150px;}
+#contentLayer #searchLayer .dateSTY{height: 25px}
+#contentLayer #searchLayer .btnSTY{min-width: 60px;height:30px;line-height:30px;text-align: center;
+	border: 1px solid #A0A0A0;background: #FFF;	cursor: pointer;border-radius: 3px;}
+#contentLayer #searchLayer .btnSTY:hover{color: #f9371d;border-color: #f9371d;}
+
+#contentLayer #contentList{width: 100%;padding: 10px;background: #FFF;border: 1px solid #E8E8E8;overflow:hidden;}
+#contentLayer #contentList .listSTY{height: 160px;width: 100%;border-bottom: 2px solid #e8e8e8;overflow:hidden;margin-bottom: 15px;}
+#contentLayer #contentList .listSTY .imgLayer{float: left;width: 210px;height: 130px;margin: 10px 15px;}
+#contentLayer #contentList .listSTY .textLayer{float: right;margin-left: 10px;width: 830px;}
+#contentLayer #contentList .listSTY .textLayer .proTitle{font-size: 1.3em;font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proInfo{height: 100px;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable{font-size: 1em;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable td{padding: 0px 5px;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable td span{color: #FF2608;font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable .titleTd{text-align: right;width: 115px;color: black;font-weight: 100;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable .boldSTY{font-weight: bold;}
+#contentLayer #contentList .listSTY .textLayer .proInfoTable .pointSTY{color: #FF2608;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer{overflow: hidden;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer div{float:right;margin:0px 10px;
+	cursor: pointer;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer div a{display: block;text-align: center;
+	border: 1px solid #929090;border-radius: 5px;padding: 5px 10px;background: #d34134;color:#FFF;}
+#contentLayer #contentList .listSTY .textLayer .buttonLayer div a:hover{background: #FFF;color: #d34134;border: 1px solid #e8e8e8;}

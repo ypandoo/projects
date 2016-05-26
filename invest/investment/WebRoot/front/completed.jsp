@@ -1,0 +1,100 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>已完成认购列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="css/public.css">
+<link rel="stylesheet" type="text/css" href="css/header.css">
+<link rel="stylesheet" type="text/css" href="css/completed.css">
+<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../plugins/util.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/completed.js"></script>
+</head>
+<body>
+<jsp:include page="header.jsp"></jsp:include>
+<div id="contentLayer">
+	<div id="naviTitle"><a href="index.jsp">首页</a> > 已完成认购</div>
+	<div id="searchLayer">
+		<div class="searSTY floatR">
+			<input id="searchText" placeholder="请输入项目名" value="" />&nbsp;
+			<button id="searchBtn">搜索</button>
+		</div>
+	</div>
+	<div id="listLayer">
+		<table width="100%" border="1">
+			<thead>
+				<tr>
+					<td rowspan="2" width="50" height="30">序号</td>
+					<td rowspan="2" width="150">跟投项目</td>
+					<td rowspan="2" width="100">是否豁免认购</td>
+					<td rowspan="2" width="80">认购时间</td>
+					<td colspan="2">认购额度</td>
+					<td colspan="2" class="displayNone">调整额度</td>
+					<td colspan="2">平衡额度</td>
+					<td rowspan="2" width="100">缴款确认金额<br>(万元)</td>
+					<td rowspan="2" width="100">已分红总额<br>(万元)</td>
+					<td rowspan="2" width="150">分红帐号</td>
+					<td rowspan="2" width="100px">操作</td>
+				</tr>
+				<tr>
+					<td width="110">出资金额(万元)</td>
+					<td width="110">杠杆金额(万元)</td>
+					<td width="110" class="displayNone">出资金额(万元)</td>
+					<td width="110" class="displayNone">杠杆金额(万元)</td>
+					<td width="110">出资金额(万元)</td>
+					<td width="110">杠杆金额(万元)</td>
+				</tr>
+			</thead>
+		<tbody id="compTbody">
+			<!-- <tr><td width="50" height="35">1</td>
+			<td width="170">合肥高新项目</td>
+			<td width="120">123,000.00</td>
+			<td width="120">123,000.00</td>
+			<td width="120">123,000.00</td>
+			<td width="120">123,000.00</td>
+			<td width="120">123,000.00</td>
+			<td>
+				<a id="change" href="javascript:void(0)">更换收款账号</a>&nbsp;&nbsp;
+				<a id="view" href="javascript:void(0)">查看</a>
+			</td></tr> -->
+		</tbody></table>
+	</div>
+
+	<!-- 弹出层 -->
+	<div id="dialogBg" style="display:none;"></div>
+	<div id="dialogLayer" style="display:none;">
+		<div class="title">
+			<span class="titleSTY">收款银行账号列表</span>
+			<span class="closeSTY"><img src="./images/close.png" width="100%" height="100%"></span>
+		</div>
+		<div class="list">
+			<table width="100%" border="1"><thead><tr>
+				<td width="40" height="30px;"></td>
+				<td width="150">银行卡号</td>
+				<td width="80">开户名</td>
+				<td>开户行</td>
+			</tr></thead>
+			<tbody id="bankTbody">
+				<!-- <tr><td height="25">
+					<input type="checkbox" name="bankCk" />
+				</td><td>
+					XXXX XXXX XXXX XXX
+				</td><td>
+					张三
+				</td><td>
+					中国银行中国银行中国银行中国银行
+				</td></tr> -->
+			</tbody></table>
+		</div>
+		<div class="bottom">
+			<div class="cancelBtn"></div>
+			<div class="saveBtn"></div>
+		</div>
+	</div>
+</div>
+<div id="footer">旭辉集团股份有限公司</div>
+</body>
+</html>

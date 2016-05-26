@@ -1,0 +1,132 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>数据维护平台 - 离职处理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+#rightLayer #searchLayer{text-align: right;margin:0px auto 10px;overflow: hidden;position: relative;}
+#rightLayer #searchLayer input{width: 200px;height: 25px;padding:0px 5px;}
+#rightLayer #dimissionTable{border: 1px solid #e8e8e8;border-spacing: 1px;border-collapse: collapse;font-size: 1em;}
+#rightLayer #dimissionTable thead{background: url(images/thead_bg.png);}
+#rightLayer #dimissionTable td{text-align: center;border: 1px solid #e8e8e8;}
+</style>
+<script type="text/javascript">
+var dimissionList = [];
+$(function(){
+	getDimissionList();
+	initListeners();
+});
+function getDimissionList (argument) {
+	var ctx=$("#ctx").val();
+	var uname=$("#searchInp").val();
+	dimissionList = [];
+	$.ajax({
+		type:'post',//可选get
+		url:ctx+'/subscribe/queryDimissionList.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			"projectId":projectId,
+			"startPage":0,
+			"pageSize":10,
+			"random": Math.random(), //随机参数，防止IE缓存ajax请求
+			'uName':uname
+		},
+		success:function(msg){
+			if(msg.success){
+				dimissionList=msg.dataDto;
+				loadDimissionData();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+function loadDimissionData(argument) {
+	$("#dimissionTbody").empty();
+	if(dimissionList && dimissionList.length > 0){
+		var tempHtml = "";
+		$.each(dimissionList, function(ind,val){
+			tempHtml += 
+			'<tr><td height="40">'+(ind+1)+'</td>'+
+				'<td>'+val.uName+'</td>'+
+				'<td>'+val.service+'</td>'+
+				'<td>'+formatMillions(val.contributiveConfirmAmount)+'</td>'+
+				'<td>'+formatMillions(val.confirmLeverageAmt)+'</td>'+
+				'<td>'+formatMillions(val.piAmt)+'</td>'+
+				'<td>'+val.bankNo+'</td>'+
+				'<td><a href="javascript:;" class="switch-btn" data-ind="'+ind+'">'+(val.dimission?"取消离职":"确认离职")+'</a></td>'+
+			'</tr>';
+		});
+		$("#dimissionTbody").html(tempHtml);
+	}
+}
+function switchDimission(e){
+	var _this = this,
+		_ind = $(_this).data("ind"),
+		csrid = dimissionList[_ind].csrId,
+		isDimission = dimissionList[_ind].dimission,
+		uname = dimissionList[_ind].uName,
+		tipTxt = isDimission?'确定要取消"'+uname+'"的"离职"状态吗？':'确定要将"'+uname+'"设置成"离职"状态吗？';
+
+	if(confirm(tipTxt)){
+		$.ajax({
+			type:'post',//可选get
+			url:'../subscribe/updateDimissionByCsrid.action',
+			// contentType:"application/json",
+			// dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+			data:{
+				"csrId": csrid,
+				"isDimission": !isDimission
+			},
+			success:function(msg){
+				if(msg.success){
+					alert("离职状态更新成功！");
+					dimissionList[_ind].dimission = !isDimission;
+					if(dimissionList[_ind].dimission){
+						$(_this).text("取消离职");
+					}else{
+						$(_this).text("确认离职");
+					}
+					
+					// getDimissionList();
+				}else{
+					alert(msg.error);
+				}
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+	        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+	        }
+		})
+	}
+}
+
+function initListeners (argument) {
+	$("#btnSerarchList").click(getDimissionList);
+	$("#dimissionTbody").on("click", ".switch-btn", switchDimission);
+}
+</script>
+</head>
+<body id="rightLayer">
+<div id="searchLayer">
+	<input placeholder="请输入认购人姓名" id="searchInp"/><button type="button" id="btnSerarchList">搜索</button>
+</div>
+<table id="dimissionTable" border="1" width="100%"><thead><tr>
+	<td width="50" height="34" rowspan="2">序号</td>
+	<td width="100" rowspan="2">认购人</td>
+	<td width="170" rowspan="2">部门</td>
+	<td width="" colspan="2">认购金额</td>
+	<td width="120" rowspan="2">已缴款金额(万元)</td>
+	<td width="200" rowspan="2">分红帐号</td>
+	<td rowspan="2">操作</td>
+</tr><tr>
+	<td width="120">出资金额(万元)</td>
+	<td width="120">杠杆金额(万元)</td>
+</tr></thead>
+<tbody id="dimissionTbody">
+</tbody></table>
+</body>
+</html>

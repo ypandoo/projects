@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.ForceFollowInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.ForceFollowInfo" >
+    <id column="FORCE_FOLLOW_ID" property="forceFollowId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMPANY" property="company" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+    <result column="TOPLIMIT" property="toplimit" jdbcType="DECIMAL" />
+    <result column="DOWNLIMIT" property="downlimit" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" />
+    <result column="FORCE_TYPE" property="forceType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FORCE_FOLLOW_ID, PROJECT_ID, NAME, COMPANY, DEPARTMENT, DUTY, TOPLIMIT, DOWNLIMIT, 
+    REMARK, createtime,forceType
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from force_follow_info
+    where FORCE_FOLLOW_ID = #{forceFollowId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from force_follow_info
+    where FORCE_FOLLOW_ID = #{forceFollowId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.ForceFollowInfo" >
+    insert into force_follow_info (FORCE_FOLLOW_ID, PROJECT_ID, NAME, 
+      COMPANY, DEPARTMENT, DUTY, 
+      TOPLIMIT, DOWNLIMIT, REMARK, FORCE_TYPE, createtime)
+    values (#{forceFollowId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR}, 
+      #{toplimit,jdbcType=DECIMAL}, #{downlimit,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{forceType,jdbcType=VARCHAR},#{createtime})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.ForceFollowInfo" >
+    insert into force_follow_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="forceFollowId != null" >
+        FORCE_FOLLOW_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="company != null" >
+        COMPANY,
+      </if>
+      <if test="department != null" >
+        DEPARTMENT,
+      </if>
+      <if test="duty != null" >
+        DUTY,
+      </if>
+      <if test="toplimit != null" >
+        TOPLIMIT,
+      </if>
+      <if test="downlimit != null" >
+        DOWNLIMIT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="forceType != null" >
+      	forceType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="forceFollowId != null" >
+        #{forceFollowId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="toplimit != null" >
+        #{toplimit,jdbcType=DECIMAL},
+      </if>
+      <if test="downlimit != null" >
+        #{downlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forceType != null" >
+        #{forceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.ForceFollowInfo" >
+    update force_follow_info
+    <set >
+      <if test="projectId != null and projectId != ''" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null and company != ''" >
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null and department != ''" >
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null and duty != ''" >
+        DUTY = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="toplimit != null and toplimit != ''" >
+        TOPLIMIT = #{toplimit,jdbcType=DECIMAL},
+      </if>
+      <if test="downlimit != null and downlimit != ''" >
+        DOWNLIMIT = #{downlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null and remark != ''" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null and createtime != ''" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forceType != null and forceType != ''" >
+        FORCE_TYPE = #{forceType,jdbcType=VARCHAR},
+      </if>
+      FORCE_FOLLOW_ID = #{forceFollowId,jdbcType=VARCHAR}
+    </set>
+    where FORCE_FOLLOW_ID = #{forceFollowId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.ForceFollowInfo" >
+    update force_follow_info set 
+    <if test="projectId != null and projectId != ''" >
+      PROJECT_ID = #{projectId,jdbcType=VARCHAR}, 
+    </if>
+    <if test="name != null and name != ''" >
+      NAME = #{name,jdbcType=VARCHAR}, 
+    </if>
+    <if test="company != null and company != ''" >
+      COMPANY = #{company,jdbcType=VARCHAR}, 
+    </if>
+    <if test="department != null and department != ''" >
+      DEPARTMENT = #{department,jdbcType=VARCHAR}, 
+    </if>
+    <if test="duty != null and duty != ''" >
+      DUTY = #{duty,jdbcType=VARCHAR}, 
+    </if>
+    <if test="toplimit != null and toplimit != ''" >
+      TOPLIMIT = #{toplimit,jdbcType=DECIMAL}, 
+    </if>
+    <if test="downlimit != null and downlimit != ''" >
+      DOWNLIMIT = #{downlimit,jdbcType=DECIMAL}, 
+    </if>
+    <if test="remark != null and remark != ''" >
+      REMARK = #{remark,jdbcType=VARCHAR}, 
+    </if>
+    <if test="createtime != null and createtime != ''" >
+      createtime = #{createtime,jdbcType=TIMESTAMP}, 
+    </if>
+    <if test="forceType != null and forceType != ''" >
+      FORCE_TYPE = #{forceType,jdbcType=VARCHAR}, 
+    </if>
+      FORCE_FOLLOW_ID = #{forceFollowId,jdbcType=VARCHAR}
+    where FORCE_FOLLOW_ID = #{forceFollowId,jdbcType=VARCHAR}
+  </update>
+    <select id="selectByProjectId" resultMap="BaseResultMap" parameterType="com.gxcz.xuhui.investment.model.ForceFollowInfo" >
+    select 
+     info.FORCE_FOLLOW_ID, info.PROJECT_ID, u.uid as uid, u.uname as name, info.COMPANY, 
+	 info.DEPARTMENT, info.DUTY, info.TOPLIMIT, info.DOWNLIMIT, info.REMARK, info.createtime, info.FORCE_TYPE 
+    from force_follow_info info
+    join user_info u on info.name = u.uid
+    where info.PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+    <if test="forceType != null and forceType != ''" > 
+      and info.FORCE_TYPE = #{forceType,jdbcType=VARCHAR}
+    </if> 
+    order by createtime asc
+  </select>
+  <delete id="deleteRelateByProject" parameterType="java.lang.String" >
+    delete from force_follow_info
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

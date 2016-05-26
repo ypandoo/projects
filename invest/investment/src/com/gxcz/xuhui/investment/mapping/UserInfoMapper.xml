@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.UserInfo" >
+    <id column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="UNAME" property="uname" jdbcType="VARCHAR" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="whenChanged" property="whenchanged" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="sAMAccountName" property="samaccountname" jdbcType="VARCHAR" />
+    <result column="userPrincipalName" property="userprincipalname" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="service" property="service" jdbcType="VARCHAR" />
+    <result column="filiale" property="filiale" jdbcType="VARCHAR" />
+    <result column="headquarters" property="headquarters" jdbcType="VARCHAR" />
+    <result column="permissionFlag" property="permissionFlag"/>
+    <result column="fRemissionCount" property="remissionCount" jdbcType="INTEGER"/>
+    <result column="fUsedRemissionCount" property="usedRemissionCount" jdbcType="INTEGER"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UID, UNAME, LOGIN_ID, PASSWORD, MOBILE_PHONE, TELEPHONE, CARD_ID, EMAIL, whenChanged, 
+    status, sAMAccountName, userPrincipalName, department, service, filiale, headquarters, fRemissionCount,fUsedRemissionCount
+  </sql>
+  <select id="selectBySAMAccountName"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid = "Base_Column_List"/>from user_info
+    where sAMAccountName = #{sAMAccountName,jdbcType=VARCHAR}</select>
+  <select id="selectByUname"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid = "Base_Column_List"/>from user_info
+    where UNAME = #{UNAME,jdbcType=VARCHAR}</select>
+
+  <select id="selectByLoginId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid = "Base_Column_List"/>
+    from user_info
+    where LOGIN_ID=#{loginId,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="com.gxcz.xuhui.investment.model.dto.UserInfoDTO">
+    select 
+    <include refid = "Base_Column_List"/>
+    from user_info
+    where user_info.samaccountname != 'admin' and uname like CONCAT('%',#{uname,jdbcType=VARCHAR},'%')
+    limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where UID = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where UID = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.UserInfo" >
+    insert into user_info (UID, UNAME, LOGIN_ID, 
+      PASSWORD, MOBILE_PHONE, TELEPHONE, 
+      CARD_ID, EMAIL, whenChanged, 
+      status, sAMAccountName, userPrincipalName, 
+      department, service, filiale, 
+      headquarters)
+    values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{loginId,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{cardId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{whenchanged,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{samaccountname,jdbcType=VARCHAR}, #{userprincipalname,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{service,jdbcType=VARCHAR}, #{filiale,jdbcType=VARCHAR}, 
+      #{headquarters,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="uname != null" >
+        UNAME,
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="cardId != null" >
+        CARD_ID,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="whenchanged != null" >
+        whenChanged,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="samaccountname != null" >
+        sAMAccountName,
+      </if>
+      <if test="userprincipalname != null" >
+        userPrincipalName,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="service != null" >
+        service,
+      </if>
+      <if test="filiale != null" >
+        filiale,
+      </if>
+      <if test="headquarters != null" >
+        headquarters,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="whenchanged != null" >
+        #{whenchanged,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="samaccountname != null" >
+        #{samaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="userprincipalname != null" >
+        #{userprincipalname,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null" >
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="filiale != null" >
+        #{filiale,jdbcType=VARCHAR},
+      </if>
+      <if test="headquarters != null" >
+        #{headquarters,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="uname != null" >
+        UNAME = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        CARD_ID = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="whenchanged != null" >
+        whenChanged = #{whenchanged,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="samaccountname != null" >
+        sAMAccountName = #{samaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="userprincipalname != null" >
+        userPrincipalName = #{userprincipalname,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null" >
+        service = #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="filiale != null" >
+        filiale = #{filiale,jdbcType=VARCHAR},
+      </if>
+      <if test="headquarters != null" >
+        headquarters = #{headquarters,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UID = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.UserInfo" >
+    update user_info
+    set UNAME = #{uname,jdbcType=VARCHAR},
+      LOGIN_ID = #{loginId,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      CARD_ID = #{cardId,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      whenChanged = #{whenchanged,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      sAMAccountName = #{samaccountname,jdbcType=VARCHAR},
+      userPrincipalName = #{userprincipalname,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      service = #{service,jdbcType=VARCHAR},
+      filiale = #{filiale,jdbcType=VARCHAR},
+      headquarters = #{headquarters,jdbcType=VARCHAR}
+    where UID = #{uid,jdbcType=VARCHAR}
+  </update>
+  
+  <sql id="User_Relate_List" >
+    DISTINCT userInfo.UID, userInfo.UNAME, userInfo.LOGIN_ID, userInfo.PASSWORD, userInfo.MOBILE_PHONE, userInfo.TELEPHONE, 
+           userInfo.CARD_ID, userInfo.EMAIL, userInfo.whenChanged, 
+           userInfo.status, userInfo.sAMAccountName, userInfo.userPrincipalName, userInfo.department, userInfo.service, 
+           userInfo.filiale, userInfo.headquarters
+  </sql>
+  <select id="getUserRelateList" resultMap="BaseResultMap" parameterType="com.gxcz.xuhui.investment.model.dto.UserInfoDTO">
+    <!-- select <include refid="User_Relate_List"/> 
+    from user_info userInfo
+    left join USER_PROJECT_RELATE relate on relate.UID = userInfo.UID
+    where userInfo.samaccountname != 'admin' and userInfo.uname like CONCAT('%',#{uname,jdbcType=VARCHAR},'%')
+    limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}  -->
+	select T.*  from (
+	     select <include refid="User_Relate_List"/> , relate.permission_Flag as permissionFlag 
+	     from USER_PROJECT_RELATE relate
+	     left join user_info userInfo  on relate.UID = userInfo.UID
+	     where userInfo.samaccountname != 'admin' and userInfo.uname like CONCAT('%',#{uname,jdbcType=VARCHAR},'%')
+	     and relate.PROJECT_ID in (#{projectId,jdbcType=VARCHAR})
+	union all
+	     select <include refid="User_Relate_List"/>  , '' as permissionFlag 
+	     from user_info userInfo
+	     where userInfo.samaccountname != 'admin' and userInfo.uname like CONCAT('%',#{uname,jdbcType=VARCHAR},'%')
+	     and userInfo.uid not in 
+	    (
+			  select userInfo.uid
+			  from USER_PROJECT_RELATE relate
+	          left join user_info userInfo  on relate.UID = userInfo.UID
+	           where userInfo.samaccountname != 'admin' and userInfo.uname like CONCAT('%',#{uname,jdbcType=VARCHAR},'%')
+	          and relate.PROJECT_ID in (#{projectId,jdbcType=VARCHAR})
+	     )
+	) AS T   
+	limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+   
+  <update id="updateRemissionCountByUserId" parameterType="com.gxcz.xuhui.investment.model.UserInfo">
+  		update user_info set fRemissionCount = #{remissionCount, jdbcType=INTEGER}
+  		where UID = #{uid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateUsedRemissionCountByUserId" parameterType="string">
+  		update user_info set fUsedRemissionCount = fUsedRemissionCount + 1
+  		where UID = #{uid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateRemissionCountBatch" parameterType="list">
+  	<foreach collection="list"  item="userInfo" >
+  		update user_info set fRemissionCount = #{remissionCount, jdbcType=INTEGER}
+  		where UID = #{uid,jdbcType=VARCHAR}
+  	</foreach>
+  </update>
+  
+  <select id="selectRemissionUserList" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from user_info where fRemissionCount > 0
+  </select>
+  
+  <select id="selectRemissionUserLimit" resultMap="BaseResultMap" parameterType="hashmap">
+  	select <include refid="Base_Column_List"/>
+  	from user_info 
+  	<if test="userName != null">
+		where user_info.UNAME like concat('%', #{userName, jdbcType=VARCHAR}, '%')
+		or user_info.sAMAccountName like concat('%', #{userName, jdbcType=VARCHAR}, '%')
+  	</if>
+	  limit 0,10
+  </select>
+</mapper>

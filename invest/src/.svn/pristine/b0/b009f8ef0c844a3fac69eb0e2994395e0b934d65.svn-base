@@ -1,0 +1,165 @@
+package com.gxcz.xuhui.investment.service.impl;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gxcz.xuhui.investment.dao.CompleteSubscribeRecordMapper;
+import com.gxcz.xuhui.investment.dao.UserInfoMapper;
+import com.gxcz.xuhui.investment.model.CompleteSubscribeRecord;
+import com.gxcz.xuhui.investment.model.SubscribeSummaryInfo;
+import com.gxcz.xuhui.investment.model.dto.CompleteSubscribeRecordDTO;
+import com.gxcz.xuhui.investment.model.dto.DimissionInfoDTO;
+import com.gxcz.xuhui.investment.model.dto.PagerDTO;
+import com.gxcz.xuhui.investment.model.dto.QueryParamDTO;
+import com.gxcz.xuhui.investment.service.ICompleteSubscribeRecordService;
+
+@Service
+public class CompleteSubscribeRecordServices implements ICompleteSubscribeRecordService {
+	@Autowired
+	private CompleteSubscribeRecordMapper completeSubscribeRecordDao;
+
+	@Autowired
+	private UserInfoMapper userInfoDao;
+
+	public UserInfoMapper getUserInfoDao() {
+		return userInfoDao;
+	}
+
+	public void setUserInfoDao(UserInfoMapper userInfoDao) {
+		this.userInfoDao = userInfoDao;
+	}
+
+	public CompleteSubscribeRecordMapper getCompleteSubscribeRecordDao() {
+		return completeSubscribeRecordDao;
+	}
+
+	public void setCompleteSubscribeRecordDao(CompleteSubscribeRecordMapper completeSubscribeRecordDao) {
+		this.completeSubscribeRecordDao = completeSubscribeRecordDao;
+	}
+
+	@Transactional
+	public int insert(CompleteSubscribeRecord csr) {
+		csr.setCsrId(UUID.randomUUID().toString());
+		csr.setStatus(0);
+		if (csr.isIsRemissionSubscribe()) {
+			userInfoDao.updateUsedRemissionCountByUserId(csr.getUid());
+		}
+		return completeSubscribeRecordDao.insertSelective(csr);
+	}
+
+	@Transactional
+	public int confirm(String csrid, BigDecimal confirmAmt, BigDecimal leveageAmt) {
+		CompleteSubscribeRecord csr = new CompleteSubscribeRecord();
+		csr.setContributiveConfirmAmount(confirmAmt);
+		csr.setConfirmLeverageAmt(leveageAmt);
+		csr.setCsrId(csrid);
+		// csr.setStatus(1);
+		return completeSubscribeRecordDao.updateByPrimaryKeySelective(csr);
+	}
+
+	@Transactional
+	public int adjust(String csrid, BigDecimal subscribeAmt, BigDecimal leveageAmt) {
+		CompleteSubscribeRecord csr = new CompleteSubscribeRecord();
+		csr.setAdjustamt(subscribeAmt);
+		csr.setAdjustLeverageAmt(leveageAmt);
+		csr.setCsrId(csrid);
+		return completeSubscribeRecordDao.updateByPrimaryKeySelective(csr);
+	}
+
+	public List<CompleteSubscribeRecordDTO> queryAllUnCompleteRecord(QueryParamDTO queryDto) {
+		List<CompleteSubscribeRecordDTO> result = null;
+		if (queryDto.getPager() == null) {
+			PagerDTO pager = new PagerDTO();
+			pager.setTotalPage(99999999);
+			pager.setCurrentPage(1);
+			queryDto.setPager(pager);
+		}
+		result = completeSubscribeRecordDao.selectAllUnCompleteSubscribe(queryDto);
+		if(result != null && result.size() > 0){
+			for (int i = 0; i < result.size(); i++) {
+				CompleteSubscribeRecordDTO info = result.get(i);
+				info.setConfirmationPayment(completeSubscribeRecordDao.queryConfirmationPayment(info.getProjectId(), info.getUid()));
+			}
+		}
+		return result;
+	}
+
+	public List<DimissionInfoDTO> queryDimissionList(QueryParamDTO queryDto) {
+		List<DimissionInfoDTO> result = null;
+		if (queryDto.getPager() == null) {
+			PagerDTO pager = new PagerDTO();
+			pager.setTotalPage(99999999);
+			pager.setCurrentPage(1);
+			queryDto.setPager(pager);
+		}
+		result = completeSubscribeRecordDao.queryDimissionList(queryDto);
+		if(result != null && result.size() > 0){
+			for (int i = 0; i < result.size(); i++) {
+				DimissionInfoDTO info = result.get(i);
+				info.setConfirmationPayment(completeSubscribeRecordDao.queryConfirmationPayment(info.getProjectId(), info.getUid()));
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public int updateDimissionByCsrid(CompleteSubscribeRecord record){
+		return completeSubscribeRecordDao.updateDimissionByCsrid(record);
+	}
+	
+	@Override
+	public int updateDimissionByUid(CompleteSubscribeRecord record){
+		return completeSubscribeRecordDao.updateDimissionByUid(record);
+	}
+
+	public SubscribeSummaryInfo getSubscribeSummary() {
+		return completeSubscribeRecordDao.selectSummaryInfo();
+	}
+
+	@Override
+	public SubscribeSummaryInfo getSubscribeSummaryByUserId(String uid) {
+		return completeSubscribeRecordDao.selectSummaryInfoByUser(uid);
+	}
+
+	public SubscribeSummaryInfo getSubscribeSummaryByProjectId(String projectId) {
+		return completeSubscribeRecordDao.selectSummaryInfoByProjectId(projectId);
+	}
+
+	@Override
+	public List<CompleteSubscribeRecordDTO> getSubscribeByList(List subscribeIdList) {
+		return completeSubscribeRecordDao.getSubscribeByList(subscribeIdList);
+	}
+
+	@Override
+	public int updateBatch(List<CompleteSubscribeRecord> list) {
+		int size = 0;
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				CompleteSubscribeRecord record = list.get(i);
+				size = size + completeSubscribeRecordDao.updateBatch(record);
+			}
+		}
+		if (size == list.size()) {
+			size = 1;
+		} else {
+			size = 0;
+		}
+		return size;
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(CompleteSubscribeRecord record) {
+		return completeSubscribeRecordDao.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(String csrId) {
+		return completeSubscribeRecordDao.deleteByPrimaryKey(csrId);
+	}
+
+}

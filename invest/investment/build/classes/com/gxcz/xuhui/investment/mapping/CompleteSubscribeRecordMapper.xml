@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.CompleteSubscribeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+    <id column="CSR_ID" property="csrId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="CONTRIBUTIVE_AMOUNT" property="contributiveAmount" jdbcType="DECIMAL" />
+    <result column="LEVERAGE_AMOUNT" property="leverageAmount" jdbcType="DECIMAL" />
+    <result column="CONTRIBUTIVE_CONFIRM_AMOUNT" property="contributiveConfirmAmount" jdbcType="DECIMAL" />
+    <result column="CONFIRMLEVERAGEAMT" property="confirmLeverageAmt" jdbcType="DECIMAL" />
+    <result column="ADJUSTLEVERAGEAMT" property="adjustLeverageAmt" jdbcType="DECIMAL" />
+    <result column="BONUS_AMOUNT" property="bonusAmount" jdbcType="DECIMAL" />
+    <result column="COMPLETE_BONUS_AMOUNT" property="completeBonusAmount" jdbcType="DECIMAL" />
+    <result column="ADJUSTAMT" property="adjustamt" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="BANKNO" property="bankNo" jdbcType="VARCHAR" />
+   	<result column="NUMBER_CODE" property="number" jdbcType="VARCHAR" />
+   	<result column="FIsRemissionSubscribe" property="isRemissionSubscribe" jdbcType="BOOLEAN" />
+  </resultMap>
+  <resultMap id="AssoResultMap" type="com.gxcz.xuhui.investment.model.dto.CompleteSubscribeRecordDTO" >
+    <id column="CSR_ID" property="csrId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="BANKID" property="bankId" jdbcType="VARCHAR" />
+    <result column="BANKNO" property="bankNo" jdbcType="VARCHAR" />
+    <result column="UNAME" property="uName" jdbcType="VARCHAR" />
+    <result column="CONTRIBUTIVE_AMOUNT" property="contributiveAmount" jdbcType="DECIMAL" />
+    <result column="LEVERAGE_AMOUNT" property="leverageAmount" jdbcType="DECIMAL" />
+    <result column="CONTRIBUTIVE_CONFIRM_AMOUNT" property="contributiveConfirmAmount" jdbcType="DECIMAL" />
+    <result column="BONUS_AMOUNT" property="bonusAmount" jdbcType="DECIMAL" />
+    <result column="COMPLETE_BONUS_AMOUNT" property="completeBonusAmount" jdbcType="DECIMAL" />
+    <result column="ADJUSTAMT" property="adjustamt" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CONFIRMLEVERAGEAMT" property="confirmLeverageAmt" jdbcType="DECIMAL" />
+    <result column="ADJUSTLEVERAGEAMT" property="adjustLeverageAmt" jdbcType="DECIMAL" />
+    <result column="NUMBER_CODE" property="number" jdbcType="VARCHAR" />
+    <result column="SERVICE" property="service" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+    <result column="FIsRemissionSubscribe" property="isRemissionSubscribe" jdbcType="BOOLEAN" />
+    <result column="ISDIMISSION" property="isDimission" jdbcType="BOOLEAN" />
+  </resultMap>
+  <resultMap id="dimissionResultMap" type="com.gxcz.xuhui.investment.model.dto.DimissionInfoDTO" >
+    <id column="CSR_ID" property="csrId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="BANKID" property="bankId" jdbcType="VARCHAR" />
+    <result column="BANKNO" property="bankNo" jdbcType="VARCHAR" />
+    <result column="UNAME" property="uName" jdbcType="VARCHAR" />
+    <result column="CONTRIBUTIVE_AMOUNT" property="contributiveAmount" jdbcType="DECIMAL" />
+    <result column="LEVERAGE_AMOUNT" property="leverageAmount" jdbcType="DECIMAL" />
+    <result column="CONTRIBUTIVE_CONFIRM_AMOUNT" property="contributiveConfirmAmount" jdbcType="DECIMAL" />
+    <result column="BONUS_AMOUNT" property="bonusAmount" jdbcType="DECIMAL" />
+    <result column="COMPLETE_BONUS_AMOUNT" property="completeBonusAmount" jdbcType="DECIMAL" />
+    <result column="ADJUSTAMT" property="adjustamt" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CONFIRMLEVERAGEAMT" property="confirmLeverageAmt" jdbcType="DECIMAL" />
+    <result column="ADJUSTLEVERAGEAMT" property="adjustLeverageAmt" jdbcType="DECIMAL" />
+    <result column="NUMBER_CODE" property="number" jdbcType="VARCHAR" />
+    <result column="SERVICE" property="service" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+    <result column="FIsRemissionSubscribe" property="isRemissionSubscribe" jdbcType="BOOLEAN" />
+    <result column="IsDimission" property="isDimission" jdbcType="BOOLEAN" />
+    <result column="DimissionDate" property="dimissionDate" jdbcType="TIMESTAMP" />
+    <result column="DimissionAmt" property="dimissionAmt" jdbcType="DECIMAL" />
+    <result column="PI_AMT" property="piAmt" jdbcType="DECIMAL" />
+  </resultMap>
+   <resultMap id="summaryInfo" type="com.gxcz.xuhui.investment.model.SubscribeSummaryInfo" >
+    <result column="projectCount" property="projectCount" jdbcType="DECIMAL" />
+    <result column="personCount" property="personCount" jdbcType="DECIMAL" />
+    <result column="contributiveAmt" property="contributiveAmt" jdbcType="DECIMAL" />
+    <result column="leverageAgeAmt" property="leverageAmt" jdbcType="DECIMAL" />
+    <result column="personCount" property="personCount" jdbcType="DECIMAL" />
+    <result column="subscribeAmt" property="subscribeAmt" jdbcType="DECIMAL" />
+    <result column="bonusAmt" property="bonusAmt" jdbcType="DECIMAL" />
+    <result column="COMPLETE_BONUS_AMOUNT" property="completeBonusAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSR_ID, PROJECT_ID, UID, CONTRIBUTIVE_AMOUNT, LEVERAGE_AMOUNT, CONTRIBUTIVE_CONFIRM_AMOUNT, 
+    BONUS_AMOUNT, COMPLETE_BONUS_AMOUNT, ADJUSTAMT, STATUS,BANKNO,CONFIRMLEVERAGEAMT,ADJUSTLEVERAGEAMT,NUMBER_CODE,FIsRemissionSubscribe
+  </sql>
+  <select id="selectSummaryInfo" resultMap="summaryInfo">
+    select t.projectCount,t.personCount,t.contributiveAmt,t.leverageAgeAmt,t.bonusAmt 
+    	<!-- add by 11/06 -->
+    	<!-- , t.contributiveAmt+t.leverageAgeAmt subscribeAmt -->
+    	, t.contributiveConfirmAmt+t.confirmLeverageAmt subscribeAmt
+    	<!-- end -->
+    from (SELECT 
+			COUNT(DISTINCT project_id) projectCount,
+			COUNT(uid) personCount,
+			SUM(IFNULL(CONTRIBUTIVE_AMOUNT,0)) contributiveAmt,
+			SUM(IFNULL(LEVERAGE_AMOUNT,0)) leverageAgeAmt,
+			<!-- add by 11/06 -->
+			SUM(IFNULL(CONTRIBUTIVE_CONFIRM_AMOUNT,0)) contributiveConfirmAmt,
+			SUM(IFNULL(CONFIRMLEVERAGEAMT,0)) confirmLeverageAmt,
+			<!-- end -->
+			SUM(IFNULL(BONUS_AMOUNT,0)) bonusAmt
+			FROM COMPLETE_SUBSCRIBE_RECORD
+			 	where isdimission='0' 
+	) t
+  </select>
+  <select id="selectSummaryInfoByUser" resultMap="summaryInfo" parameterType="java.lang.String">
+  select t.projectCount,t.personCount,t.contributiveConfirmAmt contributiveAmt,t.confirmLeverageAgeAmt leverageAgeAmt,t.bonusAmt,t.contributiveConfirmAmt+t.confirmLeverageAgeAmt subscribeAmt
+    from (SELECT 
+			COUNT(DISTINCT project_id) projectCount,
+			COUNT(uid) personCount,
+			SUM(IFNULL(CONTRIBUTIVE_AMOUNT,0)) contributiveAmt,
+			SUM(IFNULL(LEVERAGE_AMOUNT,0)) leverageAgeAmt,
+			SUM(IFNULL(CONTRIBUTIVE_CONFIRM_AMOUNT,0)) contributiveConfirmAmt,
+			SUM(IFNULL(CONFIRMLEVERAGEAMT,0)) confirmLeverageAgeAmt,
+			<!-- SUM(IFNULL(BONUS_AMOUNT,0)) bonusAmt -->
+			(select sum(BONUS_AMOUNT) from bonus_detail d where d.userid=#{uid,jdbcType=VARCHAR}) bonusAmt
+			FROM COMPLETE_SUBSCRIBE_RECORD where uid = #{uid,jdbcType=VARCHAR}) t
+	
+  </select>
+  <select id="selectSummaryInfoByProjectId" resultMap="summaryInfo" parameterType="java.lang.String">
+  select t.projectCount,t.personCount,t.contributiveAmt,t.leverageAgeAmt,t.bonusAmt 
+  	<!-- add by 11/06  -->
+  	<!-- , t.contributiveAmt+t.leverageAgeAmt subscribeAmt -->
+  		, t.contributiveConfirmAmt+t.confirmLeverageAmt subscribeAmt
+    from (SELECT 
+			COUNT(DISTINCT project_id) projectCount,
+			COUNT(uid) personCount,
+			SUM(IFNULL(CONTRIBUTIVE_AMOUNT,0)) contributiveAmt,
+			SUM(IFNULL(LEVERAGE_AMOUNT,0)) leverageAgeAmt,
+			SUM(IFNULL(CONTRIBUTIVE_CONFIRM_AMOUNT,0)) contributiveConfirmAmt,
+			SUM(IFNULL(CONFIRMLEVERAGEAMT,0)) confirmLeverageAmt,
+			<!-- end -->
+			SUM(IFNULL(BONUS_AMOUNT,0)) bonusAmt
+			FROM COMPLETE_SUBSCRIBE_RECORD where project_id = #{project_id,jdbcType=VARCHAR}) t
+	
+  </select>
+   <select id="selectAllUnCompleteSubscribe" resultMap="AssoResultMap" parameterType="com.gxcz.xuhui.investment.model.dto.QueryParamDTO">
+     select 
+       csr.CSR_ID, 
+       csr.PROJECT_ID, 
+       csr.UID, 
+       IFNULL(csr.CONTRIBUTIVE_AMOUNT,0) CONTRIBUTIVE_AMOUNT, 
+       IFNULL(csr.LEVERAGE_AMOUNT,0) LEVERAGE_AMOUNT, 
+       IFNULL(csr.CONTRIBUTIVE_CONFIRM_AMOUNT,0) CONTRIBUTIVE_CONFIRM_AMOUNT, 
+       IFNULL(csr.BONUS_AMOUNT,0) BONUS_AMOUNT, 
+       IFNULL(csr.COMPLETE_BONUS_AMOUNT,0) COMPLETE_BONUS_AMOUNT, 
+       IFNULL(csr.ADJUSTAMT,0) ADJUSTAMT, 
+       IFNULL(csr.CONFIRMLEVERAGEAMT,0) CONFIRMLEVERAGEAMT, 
+       IFNULL(csr.ADJUSTLEVERAGEAMT,0) ADJUSTLEVERAGEAMT, 
+       csr.STATUS,
+       IFNULL(proj.PROJECT_NAME,'') PROJECT_NAME,
+       IFNULL(user.UNAME,'') UNAME,
+       <!-- IFNULL(csr.BANKNO,'') BANKNO, -->
+       IFNULL(bank.BANK_ID,'') BANKID,
+       IFNULL(bank.BANK_NO,'') BANKNO,
+       IFNULL(user.service,'') SERVICE,
+	   IFNULL(user.DEPARTMENT,'') DUTY,
+       csr.NUMBER_CODE, 
+       csr.FISREMISSIONSUBSCRIBE,
+       csr.isDimission
+     FROM complete_subscribe_record csr
+          LEFT OUTER JOIN project_basic_info proj   ON csr.PROJECT_ID = proj.PROJECT_ID
+          LEFT OUTER JOIN user_info USER  ON csr.uid = user.UID 
+          left outer join bank_info bank on bank.BANK_ID = csr.BANKNO 
+     where 1=1
+     <if test="status != null">
+     	  and csr.status = #{status}
+     </if>
+     <if test="projectId != null and projectId != '' and projectId != 'null'">
+          and csr.PROJECT_ID = #{projectId}
+     </if>
+     <if test="projectName != null">
+         and proj.project_Name like CONCAT('%',#{projectName},'%')
+     </if>
+      <if test="uid != null">
+         and csr.uid =#{uid} 
+     </if>
+      <if test="bankId != null">
+         and csr.BANKNO =#{bankId} 
+     </if>
+      <if test="numberCode != null">
+         and csr.NUMBER_CODE =#{numberCode} 
+     </if>
+     order by csr.number_code 
+     limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from complete_subscribe_record
+    where CSR_ID = #{csrId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from complete_subscribe_record
+    where CSR_ID = #{csrId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+    insert into complete_subscribe_record (CSR_ID, PROJECT_ID, UID, 
+      CONTRIBUTIVE_AMOUNT, LEVERAGE_AMOUNT, CONTRIBUTIVE_CONFIRM_AMOUNT, CONFIRMLEVERAGEAMT,
+      BONUS_AMOUNT, COMPLETE_BONUS_AMOUNT, ADJUSTAMT, 
+      STATUS,BANKNO,NUMBER_CODE)
+    values (#{csrId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, 
+      #{contributiveAmount,jdbcType=DECIMAL}, #{leverageAmount,jdbcType=DECIMAL}, #{contributiveConfirmAmount,jdbcType=DECIMAL},  #{confirmLeverageAmt,jdbcType=DECIMAL}, 
+      #{bonusAmount,jdbcType=DECIMAL}, #{completeBonusAmount,jdbcType=DECIMAL}, #{adjustamt,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER},#{bankNo,jdbcType=VARCHAR},#{number,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+    insert into complete_subscribe_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csrId != null" >
+        CSR_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="contributiveAmount != null" >
+        CONTRIBUTIVE_AMOUNT,
+      </if>
+      <if test="leverageAmount != null" >
+        LEVERAGE_AMOUNT,
+      </if>
+      <if test="contributiveConfirmAmount != null" >
+        CONTRIBUTIVE_CONFIRM_AMOUNT,
+      </if>
+      <if test="confirmLeverageAmt != null" >
+        CONFIRMLEVERAGEAMT,
+      </if>
+      <if test="bonusAmount != null" >
+        BONUS_AMOUNT,
+      </if>
+      <if test="completeBonusAmount != null" >
+        COMPLETE_BONUS_AMOUNT,
+      </if>
+      <if test="adjustamt != null" >
+        ADJUSTAMT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="bankNo != null" >
+        BANKNO,
+      </if>
+      <if test="number != null" >
+        NUMBER_CODE,
+      </if>
+      <if test="isRemissionSubscribe != null" >
+        FISREMISSIONSUBSCRIBE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csrId != null" >
+        #{csrId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="contributiveAmount != null" >
+        #{contributiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="leverageAmount != null" >
+        #{leverageAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="contributiveConfirmAmount != null" >
+        #{contributiveConfirmAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmLeverageAmt != null" >
+        #{confirmLeverageAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusAmount != null" >
+        #{bonusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="completeBonusAmount != null" >
+        #{completeBonusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustamt != null" >
+        #{adjustamt,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bankNo != null" >
+        #{bankNo,jdbcType=VARCHAR},
+      </if>
+       <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+       <if test="isRemissionSubscribe != null" >
+        #{isRemissionSubscribe,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+    update complete_subscribe_record
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        UID = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="contributiveAmount != null" >
+        CONTRIBUTIVE_AMOUNT = #{contributiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="leverageAmount != null" >
+        LEVERAGE_AMOUNT = #{leverageAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="contributiveConfirmAmount != null" >
+        CONTRIBUTIVE_CONFIRM_AMOUNT = #{contributiveConfirmAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusAmount != null" >
+        BONUS_AMOUNT = #{bonusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="completeBonusAmount != null" >
+        COMPLETE_BONUS_AMOUNT = #{completeBonusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustamt != null" >
+        ADJUSTAMT = #{adjustamt,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+       <if test="bankNo != null" >
+        BANKNO = #{bankNo,jdbcType=VARCHAR},
+      </if>
+        <if test="adjustLeverageAmt != null" >
+        ADJUSTLEVERAGEAMT = #{adjustLeverageAmt,jdbcType=DECIMAL},
+      </if>
+        <if test="confirmLeverageAmt != null" >
+        CONFIRMLEVERAGEAMT = #{confirmLeverageAmt,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CSR_ID = #{csrId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+    update complete_subscribe_record
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      UID = #{uid,jdbcType=VARCHAR},
+      CONTRIBUTIVE_AMOUNT = #{contributiveAmount,jdbcType=DECIMAL},
+      LEVERAGE_AMOUNT = #{leverageAmount,jdbcType=DECIMAL},
+      CONTRIBUTIVE_CONFIRM_AMOUNT = #{contributiveConfirmAmount,jdbcType=DECIMAL},
+      BONUS_AMOUNT = #{bonusAmount,jdbcType=DECIMAL},
+      COMPLETE_BONUS_AMOUNT = #{completeBonusAmount,jdbcType=DECIMAL},
+      ADJUSTAMT = #{adjustamt,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=INTEGER},
+      BANKNO =#{bankNo,jdbcType=VARCHAR},
+      ADJUSTLEVERAGEAMT = #{adjustLeverageAmt,jdbcType=DECIMAL},
+       CONFIRMLEVERAGEAMT = #{confirmLeverageAmt,jdbcType=DECIMAL}
+    where CSR_ID = #{csrId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getSubscribeByList" parameterType="java.util.List" resultMap="AssoResultMap">
+  	select 
+       csr.CSR_ID, 
+       csr.PROJECT_ID, 
+       csr.UID, 
+       IFNULL(csr.CONTRIBUTIVE_AMOUNT,0) CONTRIBUTIVE_AMOUNT, 
+       IFNULL(csr.LEVERAGE_AMOUNT,0) LEVERAGE_AMOUNT, 
+       IFNULL(csr.CONTRIBUTIVE_CONFIRM_AMOUNT,0) CONTRIBUTIVE_CONFIRM_AMOUNT, 
+       IFNULL(csr.BONUS_AMOUNT,0) BONUS_AMOUNT, 
+       IFNULL(csr.COMPLETE_BONUS_AMOUNT,0) COMPLETE_BONUS_AMOUNT, 
+       IFNULL(csr.ADJUSTAMT,0) ADJUSTAMT, 
+       IFNULL(csr.CONFIRMLEVERAGEAMT,0) CONFIRMLEVERAGEAMT, 
+       IFNULL(csr.ADJUSTLEVERAGEAMT,0) ADJUSTLEVERAGEAMT, 
+       csr.STATUS,
+       IFNULL(proj.PROJECT_NAME,'') PROJECT_NAME,
+       IFNULL(user.UNAME,'') UNAME,
+       <!-- IFNULL(csr.BANKNO,'') BANKNO, -->
+       IFNULL(bank.BANK_ID,'') BANKID,
+       IFNULL(bank.BANK_NO,'') BANKNO,
+       IFNULL(user.service,'') SERVICE,
+	   IFNULL(user.DEPARTMENT,'') DUTY,
+       csr.NUMBER_CODE, 
+       csr.FISREMISSIONSUBSCRIBE
+     FROM complete_subscribe_record csr
+          LEFT OUTER JOIN project_basic_info proj   ON csr.PROJECT_ID = proj.PROJECT_ID
+          LEFT OUTER JOIN user_info USER  ON csr.uid = user.UID 
+          left outer join bank_info bank on bank.BANK_ID = csr.BANKNO 
+     where 1=1
+  	<if test="list!=null and list.size() > 0">
+  	   <if test="list.get(0).subscribeId!=null and list.get(0).subscribeId!='' and list.get(0).subscribeId!='null'">
+  	       and csr.CSR_ID in
+		  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		             #{item.subscribeId}
+		     </foreach>
+  	   </if>
+  	  
+  	<if test="list.get(0).projectId!=null and list.get(0).projectId!='' and list.get(0).projectId!='null'">
+  		and csr.PROJECT_ID in
+               <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		             #{item.projectId}
+		      </foreach>
+  	</if>
+   </if>
+   order by csr.number_code 
+  </select>
+  
+  <update id="updateBatch" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+    update complete_subscribe_record
+    set 
+      CONTRIBUTIVE_CONFIRM_AMOUNT = #{contributiveConfirmAmount,jdbcType=DECIMAL}, 
+      <!-- ADJUSTAMT = #{adjustamt,jdbcType=DECIMAL},
+      ADJUSTLEVERAGEAMT = #{adjustLeverageAmt,jdbcType=DECIMAL}, -->
+      <!-- BANKNO =#{bankNo,jdbcType=VARCHAR}, -->
+      <!-- (select BANKNO from complete_subscribe_record where NUMBER_CODE = #{number,jdbcType=VARCHAR}),  -->
+      CONFIRMLEVERAGEAMT = #{confirmLeverageAmt,jdbcType=DECIMAL}
+    where NUMBER_CODE = #{number,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryConfirmationPayment" resultType="bigdecimal">
+  	select IFNULL(sum(pi_amt), 0) from pay_in_detail
+  	where project_id = #{projectId, jdbcType=VARCHAR}
+  	and user_id = #{userId, jdbcType=VARCHAR}
+  </select>
+  
+  
+   <select id="queryDimissionList" resultMap="dimissionResultMap" parameterType="com.gxcz.xuhui.investment.model.dto.QueryParamDTO">
+     select 
+       csr.CSR_ID, 
+       csr.PROJECT_ID, 
+       csr.UID, 
+       IFNULL(csr.CONTRIBUTIVE_AMOUNT,0) CONTRIBUTIVE_AMOUNT, 
+       IFNULL(csr.LEVERAGE_AMOUNT,0) LEVERAGE_AMOUNT, 
+       IFNULL(csr.CONTRIBUTIVE_CONFIRM_AMOUNT,0) CONTRIBUTIVE_CONFIRM_AMOUNT, 
+       IFNULL(csr.BONUS_AMOUNT,0) BONUS_AMOUNT, 
+       IFNULL(csr.COMPLETE_BONUS_AMOUNT,0) COMPLETE_BONUS_AMOUNT, 
+       IFNULL(csr.ADJUSTAMT,0) ADJUSTAMT, 
+       IFNULL(csr.CONFIRMLEVERAGEAMT,0) CONFIRMLEVERAGEAMT, 
+       IFNULL(csr.ADJUSTLEVERAGEAMT,0) ADJUSTLEVERAGEAMT, 
+       csr.STATUS,
+       IFNULL(proj.PROJECT_NAME,'') PROJECT_NAME,
+       IFNULL(user.UNAME,'') UNAME,
+       <!-- IFNULL(csr.BANKNO,'') BANKNO, -->
+       IFNULL(bank.BANK_ID,'') BANKID,
+       IFNULL(bank.BANK_NO,'') BANKNO,
+       IFNULL(user.service,'') SERVICE,
+	   IFNULL(user.DEPARTMENT,'') DUTY,
+       csr.NUMBER_CODE, 
+       csr.FISREMISSIONSUBSCRIBE,
+       csr.isDimission,
+       csr.dimissionDate,
+       csr.dimissionAmt,
+       IFNULL((select sum(pi_amt) from pay_in_detail p where p.project_id = csr.PROJECT_ID and p.user_id = csr.UID), 0) pi_amt 
+     FROM complete_subscribe_record csr
+          LEFT OUTER JOIN project_basic_info proj   ON csr.PROJECT_ID = proj.PROJECT_ID
+          LEFT OUTER JOIN user_info USER  ON csr.uid = user.UID 
+          left outer join bank_info bank on bank.BANK_ID = csr.BANKNO 
+          <!-- left outer join pay_in_detail pi on pi.PROJECT_ID = csr.PROJECT_ID and pi.USER_ID = csr.UID --> 
+     where 1=1
+     <if test="status != null">
+     	  and csr.status = #{status}
+     </if>
+     <if test="projectId != null and projectId != '' and projectId != 'null'">
+          and csr.PROJECT_ID = #{projectId}
+     </if>
+     <if test="projectName != null">
+         and proj.project_Name like CONCAT('%',#{projectName},'%')
+     </if>
+      <if test="uid != null">
+         and csr.uid =#{uid} 
+     </if>
+      <if test="bankId != null">
+         and csr.BANKNO =#{bankId} 
+     </if>
+      <if test="numberCode != null">
+         and csr.NUMBER_CODE =#{numberCode} 
+     </if>
+      <if test="uName != null">
+     	and user.uname like CONCAT('%',#{uName},'%')
+     </if>
+     order by csr.number_code 
+     limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   </select>
+  <update id="updateDimissionByCsrid" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+	update complete_subscribe_record set 
+		isDimission=#{isDimission} 
+		<!-- <if test="dimissionDate != null"> -->
+		, dimissionDate=#{dimissionDate} 
+		<!-- </if>
+		<if test="dimissionDate != null"> -->
+		, dimissionAmt=#{dimissionAmt} 
+		<!-- </if> -->
+	where csr_id=#{csrId}
+  </update>
+  <update id="updateDimissionByUid" parameterType="com.gxcz.xuhui.investment.model.CompleteSubscribeRecord" >
+	update complete_subscribe_record set 
+		isDimission=#{isDimission} 
+		<!-- <if test="dimissionDate != null"> -->
+		, dimissionDate=#{dimissionDate} 
+		<!-- </if>
+		<if test="dimissionDate != null"> -->
+		, dimissionAmt=#{dimissionAmt} 
+		<!-- </if> -->
+	where uid=#{uid}
+  </update>
+   <select id="queryDimissionListByExport" resultMap="dimissionResultMap" parameterType="com.gxcz.xuhui.investment.model.dto.QueryParamDTO">
+     select 
+       csr.CSR_ID, 
+       csr.PROJECT_ID, 
+       csr.UID, 
+       IFNULL(csr.CONTRIBUTIVE_AMOUNT,0) CONTRIBUTIVE_AMOUNT, 
+       IFNULL(csr.LEVERAGE_AMOUNT,0) LEVERAGE_AMOUNT, 
+       IFNULL(csr.CONTRIBUTIVE_CONFIRM_AMOUNT,0) CONTRIBUTIVE_CONFIRM_AMOUNT, 
+       IFNULL(csr.BONUS_AMOUNT,0) BONUS_AMOUNT, 
+       IFNULL(csr.COMPLETE_BONUS_AMOUNT,0) COMPLETE_BONUS_AMOUNT, 
+       IFNULL(csr.ADJUSTAMT,0) ADJUSTAMT, 
+       IFNULL(csr.CONFIRMLEVERAGEAMT,0) CONFIRMLEVERAGEAMT, 
+       IFNULL(csr.ADJUSTLEVERAGEAMT,0) ADJUSTLEVERAGEAMT, 
+       csr.STATUS,
+       IFNULL(proj.PROJECT_NAME,'') PROJECT_NAME,
+       IFNULL(user.UNAME,'') UNAME,
+       IFNULL(bank.BANK_ID,'') BANKID,
+       IFNULL(bank.BANK_NO,'') BANKNO,
+       IFNULL(user.service,'') SERVICE,
+	   IFNULL(user.DEPARTMENT,'') DUTY,
+       csr.NUMBER_CODE, 
+       csr.FISREMISSIONSUBSCRIBE,
+       csr.isDimission,
+       csr.dimissionDate,
+       csr.dimissionAmt,
+       IFNULL((select sum(pi_amt) from pay_in_detail p where p.project_id = csr.PROJECT_ID and p.user_id = csr.UID), 0) pi_amt 
+     FROM complete_subscribe_record csr
+          LEFT OUTER JOIN project_basic_info proj   ON csr.PROJECT_ID = proj.PROJECT_ID
+          LEFT OUTER JOIN user_info USER  ON csr.uid = user.UID 
+          left outer join bank_info bank on bank.BANK_ID = csr.BANKNO 
+     where 1=1
+     <if test="status != null">
+     	  and csr.status = #{status}
+     </if>
+     <if test="projectId != null and projectId != '' and projectId != 'null'">
+          and csr.PROJECT_ID = #{projectId}
+     </if>
+     <if test="projectName != null">
+         and proj.project_Name like CONCAT('%',#{projectName},'%')
+     </if>
+      <if test="uid != null">
+         and csr.uid =#{uid} 
+     </if>
+      <if test="bankId != null">
+         and csr.BANKNO =#{bankId} 
+     </if>
+      <if test="numberCode != null">
+         and csr.NUMBER_CODE =#{numberCode} 
+     </if>
+      <if test="uName != null">
+     	and user.uname like CONCAT('%',#{uName},'%')
+     </if>
+     <if test="isDimission != null">
+        and csr.isDimission = #{isDimission} 
+     </if>
+     order by csr.number_code 
+     limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   </select>
+</mapper>

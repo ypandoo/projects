@@ -1,0 +1,46 @@
+#contentLayer #personalInfo{width: 100%;height: 105px;border: 1px solid #e8e8e8;border-radius: 3px;
+	background: #FFF;margin: 10px 0px 20px 0px;overflow: hidden;box-shadow: 2px 2px 5px 0px #E6E6E6;}
+#contentLayer #personalInfo .infoTable{width: 100%;height: 100%;font-size: 1em;font-weight: bold;}
+#contentLayer #personalInfo .infoTable td{padding:0px 15px;border-right: 1px solid #e8e8e8;}
+#contentLayer #personalInfo .infoTable .valSTY{font-size: 1.2em;color: #FF2608;text-align: right;}
+
+#contentLayer .titleSTY{font-size: 1.4em;}
+#contentLayer .moreSTY{float: right;}
+#contentLayer #projectInfo{overflow: hidden;}
+#contentLayer #projectList{float: left;height: 285px;width: 735px;border: 1px solid #e8e8e8;border-radius: 3px;
+	background: #FFF;box-shadow:2px 2px 5px 0px #E6E6E6;}
+#contentLayer #projectList .proTitle{height: 42px;line-height: 42px;padding:0px 20px;border-bottom: 1px solid #e8e8e8;}
+#contentLayer #projectList .proList{}
+#contentLayer #projectList .proList .listSTY{float: left;width: 190px;margin:20px 27px;height: 215px;}
+#contentLayer #projectList .proList .listSTY table{font-size: 1em;}
+#contentLayer #projectList .proList .listSTY table .proName{font-size: 1.2em;font-weight: bold;}
+#contentLayer #newsInfo{float: right;height: 285px;width: 325px;border: 1px solid #e8e8e8;border-radius: 3px;
+	background: #FFF;box-shadow:2px 2px 5px 0px #E6E6E6;margin: 0px 5px 10px 0px;}
+#contentLayer #newsInfo .newsTitle{height: 42px;line-height: 42px;padding:0px 20px;border-bottom: 1px solid #e8e8e8;}
+#contentLayer #newsInfo .newsList{padding: 5px 10px;}
+#contentLayer #newsInfo .newsList .listSTY{width:100%;height:25px;line-height:25px;text-overflow:ellipsis;
+	white-space: nowrap;overflow: hidden;}
+
+#contentLayer #completedInfo{width: 100%;margin:10px 0px 20px 0px;border: 1px solid #e8e8e8;background: #FFF;box-shadow:2px 2px 5px 0px #E6E6E6;}
+#contentLayer #completedInfo .compTitle{padding: 0px 20px;height: 42px;line-height: 42px;border-bottom: 1px solid #e8e8e8;}
+#contentLayer #completedInfo .compList{margin: 10px auto;width: 1000px;}
+#contentLayer #completedInfo .compList table{border-spacing: 1px;border: 1px solid #DBDADA;border-collapse: collapse;}
+#contentLayer #completedInfo .compList table thead{background: url(./../images/thead_bg.png);font-size: 0.8em;border:1px solid #DBDADA;}
+#contentLayer #completedInfo .compList table tbody{background: #F1F1F1;font-size: 0.6em;border:1px solid #DBDADA;}
+#contentLayer #completedInfo .compList table td{text-align: center;font-size: 1.5em;border:1px solid #DBDADA;}
+
+#contentLayer #payInInfo{width: 100%;margin: 20px 0px;border: 1px solid #e8e8e8;background: #FFF;box-shadow:2px 2px 5px 0px #E6E6E6;}
+#contentLayer #payInInfo .payInTitle{padding: 0px 20px;height: 42px;line-height: 42px;border-bottom: 1px solid #e8e8e8;}
+#contentLayer #payInInfo .payInList{margin: 10px auto;width: 1000px;}
+#contentLayer #payInInfo .payInList table{border-spacing: 1px;border: 1px solid #DBDADA;border-collapse: collapse;border-color: #DBDADA;}
+#contentLayer #payInInfo .payInList table thead{background: url(./../images/thead_bg.png);font-size: 0.8em;border-color: #DBDADA;}
+#contentLayer #payInInfo .payInList table tbody{background: #F1F1F1;font-size: 0.6em;border:1px solid #DBDADA;;}
+#contentLayer #payInInfo .payInList table td{text-align: center;font-size: 1.5em;border:1px solid #DBDADA;}
+
+#contentLayer #bonusInfo{width: 100%;margin: 20px 0px;border: 1px solid #e8e8e8;background: #FFF;box-shadow:2px 2px 5px 0px #E6E6E6;}
+#contentLayer #bonusInfo .bonusTitle{padding: 0px 20px;height: 42px;line-height: 42px;border-bottom: 1px solid #e8e8e8;}
+#contentLayer #bonusInfo .bonusList{margin: 10px auto;width: 1000px;}
+#contentLayer #bonusInfo .bonusList table{border-spacing: 1px;border: 1px solid #DBDADA;border-collapse: collapse;border-color: #DBDADA;}
+#contentLayer #bonusInfo .bonusList table thead{background: url(./../images/thead_bg.png);font-size: 0.8em;border-color: #DBDADA;}
+#contentLayer #bonusInfo .bonusList table tbody{background: #F1F1F1;font-size: 0.6em;border:1px solid #DBDADA;;}
+#contentLayer #bonusInfo .bonusList table td{text-align: center;font-size: 1.5em;border:1px solid #DBDADA;}

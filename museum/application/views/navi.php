@@ -21,7 +21,7 @@
 </head>
 
 <body  ms-controller="navi_ctrl">
-
+<div class="bk"></div>
 <div class="details">
         <div id="header" class="newhead">
             <a href="<?php echo base_url('pages/view/menu2') ?>"><div class="logo touch-href"></div></a>
@@ -35,10 +35,16 @@
 <div style="margin-top:20px">
 </div>
 
-<div class="bottom_fix">
-  <select class="select_navi" ms-duplex="@selected" >
-      <option ms-for="el in @list">{{el.NAVI_NAME}}</option>
-  </select>
+<div  id='navi_list'>
+<ul class="hidden-menu">
+    <li ms-for='($index, item_info) in @list' ms-attr="{dataId:$index}" ms-click='@swith_to_selected($index)'>
+        {{item_info.NAVI_NAME}}
+    </li>
+</ul>
+</div>
+
+<div class="bottom_fix" ms-click='@switch_navi()'>
+    切换展馆
 </div>
 
 </body>

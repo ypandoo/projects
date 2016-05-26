@@ -1,0 +1,525 @@
+package com.gxcz.xuhui.investment.controller;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
+
+import com.alibaba.fastjson.JSONObject;
+import com.gxcz.common.util.BaseUtil;
+import com.gxcz.common.util.ExcelUtil;
+import com.gxcz.xuhui.investment.model.CompleteSubscribeRecord;
+import com.gxcz.xuhui.investment.model.ForceFollowInfo;
+import com.gxcz.xuhui.investment.model.SubscribeInfo;
+import com.gxcz.xuhui.investment.model.SubscribeSummaryInfo;
+import com.gxcz.xuhui.investment.model.dto.CompleteSubscribeRecordDTO;
+import com.gxcz.xuhui.investment.model.dto.DimissionInfoDTO;
+import com.gxcz.xuhui.investment.model.dto.QueryParamDTO;
+import com.gxcz.xuhui.investment.model.dto.ResultDTO;
+import com.gxcz.xuhui.investment.model.dto.SubscribeModelDTO;
+import com.gxcz.xuhui.investment.service.ICompleteSubscribeRecordService;
+import com.gxcz.xuhui.investment.service.impl.IForceFollowService;
+import com.gxcz.xuhui.investment.service.impl.ISubscribeService;
+
+@Controller
+@RequestMapping("/subscribe")
+public class SubscribeController {
+	IForceFollowService forceFollowService = null;
+
+	@Autowired
+	private ICompleteSubscribeRecordService completeSubscribeRecordService;
+
+	private ISubscribeService subscribeService = null;
+
+	public IForceFollowService getForceFollowService() {
+		return forceFollowService;
+	}
+
+	@Autowired
+	public void setForceFollowService(IForceFollowService forceFollowService) {
+		this.forceFollowService = forceFollowService;
+	}
+
+	public ICompleteSubscribeRecordService getCompleteSubscribeRecordService() {
+		return completeSubscribeRecordService;
+	}
+
+	public void setCompleteSubscribeRecordService(ICompleteSubscribeRecordService completeSubscribeRecordService) {
+		this.completeSubscribeRecordService = completeSubscribeRecordService;
+	}
+
+	public ISubscribeService getSubscribeService() {
+		return subscribeService;
+	}
+
+	@Autowired
+	public void setSubscribeService(ISubscribeService subscribeService) {
+		this.subscribeService = subscribeService;
+	}
+
+	@RequestMapping(value = "/deleteByPrimaryKey", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO deleteByPrimaryKey(String crsId) {
+		ResultDTO resultDto = new ResultDTO();
+		try {
+			completeSubscribeRecordService.deleteByPrimaryKey(crsId);
+			resultDto.setSuccess(true);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError(ex.getMessage());
+		}
+		return resultDto;
+	}
+
+	@RequestMapping(value = "/subscribeReq", method = RequestMethod.GET)
+	public @ResponseBody ResultDTO subscribeReq(CompleteSubscribeRecord csr) {
+		ResultDTO resultDto = new ResultDTO();
+		try {
+			csr.setNumber(BaseUtil.formatDate(new Date(), "yyyyMMdd-HHmmss"));
+			/* begin 设置确认额度默认值 */
+			csr.setContributiveConfirmAmount(csr.getContributiveAmount());
+			csr.setConfirmLeverageAmt(csr.getLeverageAmount());
+			/* end */
+			completeSubscribeRecordService.insert(csr);
+			resultDto.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError(e.getMessage());
+		}
+		return resultDto;
+
+	}
+
+	@RequestMapping(value = "/confirmSubscribe", method = RequestMethod.GET)
+	public @ResponseBody ResultDTO confirmSubscribeReq(String csrid, BigDecimal confirmSubAmt, BigDecimal confirmLevelAmt) {
+		ResultDTO dto = new ResultDTO();
+		int n = completeSubscribeRecordService.confirm(csrid, confirmSubAmt, confirmLevelAmt);
+		if (n > 0) {
+			dto.setSuccess(true);
+		}
+		return dto;
+	}
+
+	@RequestMapping(value = "/adjustSubscribe", method = RequestMethod.GET)
+	public @ResponseBody ResultDTO AdjustSubscribeReq(@RequestBody String csrid, @RequestBody BigDecimal AdjustSubAmt, @RequestBody BigDecimal AdjustLevelAmt) {
+		ResultDTO dto = new ResultDTO();
+		int n = completeSubscribeRecordService.adjust(csrid, AdjustSubAmt, AdjustLevelAmt);
+		if (n > 0) {
+			dto.setSuccess(true);
+		}
+		return dto;
+	}
+
+	@RequestMapping(value = "/saveAdjAndConfirmtSubscribe", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO saveAdjAndConfirmtSubscribe(@RequestParam("csrid") String csrid, @RequestParam("AdjustSubAmt") float AdjustSubAmt, @RequestParam("AdjustLevelAmt") float AdjustLevelAmt, @RequestParam("confirmSubAmt") float confirmSubAmt, @RequestParam("confirmLevelAmt") float confirmLevelAmt) {
+		ResultDTO dto = new ResultDTO();
+		try {
+			int n = completeSubscribeRecordService.adjust(csrid, BigDecimal.valueOf(AdjustSubAmt), BigDecimal.valueOf(AdjustLevelAmt));
+			n = completeSubscribeRecordService.confirm(csrid, BigDecimal.valueOf(confirmSubAmt), BigDecimal.valueOf(confirmLevelAmt));
+			// if(n>0){
+			dto.setSuccess(true);
+			// }
+		} catch (Exception e) {
+			dto.setSuccess(false);
+			dto.setError(e.getMessage());
+		}
+		return dto;
+	}
+
+	@RequestMapping("/saveOrUpdate")
+	public String saveOrUpdate(@ModelAttribute("form") SubscribeModelDTO subscribeModel) {
+		ResultDTO resultDto = new ResultDTO();
+		String projectid = "";
+		try {
+			projectid = subscribeModel.getProjectId();
+			int result = subscribeService.saveOrUpdate(subscribeModel);
+			resultDto.setBaseModel(null);
+			resultDto.setSuccess(true);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError(ex.getMessage());
+		}
+		return "redirect:/back/projectManage.jsp?projectId=" + projectid;
+	}
+
+	@RequestMapping("/getSubscribeyProjectId")
+	@ResponseBody
+	public ResultDTO getProjectById(@RequestParam("projectId") String projectId) {
+		ResultDTO resultDto = new ResultDTO();
+		try {
+			List<SubscribeInfo> list = subscribeService.selectByProjectId(projectId);
+			resultDto.setSuccess(true);
+			resultDto.setDataDto(list);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError(ex.getMessage());
+		}
+		return resultDto;
+	}
+
+	@RequestMapping("/queryAllUnCompleteByUserId")
+	public @ResponseBody ResultDTO getUnCompleteSubscribe(String userId) {
+		QueryParamDTO param = new QueryParamDTO();
+		param.setUid(userId);
+		param.setStatus(0);
+		ResultDTO result = new ResultDTO();
+		try {
+			List<CompleteSubscribeRecordDTO> data = completeSubscribeRecordService.queryAllUnCompleteRecord(param);
+			result.setPagerDTO(param.getPager());
+			result.setDataDto(data);
+			result.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setError(e.getMessage());
+			result.setSuccess(false);
+		} finally {
+			return result;
+		}
+
+	}
+
+	@RequestMapping("/queryAllCompleteByUserId")
+	public @ResponseBody ResultDTO getCompleteSubscribe(String userId) {
+		QueryParamDTO param = new QueryParamDTO();
+		param.setUid(userId);
+		// param.setStatus(1);
+		ResultDTO result = new ResultDTO();
+		try {
+			List<CompleteSubscribeRecordDTO> data = completeSubscribeRecordService.queryAllUnCompleteRecord(param);
+			result.setPagerDTO(param.getPager());
+			result.setDataDto(data);
+			result.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setError(e.getMessage());
+			result.setSuccess(false);
+		} finally {
+			return result;
+		}
+	}
+
+	@RequestMapping("/queryAllUnComplete")
+	public @ResponseBody ResultDTO getAllUnCompleteSubscribe(QueryParamDTO param, @RequestParam("projectId") String projectId, @RequestParam("startPage") int startPage, @RequestParam("endPage") int endPage) {
+		ResultDTO result = new ResultDTO();
+		param.setStatus(0);
+		param.setStartPage(startPage);
+		param.setPageSize(endPage - startPage);
+		param.setProjectId(projectId);
+		List<CompleteSubscribeRecordDTO> data = completeSubscribeRecordService.queryAllUnCompleteRecord(param);
+
+		ForceFollowInfo info = new ForceFollowInfo();
+		info.setProjectId(projectId);
+		info.setForceType("");
+		List<ForceFollowInfo> list = forceFollowService.selectByProjectId(info);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < data.size(); j++) {
+				if (data.get(j).getUid().equals(list.get(i).getUid())) {
+					data.get(j).setSubType(list.get(i).getCompany());
+				}
+			}
+		}
+
+		result.setPagerDTO(param.getPager());
+		result.setDataDto(data);
+		result.setSuccess(true);
+		return result;
+	}
+
+	@RequestMapping("/queryDimissionList")
+	public @ResponseBody ResultDTO queryDimissionList(QueryParamDTO param, @RequestParam("projectId") String projectId,  @RequestParam("startPage") int startPage, @RequestParam("pageSize") int pageSize) {
+		ResultDTO result = new ResultDTO();
+		param.setStatus(0);
+		param.setStartPage(startPage);
+		param.setPageSize(pageSize);
+		param.setProjectId(projectId);
+		List<DimissionInfoDTO> data = completeSubscribeRecordService.queryDimissionList(param);
+
+		result.setPagerDTO(param.getPager());
+		result.setDataDto(data);
+		result.setSuccess(true);
+		return result;
+	}
+	@RequestMapping(value = "/updateDimissionByCsrid", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO updateDimissionByCsrid(@RequestParam("csrId") String csrId, @RequestParam("isDimission") boolean isDimission) {
+		ResultDTO result = new ResultDTO();
+
+		CompleteSubscribeRecord record = new CompleteSubscribeRecord();
+		record.setCsrId(csrId);
+		record.setDimission(isDimission);
+		
+		int res = completeSubscribeRecordService.updateDimissionByCsrid(record);
+		if(res > 0){
+			result.setSuccess(true);
+		}else{
+			result.setSuccess(false);
+		}
+		return result;
+	}
+
+	@RequestMapping("/getSubscribeSummary")
+	public @ResponseBody ResultDTO getSubscribeSummary() {
+		ResultDTO result = new ResultDTO();
+		try {
+			SubscribeSummaryInfo summary = completeSubscribeRecordService.getSubscribeSummary();
+			List<SubscribeSummaryInfo> data = new ArrayList<SubscribeSummaryInfo>();
+			data.add(summary);
+			result.setDataDto(data);
+			result.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+		} finally {
+			return result;
+		}
+	}
+
+	@RequestMapping("/updateBank")
+	public @ResponseBody ResultDTO updateBank(@RequestBody CompleteSubscribeRecord record) {
+		ResultDTO result = new ResultDTO();
+		try {
+			int res = completeSubscribeRecordService.updateByPrimaryKeySelective(record);
+			result.setSuccess(true);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result.setSuccess(false);
+			result.setError(ex.getMessage());
+		}
+		return result;
+	}
+
+	@RequestMapping("/getSubscribeSummaryByUserId")
+	public @ResponseBody ResultDTO getSubscribeSummaryByUserId(String userId) {
+		ResultDTO result = new ResultDTO();
+		try {
+			SubscribeSummaryInfo summary = completeSubscribeRecordService.getSubscribeSummaryByUserId(userId);
+			List<SubscribeSummaryInfo> data = new ArrayList<SubscribeSummaryInfo>();
+			data.add(summary);
+			result.setDataDto(data);
+			result.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+		} finally {
+			return result;
+		}
+
+	}
+
+	@RequestMapping("/getSubscribeSummaryByProject")
+	public @ResponseBody ResultDTO getSubscribeSummaryByUserProject(String projectId) {
+		ResultDTO result = new ResultDTO();
+		try {
+			SubscribeSummaryInfo summary = completeSubscribeRecordService.getSubscribeSummaryByProjectId(projectId);
+			List<SubscribeSummaryInfo> data = new ArrayList<SubscribeSummaryInfo>();
+			data.add(summary);
+			result.setDataDto(data);
+			result.setSuccess(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+		} finally {
+			return result;
+		}
+	}
+
+	/**
+	 * 导出
+	 * 
+	 * @param bonusIds
+	 * @return
+	 */
+	@RequestMapping("/callSubscribeExport")
+	public @ResponseBody ResultDTO callSubscribeExport(HttpSession session, HttpServletResponse response, @RequestParam("subscribeIds") String subscribeIds, @RequestParam("projectId") String projectId) {
+		ResultDTO result = new ResultDTO();
+		List subscribeIdList = new ArrayList();
+		if (subscribeIds != null && !subscribeIds.equals("")) {
+			String uidArr[] = subscribeIds.split(",");
+			for (int i = 0; i < uidArr.length; i++) {
+				SubscribeInfo detail = new SubscribeInfo();
+				detail.setSubscribeId(uidArr[i]);
+				detail.setProjectId(projectId);
+				subscribeIdList.add(detail);
+			}
+		} else {
+			SubscribeInfo detail = new SubscribeInfo();
+			detail.setProjectId(projectId);
+			subscribeIdList.add(detail);
+		}
+
+		List<CompleteSubscribeRecordDTO> data = completeSubscribeRecordService.getSubscribeByList(subscribeIdList);
+
+		ForceFollowInfo info = new ForceFollowInfo();
+		info.setProjectId(projectId);
+		info.setForceType("");
+		List<ForceFollowInfo> list = forceFollowService.selectByProjectId(info);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = data.size() -1; j >= 0; j--) {
+				if(data.get(j).isIsRemissionSubscribe()){
+					data.remove(j);
+					continue;
+				}
+				if (data.get(j).getUid().equals(list.get(i).getUid())) {
+					data.get(j).setSubType(list.get(i).getCompany());
+				}
+			}
+		}
+
+		ServletContext application = session.getServletContext();
+		String serverRealPath = application.getRealPath("/");
+		String srcFilePath = serverRealPath + "templet//Subscribe.xlsx";
+		String newFile = "d://export//" + "认购核准-" + BaseUtil.formatDate(new Date(), "yyyyMMddHHmmss") + ".xlsx";
+		ExcelUtil.writeSubscribeExcel(srcFilePath, newFile, data, response);
+		result.setDataDto(data);
+		result.setSuccess(true);
+		return result;
+	}
+
+	/**
+	 * 导入
+	 * 
+	 * @param session
+	 * @param projectId
+	 * @return
+	 */
+	@RequestMapping(value = "/callSubscribeImport")
+	public void callSubscribeImport(DefaultMultipartHttpServletRequest request, HttpServletResponse response) {
+		ResultDTO resultDto = new ResultDTO();
+		CommonsMultipartFile file = (CommonsMultipartFile) request.getFile("subFileUp");
+		String fileName = file.getOriginalFilename();
+		try {
+			List<CompleteSubscribeRecord> list = ExcelUtil.readSubscribeExcel(file, fileName);
+			int resultInt = completeSubscribeRecordService.updateBatch(list);
+			resultDto.setBaseModel(null);
+			resultDto.setSuccess(true);
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError("导入的数据类数据格式有误,请检查！");
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError("导入的日期类数据格式有误,请检查！");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			resultDto.setSuccess(false);
+			resultDto.setError(ex.getMessage());
+		}
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().write(JSONObject.toJSONString(resultDto));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 分红明细导入前，先导出认购
+	 * 
+	 * @param bonusIds
+	 * @return
+	 */
+	@RequestMapping("/callSubscribeRecordExport")
+	public @ResponseBody ResultDTO callSubscribeRecordExport(HttpSession session, HttpServletResponse response, @RequestParam("projectId") String projectId) {
+		ResultDTO result = new ResultDTO();
+		QueryParamDTO param = new QueryParamDTO();
+		param.setStatus(0);
+		param.setStartPage(0);
+		param.setPageSize(999);
+		param.setProjectId(projectId);
+		List<CompleteSubscribeRecordDTO> data = completeSubscribeRecordService.queryAllUnCompleteRecord(param);
+
+		ForceFollowInfo info = new ForceFollowInfo();
+		info.setProjectId(projectId);
+		info.setForceType("");
+		List<ForceFollowInfo> list = forceFollowService.selectByProjectId(info);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = data.size() - 1; j >= 0; j--) {
+				if(data.get(j).isIsRemissionSubscribe()){
+					data.remove(j);
+					continue;
+				}
+				if (data.get(j).getUid().equals(list.get(i).getUid())) {
+					data.get(j).setSubType(list.get(i).getCompany());
+				}
+			}
+		}
+
+		ServletContext application = session.getServletContext();
+		String serverRealPath = application.getRealPath("/");
+		String srcFilePath = serverRealPath + "templet//BonusDetail.xlsx";
+		String newFile = "d://export//" + "认购-" + BaseUtil.formatDate(new Date(), "yyyyMMddHHmmss") + ".xlsx";
+		ExcelUtil.writeSubscribeRecordDTOExcel(srcFilePath, newFile, data, response);
+		result.setDataDto(data);
+		result.setSuccess(true);
+		return result;
+	}
+
+	/**
+	 * 缴款确认数据模板 缴款确认数据导入前，先导出认购记录
+	 * 
+	 * @param bonusIds
+	 * @return
+	 */
+	@RequestMapping("/callSubscribeRecordByPI")
+	public @ResponseBody ResultDTO callSubscribeRecordByPI(HttpSession session, HttpServletResponse response, @RequestParam("projectId") String projectId) {
+		ResultDTO result = new ResultDTO();
+		QueryParamDTO param = new QueryParamDTO();
+		param.setStatus(0);
+		param.setStartPage(0);
+		param.setPageSize(999);
+		param.setProjectId(projectId);
+		List<CompleteSubscribeRecordDTO> data = completeSubscribeRecordService.queryAllUnCompleteRecord(param);
+
+		ForceFollowInfo info = new ForceFollowInfo();
+		info.setProjectId(projectId);
+		info.setForceType("");
+		List<ForceFollowInfo> list = forceFollowService.selectByProjectId(info);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = data.size() - 1; j >= 0; j--) {
+				if(data.get(j).isIsRemissionSubscribe()){
+					data.remove(j);
+					continue;
+				}
+				if (data.get(j).getUid().equals(list.get(i).getUid())) {
+					data.get(j).setSubType(list.get(i).getCompany());
+				}
+			}
+		}
+
+		ServletContext application = session.getServletContext();
+		String serverRealPath = application.getRealPath("/");
+		String srcFilePath = serverRealPath + "templet//PayInDetail.xlsx";
+		String newFile = "d://export//" + "认购-" + BaseUtil.formatDate(new Date(), "yyyyMMddHHmmss") + ".xlsx";
+		ExcelUtil.writeSubscribeRecordDTOByPI(srcFilePath, newFile, data, response);
+		result.setDataDto(data);
+		result.setSuccess(true);
+		return result;
+	}
+
+}

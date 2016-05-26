@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.UserProjectRelateMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.UserProjectRelate" >
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="USERPROJ_RELATE_ID" property="userprojRelateId" jdbcType="VARCHAR" />
+    <result column="PROJECT_STATUS" property="projectStatus" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="PERMISSION_FLAG" property="permissionFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.UserProjectRelate" >
+    insert into user_project_relate (UID, PROJECT_ID, USERPROJ_RELATE_ID, 
+      PROJECT_STATUS, type,PERMISSION_FLAG)
+    values (#{uid,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{userprojRelateId,jdbcType=VARCHAR}, 
+      #{projectStatus,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{permissionFlag,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.UserProjectRelate" >
+    insert into user_project_relate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="userprojRelateId != null" >
+        USERPROJ_RELATE_ID,
+      </if>
+      <if test="projectStatus != null" >
+        PROJECT_STATUS,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+       <if test="permissionFlag != null" >
+        PERMISSION_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="userprojRelateId != null" >
+        #{userprojRelateId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+       <if test="permissionFlag != null" >
+        #{permissionFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap type="com.gxcz.xuhui.investment.model.dto.UserProjectRelateDTO" id="UserProjectList_resultMap">
+ 		<result column="project_id" property="projectId" jdbcType="VARCHAR" />
+ 		<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+ 		<result column="projectArea" property="projectArea" jdbcType="VARCHAR" />
+ 		<result column="USERPROJ_RELATE_ID" property="userprojRelateId" jdbcType="VARCHAR" />
+ 		<result column="PERMISSION_FLAG" property="permissionFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="getUserProjectList_column_sql">
+  	project.project_id,project.PROJECT_NAME,project.projectArea
+  	,up.USERPROJ_RELATE_ID,up.PERMISSION_FLAG
+  </sql>
+  <select id="getUserProjectList" parameterType="com.gxcz.xuhui.investment.model.dto.UserProjectRelateDTO" resultMap="UserProjectList_resultMap">
+  	select <include refid="getUserProjectList_column_sql"/>
+	from USER_PROJECT_RELATE up 
+	left join USER_INFO userinfo on userinfo.uid=up.uid
+	left join PROJECT_BASIC_INFO project on project.project_id=up.project_id 
+	where up.type=#{type} and userinfo.uid=#{uid}
+	and project.project_Name like CONCAT('%',#{projectName},'%')
+  </select>
+  <delete id="deleteRelateByProject" parameterType="java.lang.String">
+  	delete from USER_PROJECT_RELATE where project_id=#{projectId}
+  </delete>
+  <resultMap id="getUserByProject_resultMap" type="com.gxcz.xuhui.investment.model.dto.UserInfoDTO" >
+    <id column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="UNAME" property="uname" jdbcType="VARCHAR" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="whenChanged" property="whenchanged" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="sAMAccountName" property="samaccountname" jdbcType="VARCHAR" />
+    <result column="userPrincipalName" property="userprincipalname" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="service" property="service" jdbcType="VARCHAR" />
+    <result column="filiale" property="filiale" jdbcType="VARCHAR" />
+    <result column="headquarters" property="headquarters" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="PERMISSION_FLAG" property="permissionFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userinfo.UID, userinfo.UNAME, userinfo.LOGIN_ID, userinfo.PASSWORD, userinfo.MOBILE_PHONE, 
+    userinfo.TELEPHONE, userinfo.CARD_ID, userinfo.EMAIL, userinfo.whenChanged, 
+    userinfo.status, userinfo.sAMAccountName, userinfo.userPrincipalName, userinfo.department, 
+    userinfo.service, userinfo.filiale, userinfo.headquarters,up.type,up.PERMISSION_FLAG
+  </sql>
+  <select id="getUserByProject" parameterType="com.gxcz.xuhui.investment.model.dto.ProjectBasicInfoDTO" resultMap="getUserByProject_resultMap">
+  	select <include refid="Base_Column_List"/> 
+  	from USER_PROJECT_RELATE up
+  	left join USER_INFO userinfo on up.uid=userinfo.uid
+  	where userinfo.samaccountname != 'admin' and up.project_id=#{projectId}
+  	limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+  </select>
+  <delete id="deleteRelateByUserProject" parameterType="com.gxcz.xuhui.investment.model.dto.UserProjectRelateDTO">
+  	delete from USER_PROJECT_RELATE where uid=#{uid} and project_id=#{projectId}
+  </delete>
+  
+  <insert id="insertRelateList" parameterType="java.util.List" >
+    insert into user_project_relate (UID, PROJECT_ID, USERPROJ_RELATE_ID, 
+      PROJECT_STATUS, type,PERMISSION_FLAG)
+    values 
+    <foreach  collection="list" item="item" index="index" separator=",">
+    (#{item.uid,jdbcType=VARCHAR}, #{item.projectId,jdbcType=VARCHAR}, #{item.userprojRelateId,jdbcType=VARCHAR}, 
+      #{item.projectStatus,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, #{item.permissionFlag,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+  <delete id="deleteRelateList" parameterType="java.util.List">
+  	delete from USER_PROJECT_RELATE where project_id in
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+             #{item.projectId}
+   </foreach>
+   and uid in
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+             #{item.uid}
+   </foreach>
+  </delete>
+  
+  <update id="updateRelateList" parameterType="java.util.List" >
+  		<foreach item="item" index="index" collection="list" open="" separator=";" close=";">
+           update USER_PROJECT_RELATE 
+            <set>
+                PERMISSION_FLAG = #{item.permissionFlag,jdbcType=VARCHAR}
+            </set>
+           where UID=#{item.uid,jdbcType=VARCHAR}
+           and PROJECT_ID=#{item.projectId,jdbcType=VARCHAR}
+  		</foreach>
+  </update>
+  
+  <select id="getUserRelateByProject" parameterType="com.gxcz.xuhui.investment.model.dto.UserProjectRelateDTO" resultMap="getUserByProject_resultMap">
+  	select <include refid="Base_Column_List"/> 
+	from USER_PROJECT_RELATE up
+  	left join USER_INFO userinfo on up.uid=userinfo.uid
+  	where userinfo.samaccountname != 'admin' and up.project_id=#{projectId}
+  	limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="getRelateByUserId" parameterType="com.gxcz.xuhui.investment.model.dto.UserProjectRelateDTO" resultMap="getUserByProject_resultMap">
+  	select PERMISSION_FLAG
+	from USER_PROJECT_RELATE 
+  	where uid =#{uid} 
+  	<if test="projectId != null and projectId != '' and projectId != 'null'" >
+      and PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+     </if>
+  </select>
+</mapper>

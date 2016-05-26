@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.BonusDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.BonusDetail" >
+    <id column="BONUS_ID" property="bonusId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_TYPE" property="subscribeType" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_PACKAGE_NAME" property="subscribePackageName" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_AMOUNT" property="subscribeAmount" jdbcType="DECIMAL" />
+    <result column="BONUS_TIMES" property="bonusTimes" jdbcType="DECIMAL" />
+    <result column="BONUS_DATE" property="bonusDate" jdbcType="TIMESTAMP" />
+    <result column="BONUS_AMOUNT" property="bonusAmount" jdbcType="DECIMAL" />
+    <result column="COMPLETE_SUBSCRIBE_RECORD" property="completeSubscribeRecord" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="NUMBER_CODE" property="number" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BONUS_ID, PROJECT_ID, SUBSCRIBE_TYPE, SUBSCRIBE_PACKAGE_NAME, SUBSCRIBE_AMOUNT, BONUS_TIMES, 
+    BONUS_DATE, BONUS_AMOUNT, COMPLETE_SUBSCRIBE_RECORD, userid,NUMBER_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bonus_detail
+    where BONUS_ID = #{bonusId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bonus_detail
+    where BONUS_ID = #{bonusId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.BonusDetail" >
+    insert into bonus_detail (BONUS_ID, PROJECT_ID, SUBSCRIBE_TYPE, 
+      SUBSCRIBE_PACKAGE_NAME, SUBSCRIBE_AMOUNT, 
+      BONUS_TIMES, BONUS_DATE, BONUS_AMOUNT, 
+      COMPLETE_SUBSCRIBE_RECORD, userid,NUMBER_CODE)
+    values (#{bonusId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{subscribeType,jdbcType=VARCHAR}, 
+      #{subscribePackageName,jdbcType=VARCHAR}, #{subscribeAmount,jdbcType=DECIMAL}, 
+      #{bonusTimes,jdbcType=DECIMAL}, #{bonusDate,jdbcType=TIMESTAMP}, #{bonusAmount,jdbcType=DECIMAL}, 
+      #{completeSubscribeRecord,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.BonusDetail" >
+    insert into bonus_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bonusId != null" >
+        BONUS_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="subscribeType != null" >
+        SUBSCRIBE_TYPE,
+      </if>
+      <if test="subscribePackageName != null" >
+        SUBSCRIBE_PACKAGE_NAME,
+      </if>
+      <if test="subscribeAmount != null" >
+        SUBSCRIBE_AMOUNT,
+      </if>
+      <if test="bonusTimes != null" >
+        BONUS_TIMES,
+      </if>
+      <if test="bonusDate != null" >
+        BONUS_DATE,
+      </if>
+      <if test="bonusAmount != null" >
+        BONUS_AMOUNT,
+      </if>
+      <if test="completeSubscribeRecord != null" >
+        COMPLETE_SUBSCRIBE_RECORD,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="number != null" >
+        NUMBER_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bonusId != null" >
+        #{bonusId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeType != null" >
+        #{subscribeType,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribePackageName != null" >
+        #{subscribePackageName,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeAmount != null" >
+        #{subscribeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusTimes != null" >
+        #{bonusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusDate != null" >
+        #{bonusDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bonusAmount != null" >
+        #{bonusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="completeSubscribeRecord != null" >
+        #{completeSubscribeRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.BonusDetail" >
+    update bonus_detail
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeType != null" >
+        SUBSCRIBE_TYPE = #{subscribeType,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribePackageName != null" >
+        SUBSCRIBE_PACKAGE_NAME = #{subscribePackageName,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeAmount != null" >
+        SUBSCRIBE_AMOUNT = #{subscribeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusTimes != null" >
+        BONUS_TIMES = #{bonusTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusDate != null" >
+        BONUS_DATE = #{bonusDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bonusAmount != null" >
+        BONUS_AMOUNT = #{bonusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="completeSubscribeRecord != null" >
+        COMPLETE_SUBSCRIBE_RECORD = #{completeSubscribeRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where BONUS_ID = #{bonusId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.BonusDetail" >
+    update bonus_detail
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      SUBSCRIBE_TYPE = #{subscribeType,jdbcType=VARCHAR},
+      SUBSCRIBE_PACKAGE_NAME = #{subscribePackageName,jdbcType=VARCHAR},
+      SUBSCRIBE_AMOUNT = #{subscribeAmount,jdbcType=DECIMAL},
+      BONUS_TIMES = #{bonusTimes,jdbcType=DECIMAL},
+      BONUS_DATE = #{bonusDate,jdbcType=TIMESTAMP},
+      BONUS_AMOUNT = #{bonusAmount,jdbcType=DECIMAL},
+      COMPLETE_SUBSCRIBE_RECORD = #{completeSubscribeRecord,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR}
+    where BONUS_ID = #{bonusId,jdbcType=VARCHAR}
+  </update>
+   <resultMap id="BaseDetailResultMap" type="com.gxcz.xuhui.investment.model.dto.BonusDetailDTO" >
+    <id column="BONUS_ID" property="bonusId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_TYPE" property="subscribeType" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_PACKAGE_NAME" property="subscribePackageName" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_AMOUNT" property="subscribeAmount" jdbcType="DECIMAL" />
+    <result column="BONUS_TIMES" property="bonusTimes" jdbcType="DECIMAL" />
+    <result column="BONUS_DATE" property="bonusDate" jdbcType="TIMESTAMP" />
+    <result column="BONUS_AMOUNT" property="bonusAmount" jdbcType="DECIMAL" />
+    <result column="COMPLETE_SUBSCRIBE_RECORD" property="completeSubscribeRecord" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="NUMBER_CODE" property="number" jdbcType="VARCHAR" />
+    <result column="SERVICE" property="service" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+  </resultMap>
+   <sql id="bonusDetail_column">
+   projectinfo.project_name, BONUS_ID, PROJECT_ID, SUBSCRIBE_TYPE,
+    SUBSCRIBE_PACKAGE_NAME, SUBSCRIBE_AMOUNT, BONUS_TIMES, 
+    BONUS_DATE, BONUS_AMOUNT, COMPLETE_SUBSCRIBE_RECORD, userid,NUMBER_CODE
+   </sql>
+  <select id="getBonusDetailList" parameterType="com.gxcz.xuhui.investment.model.dto.BonusDetailDTO" resultMap="BaseDetailResultMap">
+  	<!-- select <include refid="bonusDetail_column"/> -->
+  	select userinfo.uname, projectinfo.project_name, bonusdtl.BONUS_ID,bonusdtl.PROJECT_ID, bonusdtl.SUBSCRIBE_TYPE, 
+      bankinfo.bank_no SUBSCRIBE_PACKAGE_NAME, bonusdtl.SUBSCRIBE_AMOUNT, bonusdtl.BONUS_TIMES, 
+      bonusdtl.BONUS_DATE, bonusdtl.BONUS_AMOUNT, bonusdtl.COMPLETE_SUBSCRIBE_RECORD, bonusdtl.userid, bonusdtl.NUMBER_CODE, 
+      userinfo.service, userinfo.department duty
+  	from bonus_detail bonusdtl 
+  	left join project_basic_info projectinfo on projectinfo.project_id=bonusdtl.PROJECT_ID 
+  	left join user_info userinfo on userinfo.uid = bonusdtl.userid 
+  	left join bank_info bankinfo on bankinfo.BANK_ID = bonusdtl.SUBSCRIBE_PACKAGE_NAME 
+  	where 1=1 
+  	<if test="projectName !=null and projectName !='' and projectName !='null'">
+  		<![CDATA[ and projectinfo.project_name like CONCAT('%',#{projectName},'%')    ]]>
+  	</if>
+  	<if test="userid!=null and userid!='' and userid!='null'">
+  		<![CDATA[ and bonusdtl.userid=#{userid}    ]]>
+  	</if>
+  	<if test="startDate!=null and startDate!='' and startDate!='null'">
+		<![CDATA[ and bonusdtl.BONUS_DATE >= #{startDate}    ]]>
+	</if>
+	<if test="endDate!=null and endDate!='' and endDate!='null'">
+		<![CDATA[ and bonusdtl.BONUS_DATE <= #{endDate}    ]]>
+	</if>
+	<if test="projectId!=null and projectId!='' and projectId!='null'">
+  		<![CDATA[ and bonusdtl.PROJECT_ID=#{projectId}    ]]>
+  	</if>
+	<if test="number !=null and number !='' and number !='null'">
+  		<![CDATA[ and bonusdtl.number_code=#{number}    ]]>
+  	</if>
+  	order by bonusdtl.number_code 
+	limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertBatch" parameterType="com.gxcz.xuhui.investment.model.BonusDetail" >
+    insert into bonus_detail (BONUS_ID, PROJECT_ID, SUBSCRIBE_TYPE, 
+      SUBSCRIBE_PACKAGE_NAME, SUBSCRIBE_AMOUNT, 
+      BONUS_TIMES, BONUS_DATE, BONUS_AMOUNT, 
+      COMPLETE_SUBSCRIBE_RECORD, userid,NUMBER_CODE)
+    values 
+     <foreach  collection="list" item="item" index="index" separator=",">
+     (#{item.bonusId,jdbcType=VARCHAR}, 
+      <!-- (select  PROJECT_ID from complete_subscribe_record where NUMBER_CODE = #{item.projectId,jdbcType=VARCHAR}),  -->
+      #{item.projectId,jdbcType=VARCHAR}, 
+      #{item.subscribeType,jdbcType=VARCHAR}, 
+      <!-- modify by wuyou 11/08 -->
+      <!-- #{item.subscribePackageName,jdbcType=VARCHAR}, #{item.subscribeAmount,jdbcType=DECIMAL},  -->
+      (select BANKNO from complete_subscribe_record where NUMBER_CODE = #{item.recordNumber,jdbcType=VARCHAR}), 
+      <!-- end -->
+      #{item.subscribeAmount,jdbcType=DECIMAL}, 
+      #{item.bonusTimes,jdbcType=DECIMAL}, 
+      #{item.bonusDate,jdbcType=TIMESTAMP}, 
+      #{item.bonusAmount,jdbcType=DECIMAL}, 
+      #{item.completeSubscribeRecord,jdbcType=VARCHAR}, 
+      <!-- (select Uid from complete_subscribe_record where NUMBER_CODE = #{item.userid,jdbcType=VARCHAR}),  -->
+      #{item.userid,jdbcType=VARCHAR},
+      #{item.number,jdbcType=VARCHAR}
+      )
+     </foreach>
+    
+  </insert>
+  
+  <update id="updateBatch" parameterType="com.gxcz.xuhui.investment.model.BonusDetail">
+  	<foreach item="item" index="index" collection="list" open="" separator=";" close=";">
+        update bonus_detail 
+         <set>
+         	<if test="item.bonusDate != null and item.bonusDate != ''">
+         	<![CDATA[ BONUS_DATE = #{item.bonusDate,jdbcType=VARCHAR},  ]]>
+         	</if>
+         	<if test="item.completeSubscribeRecord != null and item.completeSubscribeRecord != ''">
+         	<![CDATA[ COMPLETE_SUBSCRIBE_RECORD = #{item.completeSubscribeRecord,jdbcType=VARCHAR},  ]]>
+         	</if>
+             BONUS_AMOUNT = #{item.bonusAmount,jdbcType=VARCHAR}
+         </set>
+        where NUMBER_CODE = #{item.number,jdbcType=VARCHAR}
+	</foreach>
+  </update>
+  
+  <select id="getBonusDetailByList" parameterType="java.util.List" resultMap="BaseDetailResultMap">
+  	select userinfo.uname, projectinfo.project_name, bonusdtl.BONUS_ID,bonusdtl.PROJECT_ID, bonusdtl.SUBSCRIBE_TYPE, 
+      bankinfo.bank_no SUBSCRIBE_PACKAGE_NAME, bonusdtl.SUBSCRIBE_AMOUNT, bonusdtl.BONUS_TIMES, 
+      bonusdtl.BONUS_DATE, bonusdtl.BONUS_AMOUNT, bonusdtl.COMPLETE_SUBSCRIBE_RECORD, bonusdtl.userid, bonusdtl.NUMBER_CODE, 
+      userinfo.service, userinfo.department duty 
+  	from bonus_detail bonusdtl 
+  	left join project_basic_info projectinfo on projectinfo.project_id=bonusdtl.PROJECT_ID 
+  	left join user_info userinfo on userinfo.uid = bonusdtl.userid
+  	<!-- add by wuyou 11/8 -->
+  	left join bank_info bankinfo on bankinfo.BANK_ID = bonusdtl.SUBSCRIBE_PACKAGE_NAME
+  	<!-- end -->
+  	where 1=1 
+  	<if test="list!=null and list.size() > 0">
+  	  <if test="list.get(0).bonusId!=null and list.get(0).bonusId!='' and list.get(0).bonusId!='null'">
+  	   and bonusdtl.BONUS_ID in
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+             #{item.bonusId}
+     </foreach>
+  	   </if>
+  	<if test="list.get(0).projectId!=null and list.get(0).projectId!='' and list.get(0).projectId!='null'">
+  	  and projectinfo.project_id  in
+  	  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+             #{item.projectId}
+     </foreach>
+  	</if>
+     
+   </if>
+   order by bonusdtl.number_code 
+  </select>
+</mapper>

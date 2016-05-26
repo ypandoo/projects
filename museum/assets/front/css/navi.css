@@ -1206,9 +1206,9 @@ display: inline-block;
 
 .content_detail .content_title{
   text-align: center;
-    font-size: 20px;
-    padding: 20px 0 10px 0;
-    font-weight: 600;
+  font-size: 25px;
+  padding: 20px 0 20px 0;
+  font-weight: 600;
 }
 
 .content_detail .content_time{
@@ -1246,10 +1246,14 @@ display: inline-block;
 }
 
 .bottom_fix{
-  height: 30px;
+      height: 43px;
       background: #ec422b;
       position: fixed;
-      bottom: 45px;
+      bottom: -3px;
       width: 100%;
       left: 0px;
+      font-size: 18px;
+      line-height: 43px;
+      color: white;
+      text-align: center;
 }

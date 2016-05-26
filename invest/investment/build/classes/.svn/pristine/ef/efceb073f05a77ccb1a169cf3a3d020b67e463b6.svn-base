@@ -1,0 +1,6 @@
+ldapFactory=com.sun.jndi.ldap.LdapCtxFactory
+ldapUrl=ldap\://192.168.8.232\:389
+ldapAccount=ldapuser
+ldapPwd=CIFILdapuserRead
+pageSize=10
+ou=ou\=\u65ED\u8F89\u96C6\u56E2\u80A1\u4EFD\u6709\u9650\u516C\u53F8,DC\=cifi,DC\=com,DC\=cn

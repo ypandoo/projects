@@ -1,0 +1,88 @@
+package com.gxcz.xuhui_ldap.ldap.synchronous;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.gxcz.xuhui_ldap.ldap.ad.Ldap_Ad;
+import com.gxcz.xuhui_ldap.ldap.jdbc.Ldap_Jdbc;
+import com.gxcz.xuhui_ldap.ldap.model.UserDTO;
+
+public class Ldap_Screen {
+	private static final Logger logger = Logger.getLogger(Ldap_Screen.class);
+	public void Screen(){
+		logger.info("进入同步AD域用户数据方法中......");
+		Ldap_Ad lt=new Ldap_Ad();
+		Ldap_Jdbc lj=new Ldap_Jdbc();
+
+		try {
+			List<UserDTO> list=lt.testSearch();//从AD域中获取的集合对象
+			List<UserDTO> querylist=lj.query();//从数据库中查询出来的数据集合
+			List<UserDTO> insertlist=new ArrayList<UserDTO>();//添加用户信息集合
+			List<UserDTO> updatelist=new ArrayList<UserDTO>();//修改用户的集合
+			for(int i=0;i<list.size();i++){
+				UserDTO inuser=new UserDTO();
+				inuser=list.get(i);
+				boolean isadd=false;
+				for(int j=0;j<querylist.size();j++){
+					UserDTO uinfo=new UserDTO();
+					uinfo=querylist.get(j);
+					if(inuser.getsAMAccountName().equals(uinfo.getsAMAccountName())){
+						isadd=true;
+						boolean depar=false;
+						boolean head=false;
+						boolean serv=false;
+						String filiale=inuser.getDepartment();
+						String Ufiliale=uinfo.getDepartment()+"";
+						String headquar=inuser.getHeadquarters();
+						String uheadquar=uinfo.getHeadquarters()+"";
+						String service=inuser.getService();
+						String uservice=uinfo.getService()+"";
+						if(filiale==null&&"null".equals(Ufiliale)){
+							depar=true;
+						}else if(Ufiliale.equals(filiale+"")){
+							depar=true;
+						}
+						if(headquar==null&&"null".equals(uheadquar)){
+							head=true;
+						}else if(uheadquar.equals(headquar+"")){
+							head=true;
+						}
+						if(service==null&&"null".equals(uservice)){
+							serv=true;
+						}else if(uservice.equals(service+"")){
+							serv=true;
+						}
+						if(uinfo.getName().equals(inuser.getName())&&uinfo.getWhenChanged().equals(inuser.getWhenChanged())
+								&&uinfo.getsAMAccountName().equals(inuser.getsAMAccountName())&&uinfo.getUserPrincipalName()
+								.equals(inuser.getUserPrincipalName())&&uinfo.getFiliale().equals(inuser.getFiliale())
+								&&depar==true&&head==true&&serv==true&&uinfo.getStatus().equals(inuser.getStatus())){
+							
+							continue;
+						}else{
+
+							updatelist.add(inuser);
+							
+						}
+					}
+
+				}
+				if(isadd==false){
+					
+					insertlist.add(inuser);
+				}
+			}
+			logger.info("修改用户数量："+updatelist.size()+"条；添加用户数量： "+insertlist.size()+"条.");
+			lj.updete(updatelist);//执行批量修改用户数据的方法
+			lj.insert(insertlist);//执行批量添加用户数据的方法
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+
+
+	}
+}

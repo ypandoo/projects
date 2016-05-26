@@ -1,0 +1,244 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String loginId = (String)request.getSession().getAttribute("loginId");
+	String loginName = (String)request.getSession().getAttribute("loginName");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<title>旭辉跟投平台 - 首页</title>
+
+<link rel="stylesheet" type="text/css" href="css/public.css">
+<link rel="stylesheet" type="text/css" href="../plugins/jqm/jquery.mobile-1.4.4.css">
+<script type="text/javascript" src="../plugins/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../plugins/jqm/jquery.mobile-1.4.4.js"></script>
+<script type="text/javascript" src="../plugins/jQuery.fontFlex.js"></script>
+<script type="text/javascript" src="../plugins/util.js"></script>
+
+<style type="text/css">
+#head_banner{height: 10rem;}
+#welcomeTip{background: #FFF;padding: 1em .5em 0.5em;}
+#welcomeTip .unameSTY{color: red;}
+#navLayer{background: #FFF;}
+#navLayer img{height: 2rem;width: 2rem;}
+.hSTY{color: #0f7ffb;-webkit-margin-before: 0px;-webkit-margin-after: 0px;}
+.floatR_STY{float: right;}
+.bold_STY{}
+.number_STY{color: red;}
+.ui-navbar .borderB{border-bottom: 1px solid lightgray;}
+
+/* 覆盖jqm样式表 */
+.ui-content .ui-listview-inset{margin:0;}
+.ui-page-theme-a .ui-btn.ui-btn-active{background-color: #FFF;border-color: lightgray;color: #D94026;text-shadow:none;}
+.ui-page-theme-a a{font-weight: 100;}
+.ui-listview > .ui-li-static{font-size: .9em;}
+.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited{background-color: #FFFFFF;font-size: 1em;font-weight: 100;text-shadow:none;}
+.ui-page-theme-a .ui-btn:hover, html .ui-bar-a .ui-btn:hover, html .ui-body-a .ui-btn:hover, html body .ui-group-theme-a .ui-btn:hover, html head + body .ui-btn.ui-btn-a:hover{background-color: #ededed}
+</style>
+
+<script type="text/javascript">
+var personalInfoObj = null;
+var systemInfo = null;
+var currUser = "";
+
+$(function(){
+	currUser = $("#loginInp").val();
+	$('body').fontFlex(14, 60, 40);
+	setTips();
+	setHeight();
+	$(window).resize(function(){
+		setHeight();
+	});
+	getNewsList();
+	getPersonalInfo();
+	getSysInfo();
+});
+
+function setHeight(){
+	$("#head_banner").css({"height":$("#head_banner").width()/2});
+}
+function setTips(){
+	var now = new Date(),hour = now.getHours(),str = "";
+	str = '<span class="unameSTY">'+$("#unameInp").val()+'</span>';
+	if(hour < 6){
+		str += ",凌晨好！";
+	}else if (hour < 9){
+		str += ",早上好！";
+	}else if (hour < 12){
+		str += ",上午好！";
+	}else if (hour < 14){
+		str += ",中午好！";
+	}else if (hour < 17){
+		str += ",下午好！";
+	}else if (hour < 19){
+		str += ",傍晚好！";
+	}else if (hour < 22){
+		str += ",晚上好！";
+	}else {
+		str += ",夜里好！";
+	}
+	$("#welcomeTip").html(str);
+}
+function getPersonalInfo(){
+	$.ajax({
+		type:'post',//可选get
+		url:'../subscribe/getSubscribeSummaryByUserId.action?time='+ new Date().getTime(),
+		cache:false,
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			"reqType":"app",
+			"userId":currUser
+		},
+		success:function(msg){
+			if(msg.success){
+				if(msg.dataDto && msg.dataDto.length > 0){
+					personalInfoObj = msg.dataDto[0];
+					loadPersonalInfo();
+				}
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	})
+}
+function loadPersonalInfo () {
+	if(personalInfoObj){
+		$("#personInfo #amountTotalTd").text(formatMillions(personalInfoObj.subscribeAmt)+" 万元");
+		$("#personInfo #confirmAmountTd").text(formatMillions(personalInfoObj.contributiveAmt)+" 万元");
+		$("#personInfo #leverageAmountTd").text(formatMillions(personalInfoObj.leverageAmt)+" 万元");
+		$("#personInfo #bonusAmountTd").text(formatMillions(personalInfoObj.bonusAmt)+" 万元");
+		$("#personInfo #proCountTd").html(personalInfoObj.projectCount||0);
+	}
+}
+function getSysInfo(){
+	$.ajax({
+		type:'post',//可选get
+		url:'../subscribe/getSubscribeSummary.action?time=' + new Date().getTime(),
+		cache:false,
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{
+			"reqType":"app"
+		},
+		success:function(msg){
+			if(msg.success){
+				if(msg.dataDto && msg.dataDto.length > 0){
+					systemInfo = msg.dataDto[0];
+					loadSysInfo();
+				}
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+}
+function loadSysInfo(){
+	$("#sysInfo #projectCount").html(systemInfo.projectCount||0);
+	$("#sysInfo #peopleCount").html(systemInfo.personCount||0);
+	$("#sysInfo #subAmount").html(formatMillions(systemInfo.subscribeAmt)+" 万元");
+	$("#sysInfo #bonusAmount").html((systemInfo.bonusAmt?systemInfo.bonusAmt/10000:0)+" 万元");
+}
+function getNewsList(){
+	$.ajax({
+		type:'post',//可选get
+		url:'../DynamicNewsController/getNewsListByUser.action?time=' + new Date().getTime(),
+		cache:false,
+		contentType: "application/json; charset=utf-8", 
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:'{"userid":"'+currUser+'","pageSize":"'+5+'","projectName":""}',
+		success:function(msg){
+			if(msg.success){
+				newsList=msg.dataDto;
+				loadNewsData();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	})
+}
+function loadNewsData(){
+	var tempHtml = "";
+	// newsList = [{}];  // 测试数据
+	$.each(newsList, function(ind, val){
+		tempHtml += '<li><a href="./newsDetail.jsp?newsId='+val.newsId+'" rel="external">'+formatDate(val.releaseDate)+'&nbsp;&nbsp;'+val.title+'</a></li>';
+		// tempHtml += '<div><a href="./newsDetail.jsp">2014-08-14&nbsp;&nbsp;关于《合肥高新项目跟投方案》公示及跟投申报的通知</a></div>';
+	})
+	$("#newsList").html(tempHtml);
+	$("#newsList").listview('refresh');
+}
+function formatDate(ss){
+	var dt=new Date(ss);
+	var m = dt.getMonth()+1;
+	var d = dt.getDate();
+	var dtstr=dt.getFullYear()+"-"+(m<10?"0"+m:m)+"-"+(d<10?"0"+d:d);
+	// dtstr=dtstr+" "+dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds();
+	return dtstr;
+}
+</script>
+</head>
+<body>
+<input id="loginInp" type="hidden" value="${loginId}">
+<input id="unameInp" type="hidden" value="${loginName}">
+<div data-role="page">
+	<div id="head_banner">
+		<img src="images/banner.png" width="100%" height="100%">
+	</div>
+	<div id="welcomeTip"></div>
+	<div id="navLayer" data-role="header">
+		<div data-role="navbar" data-inset="true">
+			<ul data-inset="true" class="borderB">
+				<li><a href="projectList.jsp" rel="external" data-transition="slidefade"><img src="images/prolist_icon.png"><br>项目列表</a></li>
+				<li><a href="projectList.jsp" rel="external"><img src="images/subscribe_icon.png"><br>我要认购</a></li>
+				<li><a href="projectList.jsp?isPerson=yes" rel="external"><img src="images/uncomplete_icon.png"><br>未完成</a></li>
+				<li><a href="completed.jsp" rel="external"><img src="images/completed_icon.png"><br>已完成</a></li>
+			</ul>
+			<ul data-inset="true">
+				<li><a href="newsList.jsp" rel="external"><img src="images/prolist_icon.png"><br>动态新闻</a></li>
+				<li><a href="bonusList.jsp" rel="external"><img src="images/bonus_icon.png"><br>分红明细</a></li>
+				<li><a href="followRules.jsp" rel="external"><img src="images/rules_icon.png"><br>制度说明</a></li>
+				<li><a href="bankList.jsp" rel="external"><img src="images/setting_icon.png"><br>银行帐号</a></li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="content">
+		<h5 class="hSTY">最新动态</h5>
+		<ul id="newsList" data-role="listview" data-inset="true" data-shadow="false">
+			<!-- <li><a href="">2014-10-10 项目</a></li>
+			<li><a href="">2014-10-10 项目</a></li>
+			<li><a href="">2014-10-10 项目</a></li>
+			<li><a href="">2014-10-10 项目</a></li>
+			<li><a href="">2014-10-10 项目</a></li> -->
+		</ul>
+	</div>
+	<div data-role="content">
+		<h5 class="hSTY">个人统计</h5>
+		<ul id="personInfo" data-role="listview" data-inset="true" data-shadow="false">
+			<li><a href="completed.jsp" rel="external">个人跟投总额<span class="floatR_STY number_STY" id="amountTotalTd">0 万元</span></a></li>
+			<li><a href="completed.jsp" rel="external"><span>个人出资总额</span><span class="floatR_STY number_STY" id="confirmAmountTd">0 万元</a></span></li>
+			<li><a href="completed.jsp" rel="external"><span>杠杆认购总额</span><span class="floatR_STY number_STY" id="leverageAmountTd">0 万元</a></span></li>
+			<li><a href="bonusList.jsp" rel="external"><span>分红总额</span><span class="floatR_STY number_STY" id="bonusAmountTd">0 万元</a></span></li>
+			<li><span>认购项目数</span><span class="floatR_STY number_STY" id="proCountTd">0</span></li>
+		</ul>
+	</div>
+	<div data-role="content">
+		<h5 class="hSTY">系统概览</h5>
+		<ul id="sysInfo" data-role="listview" data-inset="true" data-shadow="false">
+			<li><span>项目跟投总数</span><span class="floatR_STY number_STY" id="projectCount">0</span></li>
+			<li><span>认购人次</span><span class="floatR_STY number_STY" id="peopleCount">0</span></li>
+			<li><span>认购总额(含杆杠)</span><span class="floatR_STY number_STY" id="subAmount">0</span></li>
+			<li><span>分红</span><span class="floatR_STY number_STY" id="bonusAmount">0</span></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

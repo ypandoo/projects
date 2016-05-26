@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxcz.xuhui.investment.dao.PayInDetailMapper">
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.PayInDetail">
+    <id column="PI_ID" jdbcType="VARCHAR" property="piId" />
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="PI_TIMES" jdbcType="DECIMAL" property="piTimes" />
+    <result column="SUBSCRIBE_AMT" jdbcType="DECIMAL" property="subscribeAmt" />
+    <result column="PI_DATE" jdbcType="TIMESTAMP" property="piDate" />
+    <result column="PI_AMT" jdbcType="DECIMAL" property="piAmt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PI_ID, PROJECT_ID, USER_ID, PI_TIMES, SUBSCRIBE_AMT, PI_DATE, PI_AMT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_in_detail
+    where PI_ID = #{piId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pay_in_detail
+    where PI_ID = #{piId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.PayInDetail">
+    insert into pay_in_detail (PI_ID, PROJECT_ID, USER_ID, 
+      PI_TIMES, SUBSCRIBE_AMT, PI_DATE, 
+      PI_AMT)
+    values (#{piId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{piTimes,jdbcType=DECIMAL}, #{subscribeAmt,jdbcType=DECIMAL}, #{piDate,jdbcType=TIMESTAMP}, 
+      #{piAmt,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.PayInDetail">
+    insert into pay_in_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="piId != null">
+        PI_ID,
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="piTimes != null">
+        PI_TIMES,
+      </if>
+      <if test="subscribeAmt != null">
+        SUBSCRIBE_AMT,
+      </if>
+      <if test="piDate != null">
+        PI_DATE,
+      </if>
+      <if test="piAmt != null">
+        PI_AMT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="piId != null">
+        #{piId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="piTimes != null">
+        #{piTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeAmt != null">
+        #{subscribeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="piDate != null">
+        #{piDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="piAmt != null">
+        #{piAmt,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.PayInDetail">
+    update pay_in_detail
+    <set>
+      <if test="projectId != null">
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="piTimes != null">
+        PI_TIMES = #{piTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeAmt != null">
+        SUBSCRIBE_AMT = #{subscribeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="piDate != null">
+        PI_DATE = #{piDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="piAmt != null">
+        PI_AMT = #{piAmt,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PI_ID = #{piId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.PayInDetail">
+    update pay_in_detail
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      PI_TIMES = #{piTimes,jdbcType=DECIMAL},
+      SUBSCRIBE_AMT = #{subscribeAmt,jdbcType=DECIMAL},
+      PI_DATE = #{piDate,jdbcType=TIMESTAMP},
+      PI_AMT = #{piAmt,jdbcType=DECIMAL}
+    where PI_ID = #{piId,jdbcType=VARCHAR}
+  </update>
+  
+  <resultMap id="BaseDetailResultMap" type="com.gxcz.xuhui.investment.model.dto.PayInDetailDTO" >
+    <id column="PI_ID" property="piId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PI_TIMES" property="piTimes" jdbcType="DECIMAL" />
+    <result column="SUBSCRIBE_AMT" property="subscribeAmt" jdbcType="DECIMAL" />
+    <result column="PI_DATE" property="piDate" jdbcType="TIMESTAMP" />
+    <result column="PI_AMT" property="piAmt" jdbcType="DECIMAL" />
+    <result column="NUMBER_CODE" property="numberCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="UNAME" property="uname" jdbcType="VARCHAR" />
+    <result column="SERVICE" property="service" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByDetail" parameterType="com.gxcz.xuhui.investment.model.dto.PayInDetailDTO" resultMap="BaseDetailResultMap">
+    select pi.pi_ID,pi.project_id,pi.user_id,pi.pi_times,pi.subscribe_amt,pi.pi_date,pi.pi_amt, 
+	  	pi.number_code,proinfo.project_name,userinfo.uname, userinfo.service, userinfo.department duty
+    from pay_in_detail pi 
+	left join project_basic_info proinfo on pi.project_id = proinfo.project_id  
+	left join user_info userinfo on pi.user_id = userinfo.uid 
+	left join complete_subscribe_record csr on pi.PROJECT_ID = csr.PROJECT_ID and pi.USER_ID = csr.UID 
+    where 1=1 
+    <if test="projectId != null and projectId != ''">
+      and pi.PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+    </if>
+    <if test="uname != null and uname != ''">
+      and userinfo.uname like CONCAT('%',#{uname,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="userId != null and userId != ''">
+      and pi.user_id = #{userId,jdbcType=VARCHAR} 
+    </if>
+    <if test="projectName != null and projectName != ''">
+      and proinfo.project_name like CONCAT('%',#{projectName,jdbcType=VARCHAR},'%')
+    </if>
+      and csr.isdimission = '0' 
+    order by pi.number_code
+  </select>
+  
+  <insert id="insertBatch" parameterType="com.gxcz.xuhui.investment.model.PayInDetail" >  
+  	<!-- insert into pay_in_detail (PI_ID, PROJECT_ID, USER_ID, 
+      PI_TIMES, SUBSCRIBE_AMT, PI_DATE, PI_AMT)
+    values (#{piId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{piTimes,jdbcType=DECIMAL}, #{subscribeAmt,jdbcType=DECIMAL}, #{piDate,jdbcType=TIMESTAMP}, 
+      #{piAmt,jdbcType=DECIMAL}) -->
+      
+     insert into pay_in_detail (PI_ID, PROJECT_ID, USER_ID, 
+       PI_TIMES, SUBSCRIBE_AMT, PI_DATE, PI_AMT, NUMBER_CODE)
+     values 
+     <foreach  collection="list" item="item" index="index" separator=",">
+     (#{item.piId,jdbcType=VARCHAR},
+      <!-- (select PROJECT_ID from complete_subscribe_record where NUMBER_CODE = #{item.projectId,jdbcType=VARCHAR}),
+      (select Uid as userId from complete_subscribe_record where NUMBER_CODE = #{item.userId,jdbcType=VARCHAR}), -->
+      #{item.projectId,jdbcType=VARCHAR},
+      #{item.userId,jdbcType=VARCHAR},
+      #{item.piTimes,jdbcType=DECIMAL}, 
+      #{item.subscribeAmt,jdbcType=DECIMAL}, 
+      #{item.piDate,jdbcType=TIMESTAMP}, 
+      #{item.piAmt,jdbcType=DECIMAL}, 
+      #{item.numberCode,jdbcType=VARCHAR}
+      )
+     </foreach>    
+  </insert>
+  
+  <update id="updateBatch" parameterType="com.gxcz.xuhui.investment.model.PayInDetail">
+  	<foreach item="item" index="index" collection="list" open="" separator=";" close=";">
+        update pay_in_detail 
+         <set>
+         	<if test="item.piDate != null and item.piDate != ''">
+         	<![CDATA[ PI_DATE = #{item.piDate,jdbcType=VARCHAR},  ]]>
+         	</if>
+             PI_AMT = #{item.piAmt,jdbcType=VARCHAR}
+         </set>
+        where NUMBER_CODE = #{item.numberCode,jdbcType=VARCHAR}
+	</foreach>
+  </update>
+  
+  <!-- 缴款数据导出sql -->
+  <select id="getListById" parameterType="java.util.List" resultMap="BaseDetailResultMap">
+  	select pi.pi_ID,pi.project_id,pi.user_id,pi.pi_times,pi.subscribe_amt,pi.pi_date,pi.pi_amt, 
+	  	pi.number_code,proinfo.project_name,userinfo.uname,pi.number_code, userinfo.service, userinfo.department duty  
+  	from pay_in_detail pi 
+	left join project_basic_info proinfo on pi.project_id = proinfo.project_id  
+	left join user_info userinfo on pi.user_id = userinfo.uid 
+	left join complete_subscribe_record csr on pi.PROJECT_ID = csr.PROJECT_ID and pi.USER_ID = csr.UID 
+    where 1=1  and csr.isdimission = '0' 
+  	<if test="list!=null and list.size() > 0">
+  	  <if test="list.get(0).piId != null and list.get(0).piId != '' and list.get(0).piId != 'null'">
+  	   and pi.piId in
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+             #{item.piId}
+     </foreach>
+  	   </if>
+  	<if test="list.get(0).projectId != null and list.get(0).projectId != '' and list.get(0).projectId != 'null'">
+  	  and proinfo.project_id in
+  	  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+           #{item.projectId}
+     </foreach>
+  	</if>
+     
+   </if>
+   order by pi.number_code
+  </select>
+</mapper>

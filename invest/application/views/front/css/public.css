@@ -1,0 +1,14 @@
+*{margin: 0px;padding: 0px;}
+body{font-size: 12px;margin: 0px;margin-top:-10px;padding: 0px;font-family: '微软雅黑';background: #FFF;}
+a{color: #636363; text-decoration: none;}
+a:hover{color: #f9371d;}
+ul{list-style: none;margin: 0px;padding: 0px;}
+input{width:120px;height: 30px;line-height: 30px;padding:0px 5px;margin: 3px;font-size: 1em;}
+select{width: 100px;height: 29px;line-height: 25px;font-size: 1em;}
+/*button{min-width: 60px;height:25px;line-height:25px;text-align: center;border: 1px solid #E8E8E8;background: #FFF;
+	cursor: pointer;}*/
+
+.displayNone{display: none;}
+
+#contentLayer{min-height: 480px;width:1080px;margin:10px auto;}
+#footer{height:30px;background: #E5BE8F;text-align: center;line-height: 30px;width:100%;min-width:1280px;margin:0px auto;margin-top: 50px}

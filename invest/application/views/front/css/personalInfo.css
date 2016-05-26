@@ -1,0 +1,35 @@
+.displayNone{display: none;}
+#titleLayer{overflow: hidden;margin: 10px 0px auto;}
+#titleLayer .titleSTY{float: left;margin-right: 10px;font-size: 14px;font-weight: bold;}
+#titleLayer .addBtn{margin-right: 10;width: 50px;height: 19px;background: url(./../images/add.png) no-repeat;cursor: pointer;font-size: 1em;text-align: right;}
+#titleLayer .returnBtn{margin-left: 20px;width: 73px;height: 19px;background: url(./../images/add.png) no-repeat;cursor: pointer;text-align: right;}
+#titleLayer .returnBtn a{font-size: 1em;color: #000;font-weight: bold;}
+#titleLayer .floatR{float: right;}
+
+#listLayer{width: 100%;border: 0px solid #e8e8e8;background: #FFF;border-radius: 3px;overflow: hidden;}
+#listLayer table{margin: 8px auto;border-spacing: 1px;border-collapse: collapse;border: 1px solid #e8e8e8;}
+#listLayer table thead{background: url(./../images/thead_bg.png);font-size: 14px;}
+#listLayer table tbody{background: #F5F5F5;font-size: 1em;}
+#listLayer table td{font-size:1em;text-align: center;border: 1px solid #e8e8e8;}
+
+#personalLayer{margin: 10px auto;width: 100%;}
+#personalLayer table{background: #f8f8f8;font-size: 1.2em;}
+#personalLayer table input{width: 180px;font-size: 0.8em; color: #B3B3B3;}
+
+#dialogBg{position: fixed;width: 100%;height: 100%;left: 0px;top: 0px;background: #000;opacity: 0.4;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);}
+#dialogLayer{position: fixed;width: 500px;min-height: 256px;border: 1px solid #e8e8e8;left: 31%;top: 15%;
+	background: #FFF;box-shadow: 5px 5px 15px #6B6868;}
+#dialogLayer .title{height:30px;background: #FF5B21;}
+#dialogLayer .title .titleSTY{color: #FFF;font-size: 1.3em;font-weight: bold; height: 30px;line-height: 30px;margin: 0px 5px;}
+#dialogLayer .title .closeSTY{float: right;height: 30px;width: 30px;cursor: pointer;}
+#dialogLayer .list{width: 100%;/*height: 180px;*/overflow: hidden;}
+#dialogLayer .list .dialogTipsSTY{color: red;font-size: 14px;padding:12px 25px 0px;}
+#dialogLayer .list table{width: 90%;margin: 5px auto;border: 1px solid #e8e8e8;font-size:1em;}
+#dialogLayer .list table td{padding: 5px 10px;border: 1px solid #e8e8e8;font-size: 1.2em;}
+#dialogLayer .list table .titleTd{text-align: right;height: 35px;width: 110px;background: #ECECEC;}
+#dialogLayer .list table .tipsSTY{color: red;font-size: 0.8em;}
+#dialogLayer .list table input{width: 165px;height: 25px;font-size: 1em;}
+#dialogLayer .bottom{/*position:absolute;bottom: 0px;*/width: 100%;}
+#dialogLayer .bottom div{float: right;width: 72px;height: 28px;margin: 10px;cursor: pointer;}
+#dialogLayer .bottom .saveBtn{background: url(./../images/save.png);}
+#dialogLayer .bottom .cancelBtn{background: url(./../images/cancel.png);}

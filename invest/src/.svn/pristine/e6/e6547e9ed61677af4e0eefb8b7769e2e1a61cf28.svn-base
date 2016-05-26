@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.BankInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.BankInfo" >
+    <id column="BANK_ID" property="bankId" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="BANK_NO" property="bankNo" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="BANK_ATTRIBUTE" property="bankAttribute" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BANK_ID, UID, BANK_NO, BANK_NAME, BANK_ATTRIBUTE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_info
+    where BANK_ID = #{bankId,jdbcType=VARCHAR}
+  </select>
+  <select id="getBankListByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_info
+    where UID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bank_info
+    where BANK_ID = #{bankId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.BankInfo" >
+    insert into bank_info (BANK_ID, UID, BANK_NO, 
+      BANK_NAME, BANK_ATTRIBUTE)
+    values (#{bankId,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{bankNo,jdbcType=VARCHAR}, 
+      #{bankName,jdbcType=VARCHAR}, #{bankAttribute,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.BankInfo" >
+    insert into bank_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        BANK_ID,
+      </if>
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="bankNo != null" >
+        BANK_NO,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="bankAttribute != null" >
+        BANK_ATTRIBUTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAttribute != null" >
+        #{bankAttribute,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.BankInfo" >
+    update bank_info
+    <set >
+      <if test="uid != null" >
+        UID = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        BANK_NO = #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAttribute != null" >
+        BANK_ATTRIBUTE = #{bankAttribute,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BANK_ID = #{bankId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.BankInfo" >
+    update bank_info
+    set UID = #{uid,jdbcType=VARCHAR},
+      BANK_NO = #{bankNo,jdbcType=VARCHAR},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      BANK_ATTRIBUTE = #{bankAttribute,jdbcType=VARCHAR}
+    where BANK_ID = #{bankId,jdbcType=VARCHAR}
+  </update>
+</mapper>

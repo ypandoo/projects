@@ -1,0 +1,6 @@
+#newsTitle{text-align: center;font-size: 1.4em;font-weight: bold;}
+#newsProperty{width: 500px;margin: 10px auto;}
+#newsProperty span{margin: 0px 30px;font-size: 1.2em;color: #363636;}
+#liner{border-bottom: 2px solid #e8e8e8;}
+#content{}
+#content pre{line-height: 30px;font-size: 1.0em;}

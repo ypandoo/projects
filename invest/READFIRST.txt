@@ -1,0 +1,2 @@
+Create xi folder in your htdocs directory  ex C:\xampp\htdocs\xi
+Import the books.sql in phpmyadmin

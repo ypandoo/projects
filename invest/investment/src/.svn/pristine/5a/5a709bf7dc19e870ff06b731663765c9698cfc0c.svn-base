@@ -1,0 +1,45 @@
+package com.gxcz.xuhui.investment.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gxcz.xuhui.investment.dao.UserInfoMapper;
+import com.gxcz.xuhui.investment.model.UserInfo;
+import com.gxcz.xuhui.investment.model.dto.UserInfoDTO;
+
+@Service("userService")
+public class UserService implements IUserService {
+	private UserInfoMapper userInfoMapper=null;
+	
+	public void insert(UserInfo userinfo) {
+		userInfoMapper.insert(userinfo);
+	}
+	public UserInfoMapper getUserInfoMapper() {
+		return userInfoMapper;
+	}
+	@Autowired
+	public void setUserInfoMapper(UserInfoMapper userInfoMapper) {
+		this.userInfoMapper = userInfoMapper;
+	}
+	public UserInfo getUserInfoByLoginId(String loginId) {
+		UserInfo userInfo = userInfoMapper.selectByLoginId(loginId);
+		return userInfo;
+	}
+	@Override
+	public List<UserInfoDTO> getUserList(UserInfoDTO userInfoDto) {
+		return userInfoMapper.getUserList(userInfoDto);
+	}
+	@Override
+	public UserInfo getUserInfoBysAMAccountName(String sAMAccountName) {
+		// TODO Auto-generated method stub
+		return userInfoMapper.selectBySAMAccountName(sAMAccountName);
+	}
+	@Override
+	public List<UserInfoDTO> getUserRelateList(UserInfoDTO userInfoDto) {
+		
+		return userInfoMapper.getUserRelateList(userInfoDto);
+	}
+	
+}

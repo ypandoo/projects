@@ -1,0 +1,47 @@
+#hibernate.dialect=org.hibernate.dialect.OracleDialect
+#driverClassName=oracle.jdbc.driver.OracleDriver
+#validationQuery=SELECT 1 FROM DUAL
+#jdbc_url=jdbc:oracle:thin:@localhost:1521:orcl
+#jdbc_username=sypro
+#jdbc_password=sypro
+
+driverClassName=com.mysql.jdbc.Driver
+validationQuery=SELECT 1
+jdbc_url=jdbc:mysql://192.168.8.63:3306/inverstment?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+#jdbc_url=jdbc:mysql://192.168.8.65:3306/investment?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+jdbc_username=root
+jdbc_password=GXCZ@xuhui88
+#jdbc_password=admin
+
+#driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#validationQuery=SELECT 1
+#jdbc_url=jdbc:sqlserver://127.0.0.1:1433;DatabaseName=Vanke
+#jdbc_username=sa
+#jdbc_password=zhangwanli99
+
+
+#driverClassName=oracle.jdbc.driver.OracleDriver
+#validationQuery=SELECT 1
+#jdbc_url=jdbc:oracle:thin:@10.0.71.79:1521/ORCL
+#jdbc_username=paydbuser
+#jdbc_password=paydbuser
+
+#jdbc_url=jdbc:oracle:thin:@127.0.0.1:1521/ORCL
+#jdbc_username=system
+#jdbc_password=zhangwanli99
+
+#hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+#driverClassName=net.sourceforge.jtds.jdbc.Driver
+#validationQuery=SELECT 1
+#jdbc_url=jdbc:jtds:sqlserver://127.0.0.1:1433/sy
+#jdbc_username=sa
+#jdbc_password=123456
+
+#hibernate.dialect=org.hibernate.dialect.DerbyDialect
+#driverClassName=org.apache.derby.jdbc.EmbeddedDriver
+#validationQuery=SELECT 1
+#jdbc_url=jdbc:derby:sy;create=true
+#jdbc_username=sypro
+#jdbc_password=sypro
+
+#jndiName=java:comp/env/dataSourceName

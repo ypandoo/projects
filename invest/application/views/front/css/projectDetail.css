@@ -1,0 +1,43 @@
+#contentFrame table td{border: 1px solid #D6D6D6;}
+#contentFrame{min-height: 450px;border: 1px solid #e8e8e8;border-radius: 3px;margin: 10px auto;overflow: hidden;}
+#contentFrame #titleTab{height: 40px;border-bottom: 1px solid #e8e8e8;padding: 0px 10px;display: inline-block;width: 100%;}
+#contentFrame #titleTab .tabSTY{height: 30px;line-height: 30px;margin: 11px 10px 0px 5px;padding: 0px 15px;
+	float: left;cursor: pointer;border-left: 1px solid #FFF;border-right: 1px solid #FFF;}
+#contentFrame #titleTab .focusOn{background: url(./../images/tab.png);border-left: 1px solid #e8e8e8;
+	border-right: 1px solid #e8e8e8;color: #FF2608;font-weight: 600;}
+
+#contentFrame .info_STY{overflow-y: auto;height: 36em;}
+#contentFrame #basic_info .moduleTitle,#contentFrame #scheme_info .moduleTitle{
+	font-size: 1.2em;font-weight: bold;margin: 10px 0px;cursor: pointer;display: table;}
+#contentFrame #basic_info .moduleTitle img{margin: 0px 10px;vertical-align: middle;}
+#contentFrame #basic_info .content, #contentFrame #scheme_info .content{
+	width: 95%;overflow: hidden;margin: 0px auto;}
+#contentFrame #basic_info .content .titleSTY, #contentFrame #scheme_info .content .titleSTY{
+	font-size: 1.2em;margin: 7px 0px 0px;}
+#contentFrame #basic_info .content .picSTY, #contentFrame #scheme_info .content .picSTY{
+	float:left;padding: 3px;border: 1px solid #e8e8e8;margin:0px 50px 10px 0px}
+#contentFrame #basic_info .content table, #contentFrame #scheme_info .content table{
+	width: 100%;border-spacing: 1px;border-collapse: collapse;font-size: 1em;border: 1px solid #D6D6D6;}
+#contentFrame #basic_info .content table td{text-align: left;height: 30px;padding: 2px 8px;width: 300px;}
+#contentFrame #scheme_info .content table td{text-align: left;height: 30px;padding: 8px;width: 300px;}
+#contentFrame #basic_info .content table .titleTd,#contentFrame #scheme_info .content table .titleTd{
+	color: #797979;background: #F7F7F8;width: 200px;text-align: center;}
+#contentFrame #basic_info .content table .richTd,#contentFrame #scheme_info .content table .richTd{
+	height: 80px;text-align: left;width: 777px;}
+
+#contentFrame #danger_info{padding: 0px 20px;color: #000;}
+#contentFrame #danger_info pre{line-height: 20px;}
+
+#contentFrame #protocal_info div{margin: 10px 20px 10px;font-size: 1em;}
+#contentFrame #protocal_info a{font-size: 1.3em;font-size: 1.3em;margin-left: 20px;}
+#contentFrame #protocal_info a:hover{text-decoration:underline;}
+
+#contentFrame #force_info,#contentFrame #news_info{width: 95%;margin: 0px auto;}
+#contentFrame #force_info .titleSTY, #contentFrame #news_info .titleSTY{font-size: 1.2em;}
+#contentFrame #force_info table, #contentFrame #news_info table{
+	width: 100%;border-spacing: 1px;border-collapse: collapse;border: 1px solid #e8e8e8;font-size: 1em;}
+#contentFrame #force_info table thead{background: url(./../images/thead_bg.png);}
+#contentFrame #news_info table thead{background: url(./../images/thead_bg.png)}
+#contentFrame #force_info table td,#contentFrame #news_info table td{text-align: center;}
+
+.displayNone{display: none;}

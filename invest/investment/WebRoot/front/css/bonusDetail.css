@@ -1,0 +1,12 @@
+#searchLayer{overflow: hidden;margin: 10px auto;}
+#searchLayer .searSTY{float: left;margin-right: 10%;}
+#searchLayer .floatR{float: right;margin-right: 0;}
+#searchLayer #searchText{width: 150px;}
+#searchLayer #searchBtn{min-width: 60px;height:25px;line-height:25px;text-align: center;
+	border: 1px solid #E8E8E8;background: #FFF;	cursor: pointer;}
+
+#listLayer{width: 100%;border: 0px solid #e8e8e8;background: #FFF;min-height: 400px;border-radius: 3px;}
+#listLayer table{margin: 0px auto;border-spacing: 1px;border-collapse: collapse;border: 1px solid #e8e8e8;}
+#listLayer table thead{background: url(./../images/thead_bg.png);font-size: 1.1em;}
+#listLayer table tbody{background: #F5F5F5;font-size: 1em;}
+#listLayer table td{font-size:1em;text-align: center;border: 1px solid #e8e8e8;height: 34px;line-height: 17px;}

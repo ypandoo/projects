@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.DynamicNewsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.DynamicNewsInfo" >
+    <id column="NEWS_ID" property="newsId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="uname" property="author" jdbcType="VARCHAR" />
+    <result column="RELEASE_DATE" property="releaseDate"  />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dynews.NEWS_ID, dynews.PROJECT_ID, dynews.TITLE, userinfo.uname, dynews.RELEASE_DATE, dynews.content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dynamic_news_info dynews
+    left join user_info userinfo on dynews.AUTHOR=userinfo.uid
+    where dynews.NEWS_ID = #{newsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dynamic_news_info
+    where NEWS_ID = #{newsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.DynamicNewsInfo" >
+    insert into dynamic_news_info (NEWS_ID, PROJECT_ID, TITLE, 
+      AUTHOR, RELEASE_DATE, content
+      )
+    values (#{newsId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{releaseDate}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.DynamicNewsInfo" >
+    insert into dynamic_news_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        NEWS_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="releaseDate != null" >
+        RELEASE_DATE,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        #{newsId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null" >
+        #{releaseDate},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.DynamicNewsInfo" >
+    update dynamic_news_info
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null" >
+        RELEASE_DATE = #{releaseDate},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NEWS_ID = #{newsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.DynamicNewsInfo" >
+    update dynamic_news_info
+    set <!-- PROJECT_ID = #{projectId,jdbcType=VARCHAR}, -->
+      TITLE = #{title,jdbcType=VARCHAR},
+      <!-- AUTHOR = #{author,jdbcType=VARCHAR},
+      RELEASE_DATE = #{releaseDate}, -->
+      content = #{content,jdbcType=VARCHAR}
+    where NEWS_ID = #{newsId,jdbcType=VARCHAR}
+  </update>
+  <resultMap type="com.gxcz.xuhui.investment.model.dto.DynamicNewsInfoDTO" id="getnewList_resultmap">
+  	<id column="news_id" property="newsId" jdbcType="VARCHAR" />
+  	<result column="project_id" property="projectId" jdbcType="VARCHAR" />
+  	<result column="project_Name" property="projectName" jdbcType="VARCHAR" />
+  	<result column="title" property="title" jdbcType="VARCHAR" />
+  	<result column="author" property="author" jdbcType="VARCHAR" />
+  	<result column="RELEASE_DATE" property="releaseDate"  />
+  	<result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="getnewList_Column_sql">
+  	dynews.news_id,project.project_id,project.project_Name, 
+	dynews.title,dynews.author, 
+	dynews.RELEASE_DATE,dynews.content 
+	,userinfo.uname authorName
+  </sql>
+  <select id="getNewsListByUser" parameterType="com.gxcz.xuhui.investment.model.dto.DynamicNewsInfoDTO" resultMap="getnewList_resultmap">
+	select <include refid="getnewList_Column_sql"/>
+	from  PROJECT_BASIC_INFO project 
+	 join DYNAMIC_NEWS_INFO dynews on dynews.project_id=project.project_id 
+	 join user_info userinfo on userinfo.uid = dynews.AUTHOR 
+	where 1=1 
+	and (project.project_Name like CONCAT('%',#{projectName},'%') or dynews.title like CONCAT('%',#{projectName},'%'))  
+	order by dynews.RELEASE_DATE desc limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getNewsListByProjectId" parameterType="com.gxcz.xuhui.investment.model.dto.DynamicNewsInfoDTO" resultMap="getComSubProject_resultmap">
+	select <include refid="getComSubProject_Column_sql"/>
+	from  PROJECT_BASIC_INFO project 
+	join DYNAMIC_NEWS_INFO dynews on dynews.project_id=project.project_id
+	left join user_info userinfo on userinfo.uid=dynews.author 
+	where 1=1 and project.project_id=#{projectId}
+	<if test="title!=null and title!='' and title!='null'">
+		and dynews.title like CONCAT('%',#{title},'%') 
+	</if>
+	<if test="releaseBegin!=null and releaseBegin!=''">
+		<![CDATA[ and dynews.RELEASE_DATE >= #{releaseBegin}    ]]>
+	</if>
+	<if test="releaseEnd!=null and releaseEnd!=''">
+		<![CDATA[ and dynews.RELEASE_DATE <= #{releaseEnd}    ]]>
+	</if>
+	order by dynews.RELEASE_DATE desc limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <resultMap type="com.gxcz.xuhui.investment.model.dto.DynamicNewsInfoDTO" id="getComSubProject_resultmap">
+  	<id column="news_id" property="newsId" jdbcType="VARCHAR" />
+  	<result column="project_id" property="projectId" jdbcType="VARCHAR" />
+  	<result column="project_Name" property="projectName" jdbcType="VARCHAR" />
+  	<result column="title" property="title" jdbcType="VARCHAR" />
+  	<result column="UNAME" property="authorName" jdbcType="VARCHAR" />
+  	<result column="RELEASE_DATE" property="releaseDate"  />
+  	<result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="getComSubProject_Column_sql">
+  	dynews.news_id,project.project_id,project.project_Name,
+	dynews.title,userinfo.UNAME,
+	dynews.RELEASE_DATE,dynews.content
+  </sql>
+  <select id="getComSubProjectNewsByUser" parameterType="com.gxcz.xuhui.investment.model.dto.DynamicNewsInfoDTO" resultMap="getComSubProject_resultmap">
+  	select  <include refid="getComSubProject_Column_sql"/>
+  	 from COMPLETE_SUBSCRIBE_RECORD compSub 
+ 	 left join PROJECT_BASIC_INFO project on project.project_id=compSub.PROJECT_ID
+  	left join DYNAMIC_NEWS_INFO dynews on dynews.project_id=project.project_id
+  	left join user_info userinfo on userinfo.uid=dynews.author
+  	where compSub.uid=#{userid} 
+  	order by dynews.RELEASE_DATE desc limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getNewsDetail" parameterType="java.lang.String" resultMap="getComSubProject_resultmap">
+  	select  <include refid="getComSubProject_Column_sql"/>
+  	 from DYNAMIC_NEWS_INFO dynews 
+ 	 left join PROJECT_BASIC_INFO project   on dynews.project_id=project.project_id
+  	left join user_info userinfo on userinfo.uid=dynews.author
+  	where dynews.news_id=#{newsId} 
+  </select>
+  
+</mapper>

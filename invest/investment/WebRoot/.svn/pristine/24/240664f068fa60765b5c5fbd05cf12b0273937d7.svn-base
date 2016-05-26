@@ -1,0 +1,64 @@
+#contentLayer{background: #f8f8f8;overflow: hidden;border: 1px solid #e8e8e8;padding: 3px;min-height: 250px;}
+
+#protocalView{width: 80%;height:150px;margin:10px auto;background: #FFF;overflow: scroll;
+	border: 1px solid #e8e8e8;padding: 10px;}
+
+#protocalOperate{width: 80%;text-align: center;font-size: 1.2em;padding:0px 0px;margin: 0px auto;}
+#protocalOperate #agreeCK{width:15px;height: 15px;vertical-align: middle;margin:0px 5px;}
+#protocalOperate .downProtocal{margin-left: 25px;}
+
+#projectInfo{width: 40%;margin: 20px auto;background: #FFF;border: 1px solid #e8e8e8;padding: 0px;}
+#projectInfo table td{padding:2px 5px;font-size: 1.3em;}
+#projectInfo table input{margin: 0px;}
+#projectInfo table .titleTd{text-align: right;}
+#projectInfo table .inpSTY{width: 155px;height: 25px;line-height: 25px;}
+#projectInfo table .selectSTY{width: 169px;}
+#projectInfo table .readonly{background: #ECECEC;border: 1px solid #C0C0C0;}
+#projectInfo #submitBtn{width: 80px;height: 28px;background: url(./../images/sub.png) no-repeat;border: none;cursor: pointer;}
+#maskLayer{
+	background-color:#000000;
+	opacity:0.7;
+	filter: alpha(opacity=70); 
+	position:absolute; 
+	left:0;
+	top:0;
+	z-index:1000;
+}
+#addPage{
+	position:fixed;
+	z-index:1001;
+}
+
+#protocalListBody{
+	background-color: #FFFFFF;
+	overflow: hidden;
+	text-align: center;
+}
+
+#protocalListBody #protocalListTitle{
+	font-weight: bold;
+	font-size: 1.4em;
+	margin: 10px;
+}
+
+#protocalListBody #protocalListCloseBtn{
+	cursor: pointer;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+
+#protocalListBody ul{
+	 margin: 20px;
+	 text-align: left;
+}
+
+#protocalListBody ul li{
+	 margin: 15px;
+}
+
+#protocalListBody ul li a{
+	 cursor: pointer;
+	 text-decoration: underline;
+}

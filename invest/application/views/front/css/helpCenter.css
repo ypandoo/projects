@@ -1,0 +1,9 @@
+#forumLink{height: 40px;line-height: 40px;margin: 20px 10px auto;}
+#forumLink a{color: #FF2608;font-size: 1.4em;font-weight: bold;}
+#forumLink a:hover{text-decoration: underline;}
+
+#listLayer{border:1px solid #e8e8e8;min-height: 400px;box-shadow: 1px 1px 15px #DAD5D5;}
+#listLayer .listSTY{float: left;border: 1px solid #e8e8e8;margin: 35px 50px 15px 50px;box-shadow: 5px 5px 15px #777777;
+	width: 250px;height: 140px;}
+#listLayer .listSTY table{width: 90%;margin: 10px auto;font-size: 1.2em}
+#listLayer .listSTY .titleTd{font-size: 1em;font-weight: bold;}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.SubscribeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.SubscribeInfo" >
+    <id column="SUBSCRIBE_ID" property="subscribeId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="FOLLOW_NATURE" property="followNature" jdbcType="VARCHAR" />
+    <result column="FOLLOW_STAFF" property="followStaff" jdbcType="VARCHAR" />
+    <result column="AMOUNT_TOPLIMIT" property="amountToplimit" jdbcType="DECIMAL" />
+    <result column="CONTRIBUTIVE_SUBSCRIBE" property="contributiveSubscribe" jdbcType="DECIMAL" />
+    <result column="LEVERAGE_SUBSCRIBE" property="leverageSubscribe" jdbcType="DECIMAL" />
+    <result column="SUBSCRIBE_AMOUNT_TOTAL" property="subscribeAmountTotal" jdbcType="DECIMAL" />
+    <result column="subtype" property="subtype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SUBSCRIBE_ID, PROJECT_ID, FOLLOW_NATURE, FOLLOW_STAFF, AMOUNT_TOPLIMIT, CONTRIBUTIVE_SUBSCRIBE, 
+    LEVERAGE_SUBSCRIBE, SUBSCRIBE_AMOUNT_TOTAL, subtype
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from subscribe_info
+    where SUBSCRIBE_ID = #{subscribeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from subscribe_info
+    where SUBSCRIBE_ID = #{subscribeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.SubscribeInfo" >
+    insert into subscribe_info (SUBSCRIBE_ID, PROJECT_ID, FOLLOW_NATURE, 
+      FOLLOW_STAFF, AMOUNT_TOPLIMIT, CONTRIBUTIVE_SUBSCRIBE, 
+      LEVERAGE_SUBSCRIBE, SUBSCRIBE_AMOUNT_TOTAL, 
+      subtype)
+    values (#{subscribeId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{followNature,jdbcType=VARCHAR}, 
+      #{followStaff,jdbcType=VARCHAR}, #{amountToplimit,jdbcType=DECIMAL}, #{contributiveSubscribe,jdbcType=DECIMAL}, 
+      #{leverageSubscribe,jdbcType=DECIMAL}, #{subscribeAmountTotal,jdbcType=DECIMAL}, 
+      #{subtype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.SubscribeInfo" >
+    insert into subscribe_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subscribeId != null" >
+        SUBSCRIBE_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="followNature != null" >
+        FOLLOW_NATURE,
+      </if>
+      <if test="followStaff != null" >
+        FOLLOW_STAFF,
+      </if>
+      <if test="amountToplimit != null" >
+        AMOUNT_TOPLIMIT,
+      </if>
+      <if test="contributiveSubscribe != null" >
+        CONTRIBUTIVE_SUBSCRIBE,
+      </if>
+      <if test="leverageSubscribe != null" >
+        LEVERAGE_SUBSCRIBE,
+      </if>
+      <if test="subscribeAmountTotal != null" >
+        SUBSCRIBE_AMOUNT_TOTAL,
+      </if>
+      <if test="subtype != null" >
+        subtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subscribeId != null" >
+        #{subscribeId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="followNature != null" >
+        #{followNature,jdbcType=VARCHAR},
+      </if>
+      <if test="followStaff != null" >
+        #{followStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="amountToplimit != null" >
+        #{amountToplimit,jdbcType=DECIMAL},
+      </if>
+      <if test="contributiveSubscribe != null" >
+        #{contributiveSubscribe,jdbcType=DECIMAL},
+      </if>
+      <if test="leverageSubscribe != null" >
+        #{leverageSubscribe,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeAmountTotal != null" >
+        #{subscribeAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="subtype != null" >
+        #{subtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.SubscribeInfo" >
+    update subscribe_info
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="followNature != null" >
+        FOLLOW_NATURE = #{followNature,jdbcType=VARCHAR},
+      </if>
+      <if test="followStaff != null" >
+        FOLLOW_STAFF = #{followStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="amountToplimit != null" >
+        AMOUNT_TOPLIMIT = #{amountToplimit,jdbcType=DECIMAL},
+      </if>
+      <if test="contributiveSubscribe != null" >
+        CONTRIBUTIVE_SUBSCRIBE = #{contributiveSubscribe,jdbcType=DECIMAL},
+      </if>
+      <if test="leverageSubscribe != null" >
+        LEVERAGE_SUBSCRIBE = #{leverageSubscribe,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeAmountTotal != null" >
+        SUBSCRIBE_AMOUNT_TOTAL = #{subscribeAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="subtype != null" >
+        subtype = #{subtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SUBSCRIBE_ID = #{subscribeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.SubscribeInfo" >
+    update subscribe_info
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      FOLLOW_NATURE = #{followNature,jdbcType=VARCHAR},
+      FOLLOW_STAFF = #{followStaff,jdbcType=VARCHAR},
+      AMOUNT_TOPLIMIT = #{amountToplimit,jdbcType=DECIMAL},
+      CONTRIBUTIVE_SUBSCRIBE = #{contributiveSubscribe,jdbcType=DECIMAL},
+      LEVERAGE_SUBSCRIBE = #{leverageSubscribe,jdbcType=DECIMAL},
+      SUBSCRIBE_AMOUNT_TOTAL = #{subscribeAmountTotal,jdbcType=DECIMAL},
+      subtype = #{subtype,jdbcType=VARCHAR}
+    where SUBSCRIBE_ID = #{subscribeId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from subscribe_info
+    where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteRelateByProject" parameterType="java.lang.String" >
+    delete from subscribe_info
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

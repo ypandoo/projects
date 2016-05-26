@@ -1,0 +1,256 @@
+// 导航下标
+var naviInd = "1";
+var proId = "-1";
+var forceList = null;
+var currProDetail = null;
+var currscheDetail = null;
+var forceObj = null;
+var bankList = null;
+var topLimitVal = 0;
+var downLimitVal = 0;
+
+$(function(){
+	initParams();
+	initListeners();
+	initPages();
+});
+
+function initParams(){
+	proId = getReqParam("proId");
+}
+
+function initListeners(){
+	// initHeaderListeners();
+
+	$("#agreeCK").click(function(){
+		$("#projectInfo").toggle();
+	});
+
+	$("#submitBtn").click(submitFunc);
+
+	$("#subMoneyInp").blur(function(){
+		if(isForcePerson()){
+			if($("#leverSel").val() == "4"){
+				$("#levMoneyInp").val($(this).val()*4);
+			}else{
+				$("#levMoneyInp").val("0");
+			}
+		}
+	});
+	$("#leverSel").change(function(){
+		if($(this).val() == "0"){
+			$("#levMoneyInp").val("0");
+			topLimitVal = topLimitVal*5;
+			downLimitVal = downLimitVal*5;
+		}else{
+			$("#levMoneyInp").val($("#subMoneyInp").val()*4);
+			topLimitVal = topLimitVal/5;
+			downLimitVal = downLimitVal/5;
+		}
+		$("#upLimitInp").text(formatMillions(topLimitVal));
+		$("#downLimitInp").text(formatMillions(downLimitVal));
+	});
+
+	$("#addBonusBtn").click(function(){
+		$(this).attr("href","personalInfo.jsp?projectId="+proId);
+	})
+}
+
+function initPages(){
+	getProDetai();
+	getProScheme();
+}
+
+function getProDetai(){
+	$.ajax({
+		type:'post',//可选get
+		url:'..//ProjectBasicController/getProjectById.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':proId},
+		success:function(msg){
+			if(msg.success){
+				if(msg.baseModel){
+					currProDetail = msg.baseModel;
+				}
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+}
+
+function getProScheme(){
+	$.ajax({
+		type:'post',//可选get
+		url:'..//FollowSchemeController/getSchemeByProjectId.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':proId},
+		success:function(msg){
+			getForceData();
+			getBankData();
+			if(msg.success){
+				if(msg.baseModel){
+					currscheDetail = msg.baseModel;
+				}
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	// sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	});
+}
+
+function getForceData(){
+	$.ajax({
+		type:'post',//可选get
+		url:'../ForceFollowController/getForceByProjectId.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{'projectId':proId,'forceType':''},
+		success:function(msg){
+			if(msg.success){
+				forceList = msg.dataDto;
+				loadLimitData();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+
+function loadLimitData(){
+	$("#proNameTd").text(currProDetail.projectName);
+	// $("#proCompayTd").val(currProDetail);
+	if(isForcePerson()){
+		topLimitVal = parseInt(forceObj.toplimit);
+		downLimitVal = parseInt(forceObj.downlimit);
+		$("#leverSelRow").show();
+		$("#leverageRow").show();
+	}else{
+		topLimitVal = (currscheDetail.maxamount);
+		downLimitVal = (currscheDetail.minamount);
+		$("#leverSelRow").hide();
+		$("#leverageRow").hide();
+	}
+	$("#upLimitInp").text(formatMillions(topLimitVal));
+	$("#downLimitInp").text(formatMillions(downLimitVal));
+}
+
+function getBankData(argument) {
+	$.ajax({
+		type:'post',//可选get
+		url:'../BankController/getBankListByUserId.action',
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		data:{},
+		success:function(msg){
+			if(msg.success){
+				bankList = msg.dataDto;
+				loadBankData();
+			}else{
+				alert(msg.error);
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	})
+}
+
+function loadBankData(){
+	var tempHtml = "";
+	if(bankList && bankList.length >0){
+		$("#bonusIdInp").empty();
+		$.each(bankList, function(ind, val){
+			tempHtml +=
+				'<option value="'+val.bankId+'">'+val.bankNo+'</option>';
+		});
+		$("#bonusIdInp").html(tempHtml);
+	}else{
+		tempHtml = '<option value=""></option>';
+		$("#bonusIdInp").html(tempHtml);
+	}
+}
+
+function isForcePerson(){
+	var bool = false;
+	$.each(forceList, function(ind, val){
+		if(val.remark == currAccountName){
+			forceObj = val;
+			bool = true;
+		}
+	});
+	return bool;
+}
+
+function submitFunc (argument) {
+	var _subMoney = parseInt($("#subMoneyInp").val())*10000;
+	var _levMoney = parseInt($("#levMoneyInp").val())*10000;
+	var _bonusId = $("#bonusIdInp").val();
+
+	if(isForcePerson()){
+		if($("#leverSel").val() == "4"){
+			if(_subMoney > topLimitVal){
+				alert("总认购金额超过上限!");
+				return false;
+			}else if(_subMoney < downLimitVal){
+				alert("总认购金额低于下限!");
+				return false;
+			}
+		}else{
+			if(_subMoney < downLimitVal){
+				alert("总认购金额低于下限!");
+				return false;
+			}else if(_subMoney > topLimitVal){
+				alert("总认购金额超过上限!");
+				return false;
+			}
+		}
+	}else{
+		if(_subMoney > topLimitVal){
+			alert("总认购金额超过上限!");
+			return false;
+		}else if(_subMoney < downLimitVal){
+			alert("总认购金额低于下限!");
+			return false;			
+		}
+	}
+	var _bankNo = $("#bonusIdInp").val();
+	if(!_bankNo){
+		alert("请选择银行帐号!");
+		return false;	
+	}
+	if(_subMoney%50000 != 0){
+		alert("认购金额只能输入5万的倍数!");
+		return false;
+	}
+	debugger;
+	$.ajax({
+		type:'get',
+		url:'/investment/subscribe/subscribeReq.action',
+		contentType: "application/json; charset=utf-8", 
+		dataType:'Json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		cache:false,
+		data:{
+			"uid":currUser,
+			"projectId":proId,//"024ec88b-188b-4ada-a807-1f79454eeea3",
+			"contributiveAmount":_subMoney,
+			"leverageAmount":(_levMoney||0),
+			"bankNo":_bankNo
+		},
+		success:function(msg){
+			alert("认购成功！");
+			//location.href = "personalCenter.jsp";
+			history.go(-9);
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	sessionTimeout(XMLHttpRequest, textStatus, errorThrown);
+        }
+	});
+}

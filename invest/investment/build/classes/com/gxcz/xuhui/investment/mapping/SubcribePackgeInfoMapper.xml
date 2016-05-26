@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gxcz.xuhui.investment.dao.SubcribePackgeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gxcz.xuhui.investment.model.SubcribePackgeInfo" >
+    <id column="SUBSCIRBE_PACK_ID" property="subscirbePackId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="SP_NAME" property="spName" jdbcType="VARCHAR" />
+    <result column="SP_TYPE" property="spType" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE_TYPE" property="subscribeType" jdbcType="VARCHAR" />
+    <result column="SP_QUOTA" property="spQuota" jdbcType="REAL" />
+    <result column="CONFIRM_SHARE" property="confirmShare" jdbcType="DECIMAL" />
+    <result column="PAY_ACCOUNT" property="payAccount" jdbcType="DECIMAL" />
+    <result column="CONFIRM_PAY_ACCOUNT" property="confirmPayAccount" jdbcType="DECIMAL" />
+    <result column="RESERVABLE_RATIO" property="reservableRatio" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SUBSCIRBE_PACK_ID, PROJECT_ID, SP_NAME, SP_TYPE, SUBSCRIBE_TYPE, SP_QUOTA, CONFIRM_SHARE, 
+    PAY_ACCOUNT, CONFIRM_PAY_ACCOUNT, RESERVABLE_RATIO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from subcribe_packge_info
+    where SUBSCIRBE_PACK_ID = #{subscirbePackId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from subcribe_packge_info
+    where SUBSCIRBE_PACK_ID = #{subscirbePackId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gxcz.xuhui.investment.model.SubcribePackgeInfo" >
+    insert into subcribe_packge_info (SUBSCIRBE_PACK_ID, PROJECT_ID, SP_NAME, 
+      SP_TYPE, SUBSCRIBE_TYPE, SP_QUOTA, 
+      CONFIRM_SHARE, PAY_ACCOUNT, CONFIRM_PAY_ACCOUNT, 
+      RESERVABLE_RATIO)
+    values (#{subscirbePackId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{spName,jdbcType=VARCHAR}, 
+      #{spType,jdbcType=VARCHAR}, #{subscribeType,jdbcType=VARCHAR}, #{spQuota,jdbcType=REAL}, 
+      #{confirmShare,jdbcType=DECIMAL}, #{payAccount,jdbcType=DECIMAL}, #{confirmPayAccount,jdbcType=DECIMAL}, 
+      #{reservableRatio,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gxcz.xuhui.investment.model.SubcribePackgeInfo" >
+    insert into subcribe_packge_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subscirbePackId != null" >
+        SUBSCIRBE_PACK_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="spName != null" >
+        SP_NAME,
+      </if>
+      <if test="spType != null" >
+        SP_TYPE,
+      </if>
+      <if test="subscribeType != null" >
+        SUBSCRIBE_TYPE,
+      </if>
+      <if test="spQuota != null" >
+        SP_QUOTA,
+      </if>
+      <if test="confirmShare != null" >
+        CONFIRM_SHARE,
+      </if>
+      <if test="payAccount != null" >
+        PAY_ACCOUNT,
+      </if>
+      <if test="confirmPayAccount != null" >
+        CONFIRM_PAY_ACCOUNT,
+      </if>
+      <if test="reservableRatio != null" >
+        RESERVABLE_RATIO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subscirbePackId != null" >
+        #{subscirbePackId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="spName != null" >
+        #{spName,jdbcType=VARCHAR},
+      </if>
+      <if test="spType != null" >
+        #{spType,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeType != null" >
+        #{subscribeType,jdbcType=VARCHAR},
+      </if>
+      <if test="spQuota != null" >
+        #{spQuota,jdbcType=REAL},
+      </if>
+      <if test="confirmShare != null" >
+        #{confirmShare,jdbcType=DECIMAL},
+      </if>
+      <if test="payAccount != null" >
+        #{payAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmPayAccount != null" >
+        #{confirmPayAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="reservableRatio != null" >
+        #{reservableRatio,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gxcz.xuhui.investment.model.SubcribePackgeInfo" >
+    update subcribe_packge_info
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="spName != null" >
+        SP_NAME = #{spName,jdbcType=VARCHAR},
+      </if>
+      <if test="spType != null" >
+        SP_TYPE = #{spType,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeType != null" >
+        SUBSCRIBE_TYPE = #{subscribeType,jdbcType=VARCHAR},
+      </if>
+      <if test="spQuota != null" >
+        SP_QUOTA = #{spQuota,jdbcType=REAL},
+      </if>
+      <if test="confirmShare != null" >
+        CONFIRM_SHARE = #{confirmShare,jdbcType=DECIMAL},
+      </if>
+      <if test="payAccount != null" >
+        PAY_ACCOUNT = #{payAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmPayAccount != null" >
+        CONFIRM_PAY_ACCOUNT = #{confirmPayAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="reservableRatio != null" >
+        RESERVABLE_RATIO = #{reservableRatio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SUBSCIRBE_PACK_ID = #{subscirbePackId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gxcz.xuhui.investment.model.SubcribePackgeInfo" >
+    update subcribe_packge_info
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      SP_NAME = #{spName,jdbcType=VARCHAR},
+      SP_TYPE = #{spType,jdbcType=VARCHAR},
+      SUBSCRIBE_TYPE = #{subscribeType,jdbcType=VARCHAR},
+      SP_QUOTA = #{spQuota,jdbcType=REAL},
+      CONFIRM_SHARE = #{confirmShare,jdbcType=DECIMAL},
+      PAY_ACCOUNT = #{payAccount,jdbcType=DECIMAL},
+      CONFIRM_PAY_ACCOUNT = #{confirmPayAccount,jdbcType=DECIMAL},
+      RESERVABLE_RATIO = #{reservableRatio,jdbcType=DECIMAL}
+    where SUBSCIRBE_PACK_ID = #{subscirbePackId,jdbcType=VARCHAR}
+  </update>
+</mapper>

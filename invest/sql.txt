@@ -1,0 +1,261 @@
+﻿1 create table T_PROJECT (FID integer PRIMARY KEY,
+		            FNAME VARCHAR(50), 
+			        FNUMBER VARCHAR(50), 
+			        FSTATE VARCHAR(50), 
+			        FSTATUS BOOLEAN, 
+			        FCREATETIME TIMESTAMP)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目表';
+alter table T_PROJECT modify FID integer auto_increment
+INSERT INTO T_PROJECT(FNAME,FNUMBER,FSTATE,FSTATUS) VALUES ('123','123','协议',true);	
+ 
+
+3 create table T_PROJECTDETAILINFO (FID integer PRIMARY KEY,
+                       FPROJECTID integer,
+                       FAREA VARCHAR(20),
+                       FSTRUCTAREA VARCHAR(20),
+                       FRJL VARCHAR(20),
+                       FSALEAREA VARCHAR(20),
+                       FGETDATE DATE,
+                       FTOTAL VARCHAR(20),
+                       FGETWAY VARCHAR(20),
+                       FPOSITION TEXT,
+                       FPROPOSITION TEXT,
+                       FSCHEME TEXT,
+                       FPRICE VARCHAR(20),
+                       FCYWYSP VARCHAR(500),
+                       FIRR VARCHAR(20),
+                       FPREPROFIT VARCHAR(20),
+                       FPROFIT VARCHAR(20),
+                       FSTARTDATE DATE,
+                       FOPENDATE DATE,
+                       FCASHFLOWBACK VARCHAR(20),
+                       FHANDDATE DATE,
+                       FCARRYOVERDATE DATE,
+                       FLIQUIDATE DATE,
+                       FPROPERTYSCHEME TEXT,
+                       FPARTNERINFO TEXT,
+                       FCONTRIBUTIVE VARCHAR(500),
+                       FANSWERMAIL VARCHAR(200),
+                       FFOLLOWERMANAGERS VARCHAR(200),
+                       FPROJECTINFOMANAGERS VARCHAR(200),
+                       FLink TEXT)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目基础信息表';
+
+alter table T_PROJECTDETAILINFO modify FID integer auto_increment
+INSERT INTO T_PROJECTDETAILINFO(FPROJECTID,FAREA,FSTRUCTAREA,FRJL,FSALEAREA,FGETDATE,FTOTAL,FGETWAY,FPOSITION,
+FPROPOSITION,FSCHEME,FPRICE,FCYWYSP,FIRR,FPREPROFIT,FPROFIT,FSTARTDATE,FOPENDATE,FCASHFLOWBACK,FHANDDATE,FCARRYOVERDATE,
+FLIQUIDATE,FPROPERTYSCHEME,FPARTNERINFO,FCONTRIBUTIVE,FANSWERMAIL,FFOLLOWERMANAGERS,FPROJECTINFOMANAGERS)  VALUES ('1','12','113','12','12','2014-09-02 14:07:18',
+'123','test','合肥高新KD4-2','政务区','政务区','23','34','21','12342','112',
+'2014-09-02 10:29:53','2014-09-02 10:29:53','asdfa',
+'2014-09-04 04:46:43','2014-09-02 10:29:53','2014-09-02 10:29:53','safsaf','asdfsadf','23','23','sadf','sadf');
+
+
+
+4 create table T_FOLLOWSCHEME (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   FSUBSCRIBESTARTDATE DATE,
+					   FSUBSCRIBEENDDATE DATE,
+					   FPAYSTARTDATE DATE,
+					   FPAYENDDATE DATE,
+					   FFUNDPEAKE VARCHAR(20),
+					   FHDRATIO VARCHAR(10),
+					   FHDAMOUNT VARCHAR(10),
+					   FREGIONRATIO VARCHAR(10),
+					   FREGIONAMOUNT VARCHAR(10),
+					   FALLRATION VARCHAR(10),
+					   FALLAMOUNT VARCHAR(10),
+					   FLEVERAGEDES TEXT,
+					   FFOLLOWTEAM VARCHAR(500),
+					   FCOLLECTWAY VARCHAR(500),
+					   FLINK TEXT)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟投方案表';
+alter table T_FOLLOWSCHEME modify FID integer auto_increment
+INSERT INTO T_FOLLOWSCHEME (FPROJECTID,
+					   FSUBSCRIBESTARTDATE,
+					   FSUBSCRIBEENDDATE,
+					   FPAYSTARTDATE,
+					   FPAYENDDATE,
+					   FFUNDPEAKE,
+					   FHDRATIO,
+					   FHDAMOUNT,
+					   FREGIONRATIO,
+					   FREGIONAMOUNT,
+					   FALLRATION,
+					   FALLAMOUNT,
+					   FLEVERAGEDES,
+					   FFOLLOWTEAM,
+					   FCOLLECTWAY) VALUES ('1','2014-09-02 14:05:46','2014-01-01 03:00:00','2014-10-01 05:00:00','2014-01-01 03:00:00','1','0.3','1.00','1.00','1.00','3.00','3.00','啊实打实合肥高新KD4-2地块紧邻高新区管委会，属于高新区核心位置。南侧紧邻习友路，西侧为浮山路，为合肥市东西交通主干道旁，贯穿高新区、蜀山区、政务区、包河区。','撒打算','撒打算');
+					   
+5 create table T_FOLLOWAGREEMENT (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   FCREATORID integer,
+					   FNAME VARCHAR(10),
+					   FDETAIL VARCHAR(50),
+					   FCREATETIME TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟投协议';
+alter table T_FOLLOWAGREEMENT modify FID integer auto_increment;			
+INSERT INTO T_FOLLOWAGREEMENT (FPROJECTID,FCREATORID,FNAME,FDETAIL) VALUES (1,1,'协议','sadfs');	
+					   
+6 create table T_FOLLOWER (FID integer PRIMARY KEY,
+FPROJECTID integer,
+FUSERID integer,
+FSEQ VARCHAR(10),
+FSTATE VARCHAR(10),
+FTYPE VARCHAR(10),
+FDUTY VARCHAR(10),
+FTOPLIMIT integer,
+FDOWNLIMIT integer,
+FREMARK VARCHAR(500)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟投人员';	
+alter table T_FOLLOWER modify FID integer auto_increment;
+INSERT INTO T_FOLLOWER(FPROJECTID,FUSERID,FSEQ,FSTATE,FTYPE,FDUTY,FTOPLIMIT,FDOWNLIMIT,FREMARK) VALUES (1,1,'zdf','sadfs','saf','gaoguan','2','3','asff');			   
+
+					   
+7 create table T_NEWS (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   FTITLE VARCHAR(10),
+					   FCREATORID VARCHAR(10),
+					   FRELEASEDATE TIMESTAMP,
+					   FSTATE integer,
+					   FCONTENT TEXT) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='动态新闻';
+alter table T_NEWS modify FID integer auto_increment;
+INSERT INTO T_NEWS ( FPROJECTID,
+					   FTITLE,
+					   FCREATORID,
+					   FCONTENT) VALUES (1,'合肥高新','123','合肥高新项目对账公示-1 - 内容');
+					   
+8 create table T_PIC (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   FNAME VARCHAR(50),
+					   FCONTENT VARCHAR(50),
+					   FISMAINPIC boolean)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目图片库表';	
+alter table T_PIC modify FID integer auto_increment;
+INSERT INTO T_PIC(FPROJECTID,FNAME,FCONTENT,FISMAINPIC) VALUES (27,'test.jpg','test.jpg',false);		   
+			
+9 CREATE TABLE T_USER(
+  FID int(11) NOT NULL AUTO_INCREMENT,
+  F1 varchar(200) DEFAULT NULL,
+  F2 varchar(200) DEFAULT NULL,
+  F3 varchar(200) DEFAULT NULL,
+  F4 varchar(200) DEFAULT NULL,
+  F5 varchar(200) DEFAULT NULL,
+  F6 varchar(200) DEFAULT NULL,
+  F7 varchar(200) DEFAULT NULL,
+  F8 varchar(200) DEFAULT NULL,
+  F9 varchar(200) DEFAULT NULL,
+  F10 varchar(200) DEFAULT NULL,
+  FISUSER tinyint(4) NOT NULL,
+  FNUMBER varchar(200) DEFAULT NULL,
+  FNAME varchar(200) DEFAULT NULL,
+  FORG varchar(200) DEFAULT NULL,
+  FPASSWORD varchar(20) DEFAULT NULL,
+  PRIMARY KEY (FID),
+  KEY F1 (F1),
+  KEY F2 (F2),
+  KEY F3 (F3),
+  KEY F4 (F4),
+  KEY F5 (F5),
+  KEY F6 (F6),
+  KEY F7 (F7),
+  KEY F8 (F8),
+  KEY F9 (F9)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';		   
+alter table T_USER modify FID integer auto_increment;
+INSERT INTO t_user (FISUSER,FNUMBER,FNAME,FPASSWORD) VALUES(0,'a
+dmin','admin','123');
+
+	   
+10 create table T_BANKINFO (FID integer PRIMARY KEY,
+					   FUSERID integer,
+					   FBANKNO VARCHAR(50),
+					   FNAME VARCHAR(50),
+					   FBANKATTRIBUTE VARCHAR(50))ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行卡信息表';	
+
+alter table T_BANKINFO modify FID integer auto_increment;
+INSERT INTO T_BANKINFO (FUSERID,FBANKNO,FNAME,FBANKATTRIBUTE) VALUES (1,'43234234','合肥高新','123');
+					   
+					   
+11 create table T_PROJECT_USER (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   FUSERID integer)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目用户表';
+alter table T_PROJECT_USER modify FID integer auto_increment;	
+INSERT INTO T_PROJECT_USER (FPROJECTID,FUSERID) VALUES (1,1);
+
+
+
+12 create table T_Enclosure (FID integer PRIMARY KEY,
+					   FPROJECTID integer,
+					   EnclosurePath VARCHAR(50))ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目用户表';
+alter table T_Enclosure modify FID integer auto_increment;
+					   
+;
+
+13 create table T_SUBSCRIBECONFIRMRECORD (FID integer PRIMARY KEY,
+					   FPROJECTID integer, 
+					   FUSERID integer, 
+					   FBANKID integer, 
+					   FAMOUNT VARCHAR(10), 
+					   FLEVERRATIO VARCHAR(10), 
+					   FLEVERAMOUNT VARCHAR(10), 
+					   FCONFIRMAMOUNT VARCHAR(10),
+					   FLEVERCONFIRMAMOUNT VARCHAR(10),
+					   FPROJECTNAME VARCHAR(10),
+					   FCREATETIME timestamp)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='认购记录及认购平衡记录表';
+alter table T_SUBSCRIBECONFIRMRECORD modify FID integer auto_increment;	   
+INSERT INTO T_SUBSCRIBECONFIRMRECORD (FPROJECTID, 
+					   FUSERID, 
+					   FBANKID, 
+					   FAMOUNT, 
+					   FLEVERRATIO, 
+					   FLEVERAMOUNT, 
+					   FCONFIRMAMOUNT,
+					   FLEVERCONFIRMAMOUNT,
+					   FPROJECTNAME) VALUES (1,1,'123','3','3','2','1','4',"test");
+					   
+14 create table T_PAYRECORD(FID integer PRIMARY KEY,
+			    FSUBSCRIBECONFIGRMRECORDID integer, 
+			    FPAYTIMES INT, 
+			    FPAYDATE DATE, 
+			    FPAYAMOUNT VARCHAR(10), 
+			    FCREATETIME TIMESTAMP,
+			    FPROJECTNAME VARCHAR(20),
+			    FPROJECTID integer,
+			    FUSERID integer)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='缴款记录表';
+alter table T_PAYRECORD modify FID integer auto_increment;				
+INSERT INTO T_PAYRECORD (FSUBSCRIBECONFIGRMRECORDID, 
+			    FPAYTIMES, 
+			    FPAYDATE, 
+			    FPAYAMOUNT, 
+			    FLEVERAMOUNT,
+			    FPROJECTNAME,
+			    FPROJECTID,
+			    FUSERID) VALUES (123,1,'2014-09-01 09:53:00','3', '2014-09-01 09:53:00',"test",'123','test1');
+
+15 create table T_BONUSRECORD(FID integer PRIMARY KEY,
+			    FSUBSCRIBECONFIGRMRECORDID integer, 
+			    FBONUSTIMES INT, 
+			    FBONUSDATE DATE, 
+			    FBONUSAMOUNT VARCHAR(10), 
+			    FCREATETIME TIMESTAMP,
+			    FPROJECTNAME VARCHAR(20),
+			    FPROJECTID integer,
+			    FUSERID integer)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分红记录表';
+alter table T_BONUSRECORD modify FID integer auto_increment;	
+INSERT INTO T_BONUSRECORD (FSUBSCRIBECONFIGRMRECORDID, 
+			    FBONUSTIMES, 
+			    FBONUSDATE, 
+			    FBONUSAMOUNT)VALUES (1,1,'2014-09-01 09:53:00','3');
+
+16 create table T_USERPROJECTRIGHT (FID integer PRIMARY KEY,
+FUSERID integer,
+FPROJECTID integer,
+FBASICS BOOLEAN,
+FNEWS BOOLEAN,
+FSUBSCRIPTION BOOLEAN,
+FPAYCONFIRM BOOLEAN,
+FBONUSDETAIL BOOLEAN)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户项目权限';
+alter table T_USERPROJECTRIGHT modify FID integer auto_increment;
+INSERT INTO T_USERPROJECTRIGHT ( FUSERID,FPROJECTID,FBASICS,FNEWS,FSUBSCRIPTION,FPAYCONFIRM,FBONUSDETAIL ) VALUES (1,34,1,1,1,1,1);
+
+
+17 create table T_SUBSCRIPTIONSYSTEM (FID integer PRIMARY KEY,
+					   FCONTENT TEXT)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟投制度';
+alter table T_SUBSCRIPTIONSYSTEM modify FID integer auto_increment;
+INSERT INTO T_SUBSCRIPTIONSYSTEM (FCONTENT) VALUES ("test");
+
+
